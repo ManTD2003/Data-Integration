@@ -1,0 +1,75 @@
+[
+  {
+    "kept": "NoSQL",
+    "absorbed": [
+      "no-sql"
+    ]
+  },
+  {
+    "kept": "Power BI",
+    "absorbed": [
+      "powerbi"
+    ]
+  },
+  {
+    "kept": "MongoDB",
+    "absorbed": [
+      "mongo"
+    ]
+  },
+  {
+    "kept": "go",
+    "absorbed": [
+      "Golang"
+    ]
+  },
+  {
+    "kept": "c",
+    "absorbed": [
+      "C language"
+    ]
+  },
+  {
+    "kept": "react",
+    "absorbed": [
+      "ReactJS"
+    ]
+  },
+  {
+    "kept": "vue",
+    "absorbed": [
+      "VueJS"
+    ]
+  },
+  {
+    "kept": "aurora",
+    "absorbed": [
+      "Amazon Aurora"
+    ]
+  },
+  {
+    "kept": "node",
+    "absorbed": [
+      "node.js",
+      "NodeJS"
+    ]
+  },
+  {
+    "kept": "Robotic Process Automation (RPA)",
+    "absorbed": [
+      "RPA"
+    ]
+  },
+  {
+    "kept": "Pentest",
+    "absorbed": [
+      "Penetration Testing"
+    ]
+  },
+  {
+    "kept": "Adobe Photoshop",
+    "absorbed": [
+      "Photoshop"
+    ]
+  }
+]

@@ -36,12 +36,20 @@ Chạy tuần tự từ thư mục gốc dự án:
 
 # 7. Trích xuất kỹ năng: dùng skills_given có sẵn hoặc gazetteer/fuzzy trên text
 .venv/bin/python -m src.process.extract_skills
+
+# 8. Entity resolution: gộp biến thể cùng một kỹ năng (react/ReactJS, mongo/MongoDB...)
+.venv/bin/python -m src.process.resolve_variants
+
+# 9. Phân cấp kỹ năng cụ thể -> tổng quát + closure table
+.venv/bin/python -m src.process.build_hierarchy
 ```
 
 Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/records.jsonl`
 (bản chuẩn hoá schema), `data/staging/records_deduped.jsonl` (đã gắn nhóm trùng),
-`data/staging/skill_dictionary.json` (từ điển kỹ năng), `data/staging/job_skills.jsonl`
-(cặp job-skill đã trích xuất).
+`data/staging/skill_dictionary.json` (từ điển kỹ năng, đã gộp biến thể và gắn
+`parent_skill_id`), `data/staging/job_skills.jsonl` (cặp job-skill đã trích xuất),
+`data/staging/skill_merge_log.json` (log các cụm biến thể đã gộp),
+`data/staging/skill_closure.jsonl` (bảng closure ancestor/descendant cho phân cấp).
 
 ## Cấu trúc
 
@@ -60,6 +68,13 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   title/requirements_raw/description (`exact_match`) rồi fuzzy match rapidfuzz cho
   từ đơn chưa khớp (`fuzzy_match`). Mỗi kết quả giữ `evidence` (đoạn văn bản gốc)
   để phục vụ tra cứu provenance sau này.
+- `src/process/resolve_variants.py` — entity resolution biến thể kỹ năng: luật tách
+  hậu tố `js`/`.js` (react/ReactJS/react.js -> react) cộng danh sách gộp thủ công cho
+  viết tắt bất quy tắc (mongo -> MongoDB...). Đã thử TF-IDF ký tự n-gram trước nhưng
+  không tách được ngưỡng an toàn (xem docstring trong file), nên chọn cách này.
+- `src/process/build_hierarchy.py` — gán `parent_skill_id` theo `CATEGORY_MAP` (phân
+  loại lĩnh vực soát tay qua từ điển đã gộp) và dựng `bridge_skill_closure`
+  (`skill_closure.jsonl`) phục vụ mở rộng truy vấn theo phân cấp cụ thể -> tổng quát.
 
 ## Kiểm thử
 
@@ -74,6 +89,3 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
 - itviec.com — cào trực tiếp bằng bóc tách DOM + trang `/content` (nguồn IT tiếng Anh,
   có sẵn skill tags và mục "Your skills and experience").
 - lukebarousse/data_jobs (HuggingFace) — nguồn tiếng Anh, schema khác, có sẵn `job_skills`.
-
-topcv.vn trả 403 với client HTTP thuần (anti-bot), cần trình duyệt thật (Playwright)
-nếu muốn bổ sung; hiện chưa dùng.

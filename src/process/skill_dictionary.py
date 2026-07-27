@@ -105,6 +105,7 @@ class SkillDictionary:
             "canonical_name": canonical_name,
             "skill_type": skill_type,
             "aliases": [],
+            "parent_skill_id": None,
         }
 
     def add(self, canonical_name: str, skill_type: str, aliases: list[str]) -> str:

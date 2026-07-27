@@ -1,0 +1,47 @@
+from src.process.build_hierarchy import assign_parents, build_closure
+from src.process.skill_dictionary import SkillDictionary
+
+
+def test_assign_parents_links_known_skill_to_category():
+    skill_dict = SkillDictionary()
+    skill_dict.add("Python", "hard", ["python"])
+    skill_dict.add("Java", "hard", ["java"])
+
+    missing = assign_parents(skill_dict)
+
+    python_parent = skill_dict.lookup("python")["parent_skill_id"]
+    java_parent = skill_dict.lookup("java")["parent_skill_id"]
+    assert python_parent == java_parent
+    assert skill_dict.skills[python_parent]["canonical_name"] == "Ngôn ngữ lập trình"
+    assert "Python" not in missing
+
+
+def test_assign_parents_reports_names_not_in_dictionary():
+    skill_dict = SkillDictionary()
+    missing = assign_parents(skill_dict)
+    assert "Python" in missing
+    assert "Java" in missing
+
+
+def test_soft_skills_roll_up_to_soft_root():
+    skill_dict = SkillDictionary()
+    skill_dict.add("Giao tiếp", "soft", ["giao tiếp"])
+    assign_parents(skill_dict)
+
+    entry = skill_dict.lookup("giao tiếp")
+    root = skill_dict.skills[entry["parent_skill_id"]]
+    assert root["canonical_name"] == "Kỹ năng mềm"
+    assert root["skill_type"] == "soft"
+
+
+def test_closure_table_has_self_and_parent_rows():
+    skill_dict = SkillDictionary()
+    skill_dict.add("Python", "hard", ["python"])
+    assign_parents(skill_dict)
+
+    closure = build_closure(skill_dict)
+    python_id = skill_dict.lookup("python")["skill_id"]
+    parent_id = skill_dict.lookup("python")["parent_skill_id"]
+
+    assert {"ancestor_id": python_id, "descendant_id": python_id, "depth": 0} in closure
+    assert {"ancestor_id": parent_id, "descendant_id": python_id, "depth": 1} in closure
