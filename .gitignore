@@ -1,0 +1,11 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+*.duckdb
+.DS_Store
+.ipynb_checkpoints/
+.pytest_cache/
+models/
+.claude/

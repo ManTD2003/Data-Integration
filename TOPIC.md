@@ -1,0 +1,3 @@
+Đề tài: Tích hợp thông tin việc làm/tuyển dụng tập trung vào tích hợp kỹ năng làm việc 
+Nguồn: https://vieclam24h.vn/, https://www.topcv.vn/, ….  Hoặc các nguồn khác hoặc có thể sử dụng các dataset đã được thu thập/xây dựng trước 
+Yêu cầu: Tích hợp dữ liệu, tập trung phân tích và tích hợp các thông tin yêu cầu về kỹ năng làm việc - kỹ năng cứng và kỹ năng mềm, kỹ năng cụ thể và kỹ năng tổng quát hơn (ví dụ :  lập trình --> lập trình Python, Java... ), công cụ tìm kiếm tập trung vào khai thác các thông tin kỹ năng tích hợp, cho phép tìm kiếm cách tổ chức/thông tin kỹ năng trích chọn và tích hợp được

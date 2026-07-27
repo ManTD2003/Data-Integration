@@ -1,0 +1,3098 @@
+[
+  {
+    "skill_id": "r",
+    "canonical_name": "r",
+    "skill_type": "hard",
+    "aliases": [
+      "r"
+    ]
+  },
+  {
+    "skill_id": "python",
+    "canonical_name": "Python",
+    "skill_type": "hard",
+    "aliases": [
+      "python"
+    ]
+  },
+  {
+    "skill_id": "sql",
+    "canonical_name": "SQL",
+    "skill_type": "hard",
+    "aliases": [
+      "sql"
+    ]
+  },
+  {
+    "skill_id": "nosql",
+    "canonical_name": "NoSQL",
+    "skill_type": "hard",
+    "aliases": [
+      "nosql"
+    ]
+  },
+  {
+    "skill_id": "power-bi",
+    "canonical_name": "Power BI",
+    "skill_type": "hard",
+    "aliases": [
+      "power bi"
+    ]
+  },
+  {
+    "skill_id": "tableau",
+    "canonical_name": "Tableau",
+    "skill_type": "hard",
+    "aliases": [
+      "tableau"
+    ]
+  },
+  {
+    "skill_id": "c",
+    "canonical_name": "C#",
+    "skill_type": "hard",
+    "aliases": [
+      "c#"
+    ]
+  },
+  {
+    "skill_id": "azure",
+    "canonical_name": "Azure",
+    "skill_type": "hard",
+    "aliases": [
+      "azure"
+    ]
+  },
+  {
+    "skill_id": "airflow",
+    "canonical_name": "airflow",
+    "skill_type": "hard",
+    "aliases": [
+      "airflow"
+    ]
+  },
+  {
+    "skill_id": "dax",
+    "canonical_name": "dax",
+    "skill_type": "hard",
+    "aliases": [
+      "dax"
+    ]
+  },
+  {
+    "skill_id": "docker",
+    "canonical_name": "Docker",
+    "skill_type": "hard",
+    "aliases": [
+      "docker"
+    ]
+  },
+  {
+    "skill_id": "kubernetes",
+    "canonical_name": "Kubernetes",
+    "skill_type": "hard",
+    "aliases": [
+      "kubernetes"
+    ]
+  },
+  {
+    "skill_id": "jenkins",
+    "canonical_name": "Jenkins",
+    "skill_type": "hard",
+    "aliases": [
+      "jenkins"
+    ]
+  },
+  {
+    "skill_id": "c-2",
+    "canonical_name": "C++",
+    "skill_type": "hard",
+    "aliases": [
+      "c++"
+    ]
+  },
+  {
+    "skill_id": "java",
+    "canonical_name": "Java",
+    "skill_type": "hard",
+    "aliases": [
+      "java"
+    ]
+  },
+  {
+    "skill_id": "matlab",
+    "canonical_name": "matlab",
+    "skill_type": "hard",
+    "aliases": [
+      "matlab"
+    ]
+  },
+  {
+    "skill_id": "aws",
+    "canonical_name": "AWS",
+    "skill_type": "hard",
+    "aliases": [
+      "aws"
+    ]
+  },
+  {
+    "skill_id": "tensorflow",
+    "canonical_name": "TensorFlow",
+    "skill_type": "hard",
+    "aliases": [
+      "tensorflow"
+    ]
+  },
+  {
+    "skill_id": "keras",
+    "canonical_name": "keras",
+    "skill_type": "hard",
+    "aliases": [
+      "keras"
+    ]
+  },
+  {
+    "skill_id": "pytorch",
+    "canonical_name": "PyTorch",
+    "skill_type": "hard",
+    "aliases": [
+      "pytorch"
+    ]
+  },
+  {
+    "skill_id": "bash",
+    "canonical_name": "bash",
+    "skill_type": "hard",
+    "aliases": [
+      "bash"
+    ]
+  },
+  {
+    "skill_id": "oracle",
+    "canonical_name": "Oracle",
+    "skill_type": "hard",
+    "aliases": [
+      "oracle"
+    ]
+  },
+  {
+    "skill_id": "ansible",
+    "canonical_name": "Ansible",
+    "skill_type": "hard",
+    "aliases": [
+      "ansible"
+    ]
+  },
+  {
+    "skill_id": "puppet",
+    "canonical_name": "puppet",
+    "skill_type": "hard",
+    "aliases": [
+      "puppet"
+    ]
+  },
+  {
+    "skill_id": "gitlab",
+    "canonical_name": "GitLab",
+    "skill_type": "hard",
+    "aliases": [
+      "gitlab"
+    ]
+  },
+  {
+    "skill_id": "git",
+    "canonical_name": "Git",
+    "skill_type": "hard",
+    "aliases": [
+      "git"
+    ]
+  },
+  {
+    "skill_id": "gcp",
+    "canonical_name": "GCP",
+    "skill_type": "hard",
+    "aliases": [
+      "gcp"
+    ]
+  },
+  {
+    "skill_id": "sql-server",
+    "canonical_name": "sql server",
+    "skill_type": "hard",
+    "aliases": [
+      "sql server"
+    ]
+  },
+  {
+    "skill_id": "bigquery",
+    "canonical_name": "bigquery",
+    "skill_type": "hard",
+    "aliases": [
+      "bigquery"
+    ]
+  },
+  {
+    "skill_id": "hadoop",
+    "canonical_name": "hadoop",
+    "skill_type": "hard",
+    "aliases": [
+      "hadoop"
+    ]
+  },
+  {
+    "skill_id": "databricks",
+    "canonical_name": "databricks",
+    "skill_type": "hard",
+    "aliases": [
+      "databricks"
+    ]
+  },
+  {
+    "skill_id": "redshift",
+    "canonical_name": "redshift",
+    "skill_type": "hard",
+    "aliases": [
+      "redshift"
+    ]
+  },
+  {
+    "skill_id": "kafka",
+    "canonical_name": "Kafka",
+    "skill_type": "hard",
+    "aliases": [
+      "kafka"
+    ]
+  },
+  {
+    "skill_id": "spark",
+    "canonical_name": "Spark",
+    "skill_type": "hard",
+    "aliases": [
+      "spark"
+    ]
+  },
+  {
+    "skill_id": "excel",
+    "canonical_name": "excel",
+    "skill_type": "hard",
+    "aliases": [
+      "excel"
+    ]
+  },
+  {
+    "skill_id": "powerpoint",
+    "canonical_name": "powerpoint",
+    "skill_type": "hard",
+    "aliases": [
+      "powerpoint"
+    ]
+  },
+  {
+    "skill_id": "mongodb",
+    "canonical_name": "MongoDB",
+    "skill_type": "hard",
+    "aliases": [
+      "mongodb"
+    ]
+  },
+  {
+    "skill_id": "pandas",
+    "canonical_name": "Pandas",
+    "skill_type": "hard",
+    "aliases": [
+      "pandas"
+    ]
+  },
+  {
+    "skill_id": "windows",
+    "canonical_name": "Windows",
+    "skill_type": "hard",
+    "aliases": [
+      "windows"
+    ]
+  },
+  {
+    "skill_id": "qlik",
+    "canonical_name": "qlik",
+    "skill_type": "hard",
+    "aliases": [
+      "qlik"
+    ]
+  },
+  {
+    "skill_id": "php",
+    "canonical_name": "PHP",
+    "skill_type": "hard",
+    "aliases": [
+      "php"
+    ]
+  },
+  {
+    "skill_id": "sap",
+    "canonical_name": "sap",
+    "skill_type": "hard",
+    "aliases": [
+      "sap"
+    ]
+  },
+  {
+    "skill_id": "jira",
+    "canonical_name": "Jira",
+    "skill_type": "hard",
+    "aliases": [
+      "jira"
+    ]
+  },
+  {
+    "skill_id": "go",
+    "canonical_name": "go",
+    "skill_type": "hard",
+    "aliases": [
+      "go"
+    ]
+  },
+  {
+    "skill_id": "ruby",
+    "canonical_name": "Ruby",
+    "skill_type": "hard",
+    "aliases": [
+      "ruby"
+    ]
+  },
+  {
+    "skill_id": "javascript",
+    "canonical_name": "JavaScript",
+    "skill_type": "hard",
+    "aliases": [
+      "javascript"
+    ]
+  },
+  {
+    "skill_id": "flask",
+    "canonical_name": "flask",
+    "skill_type": "hard",
+    "aliases": [
+      "flask"
+    ]
+  },
+  {
+    "skill_id": "fastapi",
+    "canonical_name": "FastAPI",
+    "skill_type": "hard",
+    "aliases": [
+      "fastapi"
+    ]
+  },
+  {
+    "skill_id": "terraform",
+    "canonical_name": "Terraform",
+    "skill_type": "hard",
+    "aliases": [
+      "terraform"
+    ]
+  },
+  {
+    "skill_id": "powershell",
+    "canonical_name": "powershell",
+    "skill_type": "hard",
+    "aliases": [
+      "powershell"
+    ]
+  },
+  {
+    "skill_id": "mysql",
+    "canonical_name": "MySQL",
+    "skill_type": "hard",
+    "aliases": [
+      "mysql"
+    ]
+  },
+  {
+    "skill_id": "apl",
+    "canonical_name": "apl",
+    "skill_type": "hard",
+    "aliases": [
+      "apl"
+    ]
+  },
+  {
+    "skill_id": "looker",
+    "canonical_name": "Looker",
+    "skill_type": "hard",
+    "aliases": [
+      "looker"
+    ]
+  },
+  {
+    "skill_id": "scala",
+    "canonical_name": "scala",
+    "skill_type": "hard",
+    "aliases": [
+      "scala"
+    ]
+  },
+  {
+    "skill_id": "numpy",
+    "canonical_name": "numpy",
+    "skill_type": "hard",
+    "aliases": [
+      "numpy"
+    ]
+  },
+  {
+    "skill_id": "scikit-learn",
+    "canonical_name": "scikit-learn",
+    "skill_type": "hard",
+    "aliases": [
+      "scikit-learn"
+    ]
+  },
+  {
+    "skill_id": "matplotlib",
+    "canonical_name": "matplotlib",
+    "skill_type": "hard",
+    "aliases": [
+      "matplotlib"
+    ]
+  },
+  {
+    "skill_id": "elasticsearch",
+    "canonical_name": "elasticsearch",
+    "skill_type": "hard",
+    "aliases": [
+      "elasticsearch"
+    ]
+  },
+  {
+    "skill_id": "cassandra",
+    "canonical_name": "cassandra",
+    "skill_type": "hard",
+    "aliases": [
+      "cassandra"
+    ]
+  },
+  {
+    "skill_id": "neo4j",
+    "canonical_name": "neo4j",
+    "skill_type": "hard",
+    "aliases": [
+      "neo4j"
+    ]
+  },
+  {
+    "skill_id": "gdpr",
+    "canonical_name": "gdpr",
+    "skill_type": "hard",
+    "aliases": [
+      "gdpr"
+    ]
+  },
+  {
+    "skill_id": "mongo",
+    "canonical_name": "mongo",
+    "skill_type": "hard",
+    "aliases": [
+      "mongo"
+    ]
+  },
+  {
+    "skill_id": "shell",
+    "canonical_name": "shell",
+    "skill_type": "hard",
+    "aliases": [
+      "shell"
+    ]
+  },
+  {
+    "skill_id": "snowflake",
+    "canonical_name": "Snowflake",
+    "skill_type": "hard",
+    "aliases": [
+      "snowflake"
+    ]
+  },
+  {
+    "skill_id": "pyspark",
+    "canonical_name": "pyspark",
+    "skill_type": "hard",
+    "aliases": [
+      "pyspark"
+    ]
+  },
+  {
+    "skill_id": "nltk",
+    "canonical_name": "nltk",
+    "skill_type": "hard",
+    "aliases": [
+      "nltk"
+    ]
+  },
+  {
+    "skill_id": "flow",
+    "canonical_name": "flow",
+    "skill_type": "hard",
+    "aliases": [
+      "flow"
+    ]
+  },
+  {
+    "skill_id": "word",
+    "canonical_name": "word",
+    "skill_type": "hard",
+    "aliases": [
+      "word",
+      "microsoft word"
+    ]
+  },
+  {
+    "skill_id": "sas",
+    "canonical_name": "sas",
+    "skill_type": "hard",
+    "aliases": [
+      "sas"
+    ]
+  },
+  {
+    "skill_id": "vba",
+    "canonical_name": "VBA",
+    "skill_type": "hard",
+    "aliases": [
+      "vba"
+    ]
+  },
+  {
+    "skill_id": "spss",
+    "canonical_name": "spss",
+    "skill_type": "hard",
+    "aliases": [
+      "spss"
+    ]
+  },
+  {
+    "skill_id": "c-3",
+    "canonical_name": "c",
+    "skill_type": "hard",
+    "aliases": [
+      "c"
+    ]
+  },
+  {
+    "skill_id": "microstrategy",
+    "canonical_name": "microstrategy",
+    "skill_type": "hard",
+    "aliases": [
+      "microstrategy"
+    ]
+  },
+  {
+    "skill_id": "cognos",
+    "canonical_name": "cognos",
+    "skill_type": "hard",
+    "aliases": [
+      "cognos"
+    ]
+  },
+  {
+    "skill_id": "selenium",
+    "canonical_name": "Selenium",
+    "skill_type": "hard",
+    "aliases": [
+      "selenium"
+    ]
+  },
+  {
+    "skill_id": "html",
+    "canonical_name": "HTML",
+    "skill_type": "hard",
+    "aliases": [
+      "html"
+    ]
+  },
+  {
+    "skill_id": "css",
+    "canonical_name": "CSS",
+    "skill_type": "hard",
+    "aliases": [
+      "css"
+    ]
+  },
+  {
+    "skill_id": "lua",
+    "canonical_name": "lua",
+    "skill_type": "hard",
+    "aliases": [
+      "lua"
+    ]
+  },
+  {
+    "skill_id": "linux",
+    "canonical_name": "Linux",
+    "skill_type": "hard",
+    "aliases": [
+      "linux"
+    ]
+  },
+  {
+    "skill_id": "postgresql",
+    "canonical_name": "PostgreSql",
+    "skill_type": "hard",
+    "aliases": [
+      "postgresql"
+    ]
+  },
+  {
+    "skill_id": "dynamodb",
+    "canonical_name": "dynamodb",
+    "skill_type": "hard",
+    "aliases": [
+      "dynamodb"
+    ]
+  },
+  {
+    "skill_id": "chef",
+    "canonical_name": "chef",
+    "skill_type": "hard",
+    "aliases": [
+      "chef"
+    ]
+  },
+  {
+    "skill_id": "zoom",
+    "canonical_name": "zoom",
+    "skill_type": "hard",
+    "aliases": [
+      "zoom"
+    ]
+  },
+  {
+    "skill_id": "outlook",
+    "canonical_name": "outlook",
+    "skill_type": "hard",
+    "aliases": [
+      "outlook"
+    ]
+  },
+  {
+    "skill_id": "perl",
+    "canonical_name": "perl",
+    "skill_type": "hard",
+    "aliases": [
+      "perl"
+    ]
+  },
+  {
+    "skill_id": "mariadb",
+    "canonical_name": "mariadb",
+    "skill_type": "hard",
+    "aliases": [
+      "mariadb"
+    ]
+  },
+  {
+    "skill_id": "graphql",
+    "canonical_name": "graphql",
+    "skill_type": "hard",
+    "aliases": [
+      "graphql"
+    ]
+  },
+  {
+    "skill_id": "splunk",
+    "canonical_name": "Splunk",
+    "skill_type": "hard",
+    "aliases": [
+      "splunk"
+    ]
+  },
+  {
+    "skill_id": "github",
+    "canonical_name": "GitHub",
+    "skill_type": "hard",
+    "aliases": [
+      "github"
+    ]
+  },
+  {
+    "skill_id": "react",
+    "canonical_name": "react",
+    "skill_type": "hard",
+    "aliases": [
+      "react"
+    ]
+  },
+  {
+    "skill_id": "angular",
+    "canonical_name": "Angular",
+    "skill_type": "hard",
+    "aliases": [
+      "angular"
+    ]
+  },
+  {
+    "skill_id": "jupyter",
+    "canonical_name": "jupyter",
+    "skill_type": "hard",
+    "aliases": [
+      "jupyter"
+    ]
+  },
+  {
+    "skill_id": "vue",
+    "canonical_name": "vue",
+    "skill_type": "hard",
+    "aliases": [
+      "vue"
+    ]
+  },
+  {
+    "skill_id": "unix",
+    "canonical_name": "unix",
+    "skill_type": "hard",
+    "aliases": [
+      "unix"
+    ]
+  },
+  {
+    "skill_id": "redis",
+    "canonical_name": "redis",
+    "skill_type": "hard",
+    "aliases": [
+      "redis"
+    ]
+  },
+  {
+    "skill_id": "golang",
+    "canonical_name": "Golang",
+    "skill_type": "hard",
+    "aliases": [
+      "golang"
+    ]
+  },
+  {
+    "skill_id": "express",
+    "canonical_name": "express",
+    "skill_type": "hard",
+    "aliases": [
+      "express"
+    ]
+  },
+  {
+    "skill_id": "aurora",
+    "canonical_name": "aurora",
+    "skill_type": "hard",
+    "aliases": [
+      "aurora"
+    ]
+  },
+  {
+    "skill_id": "unity",
+    "canonical_name": "Unity",
+    "skill_type": "hard",
+    "aliases": [
+      "unity"
+    ]
+  },
+  {
+    "skill_id": "alteryx",
+    "canonical_name": "alteryx",
+    "skill_type": "hard",
+    "aliases": [
+      "alteryx"
+    ]
+  },
+  {
+    "skill_id": "t-sql",
+    "canonical_name": "t-sql",
+    "skill_type": "hard",
+    "aliases": [
+      "t-sql"
+    ]
+  },
+  {
+    "skill_id": "confluence",
+    "canonical_name": "confluence",
+    "skill_type": "hard",
+    "aliases": [
+      "confluence"
+    ]
+  },
+  {
+    "skill_id": "typescript",
+    "canonical_name": "TypeScript",
+    "skill_type": "hard",
+    "aliases": [
+      "typescript"
+    ]
+  },
+  {
+    "skill_id": "ssis",
+    "canonical_name": "ssis",
+    "skill_type": "hard",
+    "aliases": [
+      "ssis"
+    ]
+  },
+  {
+    "skill_id": "sass",
+    "canonical_name": "sass",
+    "skill_type": "hard",
+    "aliases": [
+      "sass"
+    ]
+  },
+  {
+    "skill_id": "npm",
+    "canonical_name": "npm",
+    "skill_type": "hard",
+    "aliases": [
+      "npm"
+    ]
+  },
+  {
+    "skill_id": "jquery",
+    "canonical_name": "jquery",
+    "skill_type": "hard",
+    "aliases": [
+      "jquery"
+    ]
+  },
+  {
+    "skill_id": "django",
+    "canonical_name": "Django",
+    "skill_type": "hard",
+    "aliases": [
+      "django"
+    ]
+  },
+  {
+    "skill_id": "bitbucket",
+    "canonical_name": "bitbucket",
+    "skill_type": "hard",
+    "aliases": [
+      "bitbucket"
+    ]
+  },
+  {
+    "skill_id": "firebase",
+    "canonical_name": "firebase",
+    "skill_type": "hard",
+    "aliases": [
+      "firebase"
+    ]
+  },
+  {
+    "skill_id": "terminal",
+    "canonical_name": "terminal",
+    "skill_type": "hard",
+    "aliases": [
+      "terminal"
+    ]
+  },
+  {
+    "skill_id": "smartsheet",
+    "canonical_name": "smartsheet",
+    "skill_type": "hard",
+    "aliases": [
+      "smartsheet"
+    ]
+  },
+  {
+    "skill_id": "sharepoint",
+    "canonical_name": "sharepoint",
+    "skill_type": "hard",
+    "aliases": [
+      "sharepoint"
+    ]
+  },
+  {
+    "skill_id": "spring",
+    "canonical_name": "Spring",
+    "skill_type": "hard",
+    "aliases": [
+      "spring"
+    ]
+  },
+  {
+    "skill_id": "ms-access",
+    "canonical_name": "ms access",
+    "skill_type": "hard",
+    "aliases": [
+      "ms access"
+    ]
+  },
+  {
+    "skill_id": "visual-basic",
+    "canonical_name": "visual basic",
+    "skill_type": "hard",
+    "aliases": [
+      "visual basic"
+    ]
+  },
+  {
+    "skill_id": "solidity",
+    "canonical_name": "solidity",
+    "skill_type": "hard",
+    "aliases": [
+      "solidity"
+    ]
+  },
+  {
+    "skill_id": "visio",
+    "canonical_name": "visio",
+    "skill_type": "hard",
+    "aliases": [
+      "visio"
+    ]
+  },
+  {
+    "skill_id": "couchbase",
+    "canonical_name": "couchbase",
+    "skill_type": "hard",
+    "aliases": [
+      "couchbase"
+    ]
+  },
+  {
+    "skill_id": "phoenix",
+    "canonical_name": "phoenix",
+    "skill_type": "hard",
+    "aliases": [
+      "phoenix"
+    ]
+  },
+  {
+    "skill_id": "redhat",
+    "canonical_name": "redhat",
+    "skill_type": "hard",
+    "aliases": [
+      "redhat"
+    ]
+  },
+  {
+    "skill_id": "swift",
+    "canonical_name": "Swift",
+    "skill_type": "hard",
+    "aliases": [
+      "swift"
+    ]
+  },
+  {
+    "skill_id": "kotlin",
+    "canonical_name": "Kotlin",
+    "skill_type": "hard",
+    "aliases": [
+      "kotlin"
+    ]
+  },
+  {
+    "skill_id": "ionic",
+    "canonical_name": "ionic",
+    "skill_type": "hard",
+    "aliases": [
+      "ionic"
+    ]
+  },
+  {
+    "skill_id": "symfony",
+    "canonical_name": "symfony",
+    "skill_type": "hard",
+    "aliases": [
+      "symfony"
+    ]
+  },
+  {
+    "skill_id": "yarn",
+    "canonical_name": "yarn",
+    "skill_type": "hard",
+    "aliases": [
+      "yarn"
+    ]
+  },
+  {
+    "skill_id": "electron",
+    "canonical_name": "electron",
+    "skill_type": "hard",
+    "aliases": [
+      "electron"
+    ]
+  },
+  {
+    "skill_id": "node",
+    "canonical_name": "node",
+    "skill_type": "hard",
+    "aliases": [
+      "node"
+    ]
+  },
+  {
+    "skill_id": "node-js",
+    "canonical_name": "node.js",
+    "skill_type": "hard",
+    "aliases": [
+      "node.js"
+    ]
+  },
+  {
+    "skill_id": "db2",
+    "canonical_name": "db2",
+    "skill_type": "hard",
+    "aliases": [
+      "db2"
+    ]
+  },
+  {
+    "skill_id": "julia",
+    "canonical_name": "julia",
+    "skill_type": "hard",
+    "aliases": [
+      "julia"
+    ]
+  },
+  {
+    "skill_id": "fortran",
+    "canonical_name": "fortran",
+    "skill_type": "hard",
+    "aliases": [
+      "fortran"
+    ]
+  },
+  {
+    "skill_id": "asp-net",
+    "canonical_name": "ASP.NET",
+    "skill_type": "hard",
+    "aliases": [
+      "asp.net"
+    ]
+  },
+  {
+    "skill_id": "no-sql",
+    "canonical_name": "no-sql",
+    "skill_type": "hard",
+    "aliases": [
+      "no-sql"
+    ]
+  },
+  {
+    "skill_id": "ibm-cloud",
+    "canonical_name": "ibm cloud",
+    "skill_type": "hard",
+    "aliases": [
+      "ibm cloud"
+    ]
+  },
+  {
+    "skill_id": "datarobot",
+    "canonical_name": "datarobot",
+    "skill_type": "hard",
+    "aliases": [
+      "datarobot"
+    ]
+  },
+  {
+    "skill_id": "laravel",
+    "canonical_name": "laravel",
+    "skill_type": "hard",
+    "aliases": [
+      "laravel"
+    ]
+  },
+  {
+    "skill_id": "ssrs",
+    "canonical_name": "ssrs",
+    "skill_type": "hard",
+    "aliases": [
+      "ssrs"
+    ]
+  },
+  {
+    "skill_id": "tidyverse",
+    "canonical_name": "tidyverse",
+    "skill_type": "hard",
+    "aliases": [
+      "tidyverse"
+    ]
+  },
+  {
+    "skill_id": "slack",
+    "canonical_name": "slack",
+    "skill_type": "hard",
+    "aliases": [
+      "slack"
+    ]
+  },
+  {
+    "skill_id": "groovy",
+    "canonical_name": "groovy",
+    "skill_type": "hard",
+    "aliases": [
+      "groovy"
+    ]
+  },
+  {
+    "skill_id": "opencv",
+    "canonical_name": "opencv",
+    "skill_type": "hard",
+    "aliases": [
+      "opencv"
+    ]
+  },
+  {
+    "skill_id": "rshiny",
+    "canonical_name": "rshiny",
+    "skill_type": "hard",
+    "aliases": [
+      "rshiny"
+    ]
+  },
+  {
+    "skill_id": "plotly",
+    "canonical_name": "plotly",
+    "skill_type": "hard",
+    "aliases": [
+      "plotly"
+    ]
+  },
+  {
+    "skill_id": "unify",
+    "canonical_name": "unify",
+    "skill_type": "hard",
+    "aliases": [
+      "unify"
+    ]
+  },
+  {
+    "skill_id": "spreadsheet",
+    "canonical_name": "spreadsheet",
+    "skill_type": "hard",
+    "aliases": [
+      "spreadsheet"
+    ]
+  },
+  {
+    "skill_id": "vmware",
+    "canonical_name": "VMware",
+    "skill_type": "hard",
+    "aliases": [
+      "vmware"
+    ]
+  },
+  {
+    "skill_id": "atlassian",
+    "canonical_name": "atlassian",
+    "skill_type": "hard",
+    "aliases": [
+      "atlassian"
+    ]
+  },
+  {
+    "skill_id": "arch",
+    "canonical_name": "arch",
+    "skill_type": "hard",
+    "aliases": [
+      "arch"
+    ]
+  },
+  {
+    "skill_id": "notion",
+    "canonical_name": "notion",
+    "skill_type": "hard",
+    "aliases": [
+      "notion"
+    ]
+  },
+  {
+    "skill_id": "openstack",
+    "canonical_name": "openstack",
+    "skill_type": "hard",
+    "aliases": [
+      "openstack"
+    ]
+  },
+  {
+    "skill_id": "seaborn",
+    "canonical_name": "seaborn",
+    "skill_type": "hard",
+    "aliases": [
+      "seaborn"
+    ]
+  },
+  {
+    "skill_id": "ggplot2",
+    "canonical_name": "ggplot2",
+    "skill_type": "hard",
+    "aliases": [
+      "ggplot2"
+    ]
+  },
+  {
+    "skill_id": "ubuntu",
+    "canonical_name": "ubuntu",
+    "skill_type": "hard",
+    "aliases": [
+      "ubuntu"
+    ]
+  },
+  {
+    "skill_id": "sheets",
+    "canonical_name": "sheets",
+    "skill_type": "hard",
+    "aliases": [
+      "sheets"
+    ]
+  },
+  {
+    "skill_id": "crystal",
+    "canonical_name": "crystal",
+    "skill_type": "hard",
+    "aliases": [
+      "crystal"
+    ]
+  },
+  {
+    "skill_id": "asana",
+    "canonical_name": "asana",
+    "skill_type": "hard",
+    "aliases": [
+      "asana"
+    ]
+  },
+  {
+    "skill_id": "powerbi",
+    "canonical_name": "powerbi",
+    "skill_type": "hard",
+    "aliases": [
+      "powerbi"
+    ]
+  },
+  {
+    "skill_id": "rust",
+    "canonical_name": "rust",
+    "skill_type": "hard",
+    "aliases": [
+      "rust"
+    ]
+  },
+  {
+    "skill_id": "assembly",
+    "canonical_name": "assembly",
+    "skill_type": "hard",
+    "aliases": [
+      "assembly"
+    ]
+  },
+  {
+    "skill_id": "dart",
+    "canonical_name": "Dart",
+    "skill_type": "hard",
+    "aliases": [
+      "dart"
+    ]
+  },
+  {
+    "skill_id": "microsoft-teams",
+    "canonical_name": "microsoft teams",
+    "skill_type": "hard",
+    "aliases": [
+      "microsoft teams"
+    ]
+  },
+  {
+    "skill_id": "codecommit",
+    "canonical_name": "codecommit",
+    "skill_type": "hard",
+    "aliases": [
+      "codecommit"
+    ]
+  },
+  {
+    "skill_id": "debian",
+    "canonical_name": "debian",
+    "skill_type": "hard",
+    "aliases": [
+      "debian"
+    ]
+  },
+  {
+    "skill_id": "mxnet",
+    "canonical_name": "mxnet",
+    "skill_type": "hard",
+    "aliases": [
+      "mxnet"
+    ]
+  },
+  {
+    "skill_id": "f",
+    "canonical_name": "f#",
+    "skill_type": "hard",
+    "aliases": [
+      "f#"
+    ]
+  },
+  {
+    "skill_id": "planner",
+    "canonical_name": "planner",
+    "skill_type": "hard",
+    "aliases": [
+      "planner"
+    ]
+  },
+  {
+    "skill_id": "cobol",
+    "canonical_name": "cobol",
+    "skill_type": "hard",
+    "aliases": [
+      "cobol"
+    ]
+  },
+  {
+    "skill_id": "macos",
+    "canonical_name": "macos",
+    "skill_type": "hard",
+    "aliases": [
+      "macos"
+    ]
+  },
+  {
+    "skill_id": "airtable",
+    "canonical_name": "airtable",
+    "skill_type": "hard",
+    "aliases": [
+      "airtable"
+    ]
+  },
+  {
+    "skill_id": "ringcentral",
+    "canonical_name": "ringcentral",
+    "skill_type": "hard",
+    "aliases": [
+      "ringcentral"
+    ]
+  },
+  {
+    "skill_id": "centos",
+    "canonical_name": "centos",
+    "skill_type": "hard",
+    "aliases": [
+      "centos"
+    ]
+  },
+  {
+    "skill_id": "hugging-face",
+    "canonical_name": "hugging face",
+    "skill_type": "hard",
+    "aliases": [
+      "hugging face"
+    ]
+  },
+  {
+    "skill_id": "theano",
+    "canonical_name": "theano",
+    "skill_type": "hard",
+    "aliases": [
+      "theano"
+    ]
+  },
+  {
+    "skill_id": "business-intelligence",
+    "canonical_name": "Business Intelligence",
+    "skill_type": "hard",
+    "aliases": [
+      "business intelligence"
+    ]
+  },
+  {
+    "skill_id": "adobe",
+    "canonical_name": "Adobe",
+    "skill_type": "hard",
+    "aliases": [
+      "adobe"
+    ]
+  },
+  {
+    "skill_id": "product-owner",
+    "canonical_name": "Product Owner",
+    "skill_type": "hard",
+    "aliases": [
+      "product owner"
+    ]
+  },
+  {
+    "skill_id": "api",
+    "canonical_name": "API",
+    "skill_type": "hard",
+    "aliases": [
+      "api"
+    ]
+  },
+  {
+    "skill_id": "microservices",
+    "canonical_name": "Microservices",
+    "skill_type": "hard",
+    "aliases": [
+      "microservices"
+    ]
+  },
+  {
+    "skill_id": "devops",
+    "canonical_name": "DevOps",
+    "skill_type": "hard",
+    "aliases": [
+      "devops"
+    ]
+  },
+  {
+    "skill_id": "industrial-automation",
+    "canonical_name": "Industrial Automation",
+    "skill_type": "hard",
+    "aliases": [
+      "industrial automation"
+    ]
+  },
+  {
+    "skill_id": "power-automate",
+    "canonical_name": "Power Automate",
+    "skill_type": "hard",
+    "aliases": [
+      "power automate"
+    ]
+  },
+  {
+    "skill_id": "robotic-process-automation-rpa",
+    "canonical_name": "Robotic Process Automation (RPA)",
+    "skill_type": "hard",
+    "aliases": [
+      "robotic process automation (rpa)"
+    ]
+  },
+  {
+    "skill_id": "embedded",
+    "canonical_name": "Embedded",
+    "skill_type": "hard",
+    "aliases": [
+      "embedded"
+    ]
+  },
+  {
+    "skill_id": "english",
+    "canonical_name": "English",
+    "skill_type": "hard",
+    "aliases": [
+      "english",
+      "tiếng anh"
+    ]
+  },
+  {
+    "skill_id": "embedded-c",
+    "canonical_name": "Embedded C",
+    "skill_type": "hard",
+    "aliases": [
+      "embedded c"
+    ]
+  },
+  {
+    "skill_id": "mobile-apps",
+    "canonical_name": "Mobile Apps",
+    "skill_type": "hard",
+    "aliases": [
+      "mobile apps"
+    ]
+  },
+  {
+    "skill_id": "objective-c",
+    "canonical_name": "Objective C",
+    "skill_type": "hard",
+    "aliases": [
+      "objective c"
+    ]
+  },
+  {
+    "skill_id": "database",
+    "canonical_name": "Database",
+    "skill_type": "hard",
+    "aliases": [
+      "database"
+    ]
+  },
+  {
+    "skill_id": "react-native",
+    "canonical_name": "React Native",
+    "skill_type": "hard",
+    "aliases": [
+      "react native"
+    ]
+  },
+  {
+    "skill_id": "data-engineer",
+    "canonical_name": "Data Engineer",
+    "skill_type": "hard",
+    "aliases": [
+      "data engineer"
+    ]
+  },
+  {
+    "skill_id": "aws-lambda",
+    "canonical_name": "AWS Lambda",
+    "skill_type": "hard",
+    "aliases": [
+      "aws lambda"
+    ]
+  },
+  {
+    "skill_id": "aws-glue",
+    "canonical_name": "AWS Glue",
+    "skill_type": "hard",
+    "aliases": [
+      "aws glue"
+    ]
+  },
+  {
+    "skill_id": "security",
+    "canonical_name": "Security",
+    "skill_type": "hard",
+    "aliases": [
+      "security"
+    ]
+  },
+  {
+    "skill_id": "edr",
+    "canonical_name": "EDR",
+    "skill_type": "hard",
+    "aliases": [
+      "edr"
+    ]
+  },
+  {
+    "skill_id": "pentest",
+    "canonical_name": "Pentest",
+    "skill_type": "hard",
+    "aliases": [
+      "pentest"
+    ]
+  },
+  {
+    "skill_id": "incident-response",
+    "canonical_name": "Incident Response",
+    "skill_type": "hard",
+    "aliases": [
+      "incident response"
+    ]
+  },
+  {
+    "skill_id": "siem",
+    "canonical_name": "SIEM",
+    "skill_type": "hard",
+    "aliases": [
+      "siem"
+    ]
+  },
+  {
+    "skill_id": "cybersecurity",
+    "canonical_name": "Cybersecurity",
+    "skill_type": "hard",
+    "aliases": [
+      "cybersecurity"
+    ]
+  },
+  {
+    "skill_id": "data-analysis",
+    "canonical_name": "Data Analysis",
+    "skill_type": "hard",
+    "aliases": [
+      "data analysis"
+    ]
+  },
+  {
+    "skill_id": "deep-learning",
+    "canonical_name": "Deep Learning",
+    "skill_type": "hard",
+    "aliases": [
+      "deep learning"
+    ]
+  },
+  {
+    "skill_id": "machine-learning",
+    "canonical_name": "Machine Learning",
+    "skill_type": "hard",
+    "aliases": [
+      "machine learning"
+    ]
+  },
+  {
+    "skill_id": "wpf",
+    "canonical_name": "WPF",
+    "skill_type": "hard",
+    "aliases": [
+      "wpf"
+    ]
+  },
+  {
+    "skill_id": "ai",
+    "canonical_name": "AI",
+    "skill_type": "hard",
+    "aliases": [
+      "ai"
+    ]
+  },
+  {
+    "skill_id": "technical-writing",
+    "canonical_name": "Technical Writing",
+    "skill_type": "hard",
+    "aliases": [
+      "technical writing"
+    ]
+  },
+  {
+    "skill_id": "ci-cd",
+    "canonical_name": "CI/CD",
+    "skill_type": "hard",
+    "aliases": [
+      "ci/cd"
+    ]
+  },
+  {
+    "skill_id": "magento",
+    "canonical_name": "Magento",
+    "skill_type": "hard",
+    "aliases": [
+      "magento"
+    ]
+  },
+  {
+    "skill_id": "html5",
+    "canonical_name": "HTML5",
+    "skill_type": "hard",
+    "aliases": [
+      "html5"
+    ]
+  },
+  {
+    "skill_id": "firewall",
+    "canonical_name": "Firewall",
+    "skill_type": "hard",
+    "aliases": [
+      "firewall"
+    ]
+  },
+  {
+    "skill_id": "iot",
+    "canonical_name": "IoT",
+    "skill_type": "hard",
+    "aliases": [
+      "iot"
+    ]
+  },
+  {
+    "skill_id": "networking",
+    "canonical_name": "Networking",
+    "skill_type": "hard",
+    "aliases": [
+      "networking"
+    ]
+  },
+  {
+    "skill_id": "team-management",
+    "canonical_name": "Team Management",
+    "skill_type": "soft",
+    "aliases": [
+      "team management"
+    ]
+  },
+  {
+    "skill_id": "stakeholder-management",
+    "canonical_name": "Stakeholder management",
+    "skill_type": "soft",
+    "aliases": [
+      "stakeholder management"
+    ]
+  },
+  {
+    "skill_id": "product-management",
+    "canonical_name": "Product Management",
+    "skill_type": "hard",
+    "aliases": [
+      "product management"
+    ]
+  },
+  {
+    "skill_id": "project-management",
+    "canonical_name": "Project Management",
+    "skill_type": "hard",
+    "aliases": [
+      "project management",
+      "quản lý dự án"
+    ]
+  },
+  {
+    "skill_id": "software-architecture",
+    "canonical_name": "Software Architecture",
+    "skill_type": "hard",
+    "aliases": [
+      "software architecture"
+    ]
+  },
+  {
+    "skill_id": "vuejs",
+    "canonical_name": "VueJS",
+    "skill_type": "hard",
+    "aliases": [
+      "vuejs"
+    ]
+  },
+  {
+    "skill_id": "nodejs",
+    "canonical_name": "NodeJS",
+    "skill_type": "hard",
+    "aliases": [
+      "nodejs"
+    ]
+  },
+  {
+    "skill_id": "data-privacy-compliance",
+    "canonical_name": "Data Privacy / Compliance",
+    "skill_type": "hard",
+    "aliases": [
+      "data privacy / compliance"
+    ]
+  },
+  {
+    "skill_id": "cloud-security",
+    "canonical_name": "Cloud Security",
+    "skill_type": "hard",
+    "aliases": [
+      "cloud security"
+    ]
+  },
+  {
+    "skill_id": "data-warehousing",
+    "canonical_name": "Data Warehousing",
+    "skill_type": "hard",
+    "aliases": [
+      "data warehousing"
+    ]
+  },
+  {
+    "skill_id": "data-lineage",
+    "canonical_name": "Data Lineage",
+    "skill_type": "hard",
+    "aliases": [
+      "data lineage"
+    ]
+  },
+  {
+    "skill_id": "data-quality-tools",
+    "canonical_name": "Data Quality Tools",
+    "skill_type": "hard",
+    "aliases": [
+      "data quality tools"
+    ]
+  },
+  {
+    "skill_id": "etl",
+    "canonical_name": "ETL",
+    "skill_type": "hard",
+    "aliases": [
+      "etl"
+    ]
+  },
+  {
+    "skill_id": "big-data",
+    "canonical_name": "Big Data",
+    "skill_type": "hard",
+    "aliases": [
+      "big data"
+    ]
+  },
+  {
+    "skill_id": "data-science",
+    "canonical_name": "Data Science",
+    "skill_type": "hard",
+    "aliases": [
+      "data science"
+    ]
+  },
+  {
+    "skill_id": "risk-management",
+    "canonical_name": "Risk Management",
+    "skill_type": "hard",
+    "aliases": [
+      "risk management"
+    ]
+  },
+  {
+    "skill_id": "devsecops",
+    "canonical_name": "DevSecOps",
+    "skill_type": "hard",
+    "aliases": [
+      "devsecops"
+    ]
+  },
+  {
+    "skill_id": "github-actions",
+    "canonical_name": "GitHub Actions",
+    "skill_type": "hard",
+    "aliases": [
+      "github actions"
+    ]
+  },
+  {
+    "skill_id": "junit",
+    "canonical_name": "JUnit",
+    "skill_type": "hard",
+    "aliases": [
+      "junit"
+    ]
+  },
+  {
+    "skill_id": "solution-architecture",
+    "canonical_name": "Solution Architecture",
+    "skill_type": "hard",
+    "aliases": [
+      "solution architecture"
+    ]
+  },
+  {
+    "skill_id": "cloud",
+    "canonical_name": "Cloud",
+    "skill_type": "hard",
+    "aliases": [
+      "cloud"
+    ]
+  },
+  {
+    "skill_id": "trello",
+    "canonical_name": "Trello",
+    "skill_type": "hard",
+    "aliases": [
+      "trello"
+    ]
+  },
+  {
+    "skill_id": "scrum",
+    "canonical_name": "Scrum",
+    "skill_type": "hard",
+    "aliases": [
+      "scrum"
+    ]
+  },
+  {
+    "skill_id": "business-analysis",
+    "canonical_name": "Business Analysis",
+    "skill_type": "hard",
+    "aliases": [
+      "business analysis"
+    ]
+  },
+  {
+    "skill_id": "figma",
+    "canonical_name": "Figma",
+    "skill_type": "hard",
+    "aliases": [
+      "figma"
+    ]
+  },
+  {
+    "skill_id": "net-core",
+    "canonical_name": ".Net Core",
+    "skill_type": "hard",
+    "aliases": [
+      ".net core"
+    ]
+  },
+  {
+    "skill_id": "fullstack",
+    "canonical_name": "Fullstack",
+    "skill_type": "hard",
+    "aliases": [
+      "fullstack"
+    ]
+  },
+  {
+    "skill_id": "reactjs",
+    "canonical_name": "ReactJS",
+    "skill_type": "hard",
+    "aliases": [
+      "reactjs"
+    ]
+  },
+  {
+    "skill_id": "it-support",
+    "canonical_name": "IT Support",
+    "skill_type": "hard",
+    "aliases": [
+      "it support"
+    ]
+  },
+  {
+    "skill_id": "fresher-accepted",
+    "canonical_name": "Fresher Accepted",
+    "skill_type": "hard",
+    "aliases": [
+      "fresher accepted"
+    ]
+  },
+  {
+    "skill_id": "governance",
+    "canonical_name": "Governance",
+    "skill_type": "hard",
+    "aliases": [
+      "governance"
+    ]
+  },
+  {
+    "skill_id": "risk-compliance",
+    "canonical_name": "Risk & Compliance",
+    "skill_type": "hard",
+    "aliases": [
+      "risk & compliance"
+    ]
+  },
+  {
+    "skill_id": "it-governance",
+    "canonical_name": "IT Governance",
+    "skill_type": "hard",
+    "aliases": [
+      "it governance"
+    ]
+  },
+  {
+    "skill_id": "iso-27001",
+    "canonical_name": "ISO 27001",
+    "skill_type": "hard",
+    "aliases": [
+      "iso 27001"
+    ]
+  },
+  {
+    "skill_id": "it-audit",
+    "canonical_name": "IT Audit",
+    "skill_type": "hard",
+    "aliases": [
+      "it audit"
+    ]
+  },
+  {
+    "skill_id": "net",
+    "canonical_name": ".NET",
+    "skill_type": "hard",
+    "aliases": [
+      ".net"
+    ]
+  },
+  {
+    "skill_id": "blazor",
+    "canonical_name": "Blazor",
+    "skill_type": "hard",
+    "aliases": [
+      "blazor"
+    ]
+  },
+  {
+    "skill_id": "autosar",
+    "canonical_name": "AUTOSAR",
+    "skill_type": "hard",
+    "aliases": [
+      "autosar"
+    ]
+  },
+  {
+    "skill_id": "middleware",
+    "canonical_name": "Middleware",
+    "skill_type": "hard",
+    "aliases": [
+      "middleware"
+    ]
+  },
+  {
+    "skill_id": "firmware",
+    "canonical_name": "Firmware",
+    "skill_type": "hard",
+    "aliases": [
+      "firmware"
+    ]
+  },
+  {
+    "skill_id": "c-language",
+    "canonical_name": "C language",
+    "skill_type": "hard",
+    "aliases": [
+      "c language"
+    ]
+  },
+  {
+    "skill_id": "games",
+    "canonical_name": "Games",
+    "skill_type": "hard",
+    "aliases": [
+      "games"
+    ]
+  },
+  {
+    "skill_id": "tester",
+    "canonical_name": "Tester",
+    "skill_type": "hard",
+    "aliases": [
+      "tester"
+    ]
+  },
+  {
+    "skill_id": "a-b-testing",
+    "canonical_name": "A/B testing",
+    "skill_type": "hard",
+    "aliases": [
+      "a/b testing"
+    ]
+  },
+  {
+    "skill_id": "postman",
+    "canonical_name": "Postman",
+    "skill_type": "hard",
+    "aliases": [
+      "postman"
+    ]
+  },
+  {
+    "skill_id": "automation-test",
+    "canonical_name": "Automation Test",
+    "skill_type": "hard",
+    "aliases": [
+      "automation test"
+    ]
+  },
+  {
+    "skill_id": "agile",
+    "canonical_name": "Agile",
+    "skill_type": "hard",
+    "aliases": [
+      "agile"
+    ]
+  },
+  {
+    "skill_id": "ibm-db2",
+    "canonical_name": "IBM DB2",
+    "skill_type": "hard",
+    "aliases": [
+      "ibm db2"
+    ]
+  },
+  {
+    "skill_id": "leadership",
+    "canonical_name": "Leadership",
+    "skill_type": "soft",
+    "aliases": [
+      "leadership"
+    ]
+  },
+  {
+    "skill_id": "japanese",
+    "canonical_name": "Japanese",
+    "skill_type": "hard",
+    "aliases": [
+      "japanese",
+      "tiếng nhật"
+    ]
+  },
+  {
+    "skill_id": "bridge-engineer",
+    "canonical_name": "Bridge Engineer",
+    "skill_type": "hard",
+    "aliases": [
+      "bridge engineer"
+    ]
+  },
+  {
+    "skill_id": "japanese-it-communication",
+    "canonical_name": "Japanese IT Communication",
+    "skill_type": "soft",
+    "aliases": [
+      "japanese it communication"
+    ]
+  },
+  {
+    "skill_id": "lean-project-management",
+    "canonical_name": "Lean Project Management",
+    "skill_type": "hard",
+    "aliases": [
+      "lean project management"
+    ]
+  },
+  {
+    "skill_id": "information-security",
+    "canonical_name": "Information Security",
+    "skill_type": "hard",
+    "aliases": [
+      "information security"
+    ]
+  },
+  {
+    "skill_id": "qa-qc",
+    "canonical_name": "QA QC",
+    "skill_type": "hard",
+    "aliases": [
+      "qa qc"
+    ]
+  },
+  {
+    "skill_id": "waterfall-methodology",
+    "canonical_name": "Waterfall Methodology",
+    "skill_type": "hard",
+    "aliases": [
+      "waterfall methodology"
+    ]
+  },
+  {
+    "skill_id": "ruby-on-rails",
+    "canonical_name": "Ruby on Rails",
+    "skill_type": "hard",
+    "aliases": [
+      "ruby on rails"
+    ]
+  },
+  {
+    "skill_id": "design-systems",
+    "canonical_name": "Design Systems",
+    "skill_type": "hard",
+    "aliases": [
+      "design systems"
+    ]
+  },
+  {
+    "skill_id": "shopify",
+    "canonical_name": "Shopify",
+    "skill_type": "hard",
+    "aliases": [
+      "shopify"
+    ]
+  },
+  {
+    "skill_id": "risk-assessment-bcp",
+    "canonical_name": "Risk Assessment / BCP",
+    "skill_type": "hard",
+    "aliases": [
+      "risk assessment / bcp"
+    ]
+  },
+  {
+    "skill_id": "identity-access-management",
+    "canonical_name": "Identity & Access Management",
+    "skill_type": "hard",
+    "aliases": [
+      "identity & access management"
+    ]
+  },
+  {
+    "skill_id": "j2ee",
+    "canonical_name": "J2EE",
+    "skill_type": "hard",
+    "aliases": [
+      "j2ee"
+    ]
+  },
+  {
+    "skill_id": "visual-design",
+    "canonical_name": "Visual Design",
+    "skill_type": "hard",
+    "aliases": [
+      "visual design"
+    ]
+  },
+  {
+    "skill_id": "adobe-illustrator",
+    "canonical_name": "Adobe Illustrator",
+    "skill_type": "hard",
+    "aliases": [
+      "adobe illustrator",
+      "illustrator"
+    ]
+  },
+  {
+    "skill_id": "adobe-photoshop",
+    "canonical_name": "Adobe Photoshop",
+    "skill_type": "hard",
+    "aliases": [
+      "adobe photoshop"
+    ]
+  },
+  {
+    "skill_id": "ui-ux",
+    "canonical_name": "UI-UX",
+    "skill_type": "hard",
+    "aliases": [
+      "ui-ux"
+    ]
+  },
+  {
+    "skill_id": "user-story",
+    "canonical_name": "User story",
+    "skill_type": "hard",
+    "aliases": [
+      "user story"
+    ]
+  },
+  {
+    "skill_id": "android",
+    "canonical_name": "Android",
+    "skill_type": "hard",
+    "aliases": [
+      "android"
+    ]
+  },
+  {
+    "skill_id": "android-studio",
+    "canonical_name": "Android studio",
+    "skill_type": "hard",
+    "aliases": [
+      "android studio"
+    ]
+  },
+  {
+    "skill_id": "amazon-rds",
+    "canonical_name": "Amazon RDS",
+    "skill_type": "hard",
+    "aliases": [
+      "amazon rds"
+    ]
+  },
+  {
+    "skill_id": "system-admin",
+    "canonical_name": "System Admin",
+    "skill_type": "hard",
+    "aliases": [
+      "system admin"
+    ]
+  },
+  {
+    "skill_id": "amazon-aurora",
+    "canonical_name": "Amazon Aurora",
+    "skill_type": "hard",
+    "aliases": [
+      "amazon aurora"
+    ]
+  },
+  {
+    "skill_id": "aws-cloudformation",
+    "canonical_name": "AWS CloudFormation",
+    "skill_type": "hard",
+    "aliases": [
+      "aws cloudformation"
+    ]
+  },
+  {
+    "skill_id": "aspice",
+    "canonical_name": "ASPICE",
+    "skill_type": "hard",
+    "aliases": [
+      "aspice"
+    ]
+  },
+  {
+    "skill_id": "korean",
+    "canonical_name": "Korean",
+    "skill_type": "hard",
+    "aliases": [
+      "korean",
+      "tiếng hàn"
+    ]
+  },
+  {
+    "skill_id": "it-communication-translation",
+    "canonical_name": "IT Communication/Translation",
+    "skill_type": "hard",
+    "aliases": [
+      "it communication/translation"
+    ]
+  },
+  {
+    "skill_id": "playwright",
+    "canonical_name": "Playwright",
+    "skill_type": "hard",
+    "aliases": [
+      "playwright"
+    ]
+  },
+  {
+    "skill_id": "blockchain",
+    "canonical_name": "Blockchain",
+    "skill_type": "hard",
+    "aliases": [
+      "blockchain"
+    ]
+  },
+  {
+    "skill_id": "soar",
+    "canonical_name": "SOAR",
+    "skill_type": "hard",
+    "aliases": [
+      "soar"
+    ]
+  },
+  {
+    "skill_id": "presale",
+    "canonical_name": "Presale",
+    "skill_type": "hard",
+    "aliases": [
+      "presale"
+    ]
+  },
+  {
+    "skill_id": "web-application-firewall",
+    "canonical_name": "Web Application Firewall",
+    "skill_type": "hard",
+    "aliases": [
+      "web application firewall"
+    ]
+  },
+  {
+    "skill_id": "brd",
+    "canonical_name": "BRD",
+    "skill_type": "hard",
+    "aliases": [
+      "brd"
+    ]
+  },
+  {
+    "skill_id": "itil-foundation",
+    "canonical_name": "ITIL Foundation",
+    "skill_type": "hard",
+    "aliases": [
+      "itil foundation"
+    ]
+  },
+  {
+    "skill_id": "dba",
+    "canonical_name": "DBA",
+    "skill_type": "hard",
+    "aliases": [
+      "dba"
+    ]
+  },
+  {
+    "skill_id": "oop",
+    "canonical_name": "OOP",
+    "skill_type": "hard",
+    "aliases": [
+      "oop"
+    ]
+  },
+  {
+    "skill_id": "system-architecture",
+    "canonical_name": "System Architecture",
+    "skill_type": "hard",
+    "aliases": [
+      "system architecture"
+    ]
+  },
+  {
+    "skill_id": "windows-server",
+    "canonical_name": "Windows Server",
+    "skill_type": "hard",
+    "aliases": [
+      "windows server"
+    ]
+  },
+  {
+    "skill_id": "application-security",
+    "canonical_name": "Application Security",
+    "skill_type": "hard",
+    "aliases": [
+      "application security"
+    ]
+  },
+  {
+    "skill_id": "prompt-engineering",
+    "canonical_name": "Prompt Engineering",
+    "skill_type": "hard",
+    "aliases": [
+      "prompt engineering"
+    ]
+  },
+  {
+    "skill_id": "qt",
+    "canonical_name": "Qt",
+    "skill_type": "hard",
+    "aliases": [
+      "qt"
+    ]
+  },
+  {
+    "skill_id": "data-mining",
+    "canonical_name": "Data mining",
+    "skill_type": "hard",
+    "aliases": [
+      "data mining"
+    ]
+  },
+  {
+    "skill_id": "wordpress",
+    "canonical_name": "Wordpress",
+    "skill_type": "hard",
+    "aliases": [
+      "wordpress"
+    ]
+  },
+  {
+    "skill_id": "kotlinx-coroutines",
+    "canonical_name": "kotlinx.coroutines",
+    "skill_type": "hard",
+    "aliases": [
+      "kotlinx.coroutines"
+    ]
+  },
+  {
+    "skill_id": "json",
+    "canonical_name": "JSON",
+    "skill_type": "hard",
+    "aliases": [
+      "json"
+    ]
+  },
+  {
+    "skill_id": "microsoft-dynamics-365",
+    "canonical_name": "Microsoft Dynamics 365",
+    "skill_type": "hard",
+    "aliases": [
+      "microsoft dynamics 365"
+    ]
+  },
+  {
+    "skill_id": "erp",
+    "canonical_name": "ERP",
+    "skill_type": "hard",
+    "aliases": [
+      "erp"
+    ]
+  },
+  {
+    "skill_id": "flutter",
+    "canonical_name": "Flutter",
+    "skill_type": "hard",
+    "aliases": [
+      "flutter"
+    ]
+  },
+  {
+    "skill_id": "ios",
+    "canonical_name": "iOS",
+    "skill_type": "hard",
+    "aliases": [
+      "ios"
+    ]
+  },
+  {
+    "skill_id": "appium",
+    "canonical_name": "Appium",
+    "skill_type": "hard",
+    "aliases": [
+      "appium"
+    ]
+  },
+  {
+    "skill_id": "ocr",
+    "canonical_name": "OCR",
+    "skill_type": "hard",
+    "aliases": [
+      "ocr"
+    ]
+  },
+  {
+    "skill_id": "computer-vision",
+    "canonical_name": "Computer Vision",
+    "skill_type": "hard",
+    "aliases": [
+      "computer vision"
+    ]
+  },
+  {
+    "skill_id": "llm",
+    "canonical_name": "LLM",
+    "skill_type": "hard",
+    "aliases": [
+      "llm"
+    ]
+  },
+  {
+    "skill_id": "security-awareness-training",
+    "canonical_name": "Security Awareness Training",
+    "skill_type": "hard",
+    "aliases": [
+      "security awareness training"
+    ]
+  },
+  {
+    "skill_id": "mvvm",
+    "canonical_name": "MVVM",
+    "skill_type": "hard",
+    "aliases": [
+      "mvvm"
+    ]
+  },
+  {
+    "skill_id": "clean-architecture",
+    "canonical_name": "Clean Architecture",
+    "skill_type": "hard",
+    "aliases": [
+      "clean architecture"
+    ]
+  },
+  {
+    "skill_id": "product-metrics",
+    "canonical_name": "Product Metrics",
+    "skill_type": "hard",
+    "aliases": [
+      "product metrics"
+    ]
+  },
+  {
+    "skill_id": "product-roadmap",
+    "canonical_name": "Product roadmap",
+    "skill_type": "hard",
+    "aliases": [
+      "product roadmap"
+    ]
+  },
+  {
+    "skill_id": "product-strategy",
+    "canonical_name": "Product strategy",
+    "skill_type": "hard",
+    "aliases": [
+      "product strategy"
+    ]
+  },
+  {
+    "skill_id": "spring-boot",
+    "canonical_name": "Spring Boot",
+    "skill_type": "hard",
+    "aliases": [
+      "spring boot"
+    ]
+  },
+  {
+    "skill_id": "design",
+    "canonical_name": "Design",
+    "skill_type": "hard",
+    "aliases": [
+      "design"
+    ]
+  },
+  {
+    "skill_id": "servicenow",
+    "canonical_name": "ServiceNow",
+    "skill_type": "hard",
+    "aliases": [
+      "servicenow"
+    ]
+  },
+  {
+    "skill_id": "enterprise-architecture",
+    "canonical_name": "Enterprise Architecture",
+    "skill_type": "hard",
+    "aliases": [
+      "enterprise architecture"
+    ]
+  },
+  {
+    "skill_id": "servicenow-app-engine",
+    "canonical_name": "ServiceNow App Engine",
+    "skill_type": "hard",
+    "aliases": [
+      "servicenow app engine"
+    ]
+  },
+  {
+    "skill_id": "digital-tokens",
+    "canonical_name": "Digital tokens",
+    "skill_type": "hard",
+    "aliases": [
+      "digital tokens"
+    ]
+  },
+  {
+    "skill_id": "winforms",
+    "canonical_name": "WinForms",
+    "skill_type": "hard",
+    "aliases": [
+      "winforms"
+    ]
+  },
+  {
+    "skill_id": "bpmn",
+    "canonical_name": "BPMN",
+    "skill_type": "hard",
+    "aliases": [
+      "bpmn"
+    ]
+  },
+  {
+    "skill_id": "google-cloud",
+    "canonical_name": "Google Cloud",
+    "skill_type": "hard",
+    "aliases": [
+      "google cloud"
+    ]
+  },
+  {
+    "skill_id": "domain-driven-design",
+    "canonical_name": "Domain-Driven Design",
+    "skill_type": "hard",
+    "aliases": [
+      "domain-driven design"
+    ]
+  },
+  {
+    "skill_id": "crm",
+    "canonical_name": "CRM",
+    "skill_type": "hard",
+    "aliases": [
+      "crm"
+    ]
+  },
+  {
+    "skill_id": "togaf",
+    "canonical_name": "TOGAF",
+    "skill_type": "hard",
+    "aliases": [
+      "togaf"
+    ]
+  },
+  {
+    "skill_id": "comptia-security",
+    "canonical_name": "CompTIA Security+",
+    "skill_type": "hard",
+    "aliases": [
+      "comptia security+"
+    ]
+  },
+  {
+    "skill_id": "elk",
+    "canonical_name": "ELK",
+    "skill_type": "hard",
+    "aliases": [
+      "elk"
+    ]
+  },
+  {
+    "skill_id": "juniper",
+    "canonical_name": "Juniper",
+    "skill_type": "hard",
+    "aliases": [
+      "juniper"
+    ]
+  },
+  {
+    "skill_id": "cisco",
+    "canonical_name": "Cisco",
+    "skill_type": "hard",
+    "aliases": [
+      "cisco"
+    ]
+  },
+  {
+    "skill_id": "penetration-testing",
+    "canonical_name": "Penetration Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "penetration testing"
+    ]
+  },
+  {
+    "skill_id": "rpa",
+    "canonical_name": "RPA",
+    "skill_type": "hard",
+    "aliases": [
+      "rpa"
+    ]
+  },
+  {
+    "skill_id": "nextjs",
+    "canonical_name": "NextJS",
+    "skill_type": "hard",
+    "aliases": [
+      "nextjs"
+    ]
+  },
+  {
+    "skill_id": "encryption-key-management",
+    "canonical_name": "Encryption Key Management",
+    "skill_type": "hard",
+    "aliases": [
+      "encryption key management"
+    ]
+  },
+  {
+    "skill_id": "statistical-analysis",
+    "canonical_name": "Statistical Analysis",
+    "skill_type": "hard",
+    "aliases": [
+      "statistical analysis"
+    ]
+  },
+  {
+    "skill_id": "mlops",
+    "canonical_name": "MLOps",
+    "skill_type": "hard",
+    "aliases": [
+      "mlops"
+    ]
+  },
+  {
+    "skill_id": "gitlab-ci",
+    "canonical_name": "GitLab CI",
+    "skill_type": "hard",
+    "aliases": [
+      "gitlab ci"
+    ]
+  },
+  {
+    "skill_id": "product-design",
+    "canonical_name": "Product Design",
+    "skill_type": "hard",
+    "aliases": [
+      "product design"
+    ]
+  },
+  {
+    "skill_id": "giao-tiep",
+    "canonical_name": "Giao tiếp",
+    "skill_type": "soft",
+    "aliases": [
+      "communication skill",
+      "giao tiếp",
+      "kỹ năng giao tiếp"
+    ]
+  },
+  {
+    "skill_id": "lam-viec-nhom",
+    "canonical_name": "Làm việc nhóm",
+    "skill_type": "soft",
+    "aliases": [
+      "team work",
+      "làm việc nhóm",
+      "teamwork"
+    ]
+  },
+  {
+    "skill_id": "quan-ly-thoi-gian",
+    "canonical_name": "Quản lý thời gian",
+    "skill_type": "soft",
+    "aliases": [
+      "quản lý thời gian",
+      "time management"
+    ]
+  },
+  {
+    "skill_id": "giai-quyet-van-e",
+    "canonical_name": "Giải quyết vấn đề",
+    "skill_type": "soft",
+    "aliases": [
+      "problem solving",
+      "giải quyết vấn đề"
+    ]
+  },
+  {
+    "skill_id": "tu-duy-phan-bien",
+    "canonical_name": "Tư duy phản biện",
+    "skill_type": "soft",
+    "aliases": [
+      "tư duy phản biện",
+      "critical thinking"
+    ]
+  },
+  {
+    "skill_id": "chiu-ap-luc-cong-viec",
+    "canonical_name": "Chịu áp lực công việc",
+    "skill_type": "soft",
+    "aliases": [
+      "chịu được áp lực cao",
+      "chịu áp lực",
+      "work under pressure",
+      "chịu áp lực công việc"
+    ]
+  },
+  {
+    "skill_id": "am-phan",
+    "canonical_name": "Đàm phán",
+    "skill_type": "soft",
+    "aliases": [
+      "negotiation",
+      "đàm phán"
+    ]
+  },
+  {
+    "skill_id": "thuyet-trinh",
+    "canonical_name": "Thuyết trình",
+    "skill_type": "soft",
+    "aliases": [
+      "thuyết trình",
+      "presentation skill"
+    ]
+  },
+  {
+    "skill_id": "cham-chi",
+    "canonical_name": "Chăm chỉ",
+    "skill_type": "soft",
+    "aliases": [
+      "chăm chỉ",
+      "chịu khó",
+      "siêng năng"
+    ]
+  },
+  {
+    "skill_id": "trung-thuc",
+    "canonical_name": "Trung thực",
+    "skill_type": "soft",
+    "aliases": [
+      "honest",
+      "trung thực"
+    ]
+  },
+  {
+    "skill_id": "can-than-ti-mi",
+    "canonical_name": "Cẩn thận, tỉ mỉ",
+    "skill_type": "soft",
+    "aliases": [
+      "tỉ mỉ",
+      "cẩn thận, tỉ mỉ",
+      "cẩn thận"
+    ]
+  },
+  {
+    "skill_id": "chu-ong-trong-cong-viec",
+    "canonical_name": "Chủ động trong công việc",
+    "skill_type": "soft",
+    "aliases": [
+      "chủ động trong công việc",
+      "proactive",
+      "chủ động"
+    ]
+  },
+  {
+    "skill_id": "tinh-than-trach-nhiem",
+    "canonical_name": "Tinh thần trách nhiệm",
+    "skill_type": "soft",
+    "aliases": [
+      "trách nhiệm trong công việc",
+      "tinh thần trách nhiệm"
+    ]
+  },
+  {
+    "skill_id": "ky-nang-quan-ly",
+    "canonical_name": "Kỹ năng quản lý",
+    "skill_type": "soft",
+    "aliases": [
+      "kỹ năng quản lý",
+      "quản lý nhân sự"
+    ]
+  },
+  {
+    "skill_id": "ban-hang",
+    "canonical_name": "Bán hàng",
+    "skill_type": "hard",
+    "aliases": [
+      "sales skill",
+      "bán hàng",
+      "kỹ năng bán hàng",
+      "kinh doanh"
+    ]
+  },
+  {
+    "skill_id": "cham-soc-khach-hang",
+    "canonical_name": "Chăm sóc khách hàng",
+    "skill_type": "hard",
+    "aliases": [
+      "customer service",
+      "cskh",
+      "chăm sóc khách hàng"
+    ]
+  },
+  {
+    "skill_id": "telesale",
+    "canonical_name": "Telesale",
+    "skill_type": "hard",
+    "aliases": [
+      "tư vấn qua điện thoại",
+      "telesale"
+    ]
+  },
+  {
+    "skill_id": "tuyen-dung",
+    "canonical_name": "Tuyển dụng",
+    "skill_type": "hard",
+    "aliases": [
+      "tuyển dụng",
+      "recruitment"
+    ]
+  },
+  {
+    "skill_id": "tinh-luong-c-b",
+    "canonical_name": "Tính lương, C&B",
+    "skill_type": "hard",
+    "aliases": [
+      "compensation and benefits",
+      "tính lương, c&b",
+      "c&b",
+      "tính lương"
+    ]
+  },
+  {
+    "skill_id": "ke-toan-thue",
+    "canonical_name": "Kế toán thuế",
+    "skill_type": "hard",
+    "aliases": [
+      "tax accounting",
+      "kế toán thuế",
+      "kê khai thuế"
+    ]
+  },
+  {
+    "skill_id": "ke-toan-cong-no",
+    "canonical_name": "Kế toán công nợ",
+    "skill_type": "hard",
+    "aliases": [
+      "kế toán công nợ",
+      "kế toán thanh toán"
+    ]
+  },
+  {
+    "skill_id": "phan-mem-ke-toan-misa",
+    "canonical_name": "Phần mềm kế toán MISA",
+    "skill_type": "hard",
+    "aliases": [
+      "misa",
+      "phần mềm kế toán misa"
+    ]
+  },
+  {
+    "skill_id": "tin-hoc-van-phong",
+    "canonical_name": "Tin học văn phòng",
+    "skill_type": "hard",
+    "aliases": [
+      "microsoft office",
+      "ms office",
+      "tin học văn phòng"
+    ]
+  },
+  {
+    "skill_id": "photoshop",
+    "canonical_name": "Photoshop",
+    "skill_type": "hard",
+    "aliases": [
+      "photoshop"
+    ]
+  },
+  {
+    "skill_id": "adobe-premiere",
+    "canonical_name": "Adobe Premiere",
+    "skill_type": "hard",
+    "aliases": [
+      "adobe premiere",
+      "premiere"
+    ]
+  },
+  {
+    "skill_id": "coreldraw",
+    "canonical_name": "CorelDRAW",
+    "skill_type": "hard",
+    "aliases": [
+      "coreldraw",
+      "corel"
+    ]
+  },
+  {
+    "skill_id": "autocad",
+    "canonical_name": "AutoCAD",
+    "skill_type": "hard",
+    "aliases": [
+      "autocad"
+    ]
+  },
+  {
+    "skill_id": "seo",
+    "canonical_name": "SEO",
+    "skill_type": "hard",
+    "aliases": [
+      "seo"
+    ]
+  },
+  {
+    "skill_id": "content-marketing",
+    "canonical_name": "Content Marketing",
+    "skill_type": "hard",
+    "aliases": [
+      "content marketing",
+      "viết content"
+    ]
+  },
+  {
+    "skill_id": "digital-marketing",
+    "canonical_name": "Digital Marketing",
+    "skill_type": "hard",
+    "aliases": [
+      "digital marketing"
+    ]
+  },
+  {
+    "skill_id": "social-media-marketing",
+    "canonical_name": "Social Media Marketing",
+    "skill_type": "hard",
+    "aliases": [
+      "social media",
+      "social media marketing",
+      "mxh",
+      "mạng xã hội"
+    ]
+  },
+  {
+    "skill_id": "quang-cao-facebook",
+    "canonical_name": "Quảng cáo Facebook",
+    "skill_type": "hard",
+    "aliases": [
+      "facebook ads",
+      "quảng cáo facebook"
+    ]
+  },
+  {
+    "skill_id": "quang-cao-google",
+    "canonical_name": "Quảng cáo Google",
+    "skill_type": "hard",
+    "aliases": [
+      "quảng cáo google",
+      "google ads"
+    ]
+  },
+  {
+    "skill_id": "giam-sat-cong-trinh",
+    "canonical_name": "Giám sát công trình",
+    "skill_type": "hard",
+    "aliases": [
+      "giám sát thi công",
+      "giám sát công trình"
+    ]
+  },
+  {
+    "skill_id": "du-toan-xay-dung",
+    "canonical_name": "Dự toán xây dựng",
+    "skill_type": "hard",
+    "aliases": [
+      "dự toán xây dựng",
+      "bóc tách khối lượng"
+    ]
+  },
+  {
+    "skill_id": "oc-ban-ve-ky-thuat",
+    "canonical_name": "Đọc bản vẽ kỹ thuật",
+    "skill_type": "hard",
+    "aliases": [
+      "đọc bản vẽ kỹ thuật",
+      "bản vẽ kỹ thuật",
+      "đọc bản vẽ"
+    ]
+  },
+  {
+    "skill_id": "tieng-trung",
+    "canonical_name": "Tiếng Trung",
+    "skill_type": "hard",
+    "aliases": [
+      "chinese",
+      "tiếng trung"
+    ]
+  }
+]
