@@ -206,6 +206,35 @@ def build_bridge_closure(closure: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(closure)
 
 
+def check_integrity(tables: dict[str, pd.DataFrame]) -> None:
+    """Chặn việc nạp kho khi staging không nhất quán. Trước đây pipeline chạy lệch
+    thứ tự vẫn nạp trót lọt: closure trỏ tới 17 skill_id không có trong dim_skill và
+    toàn bộ phân cấp rỗng, nhưng không có chỗ nào báo lỗi."""
+    skill_ids = set(tables["dim_skill"]["skill_id"])
+    job_ids = set(tables["dim_job"]["job_id"])
+    closure = tables["bridge_skill_closure"]
+    fact = tables["fact_job_skill"]
+
+    problems = []
+    for label, missing in (
+        ("fact_job_skill.skill_id", set(fact["skill_id"]) - skill_ids),
+        ("fact_job_skill.job_id", set(fact["job_id"]) - job_ids),
+        (
+            "bridge_skill_closure",
+            (set(closure["ancestor_id"]) | set(closure["descendant_id"])) - skill_ids,
+        ),
+        ("dim_skill.parent_skill_id", set(tables["dim_skill"]["parent_skill_id"].dropna()) - skill_ids),
+    ):
+        if missing:
+            problems.append(f"{label}: {len(missing)} id lạ, ví dụ {sorted(missing)[:5]}")
+
+    if not tables["dim_skill"]["parent_skill_id"].notna().any():
+        problems.append("dim_skill.parent_skill_id rỗng hoàn toàn — thiếu bước build_hierarchy")
+
+    if problems:
+        raise ValueError("Staging không nhất quán:\n  " + "\n  ".join(problems))
+
+
 def run() -> str:
     records = [r for r in _load_jsonl(STAGING / "records_deduped.jsonl") if r.get("is_canonical", True)]
     skills = json.loads((STAGING / "skill_dictionary.json").read_text(encoding="utf-8"))
@@ -223,13 +252,13 @@ def run() -> str:
     )
 
     dim_job = build_dim_job(records, company_ids, location_ids)
-    dim_skill = build_dim_skill(skills)
+    # Cột toàn NULL bị pandas suy thành float rồi DuckDB tạo cột INTEGER, khiến join
+    # với skill_id (VARCHAR) báo lỗi kiểu thay vì trả kết quả rỗng.
+    dim_skill = build_dim_skill(skills).astype({"category": "string", "parent_skill_id": "string"})
     dim_skill_variant = build_dim_skill_variant(skills)
     fact_job_skill = build_fact_job_skill(job_skills, set(dim_job["job_id"]))
     bridge_skill_closure = build_bridge_closure(closure)
 
-    WAREHOUSE_DB.parent.mkdir(parents=True, exist_ok=True)
-    con = duckdb.connect(str(WAREHOUSE_DB))
     tables = {
         "dim_company": dim_company,
         "dim_location": dim_location,
@@ -240,6 +269,16 @@ def run() -> str:
         "fact_job_skill": fact_job_skill,
         "bridge_skill_closure": bridge_skill_closure,
     }
+    check_integrity(tables)
+
+    WAREHOUSE_DB.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        con = duckdb.connect(str(WAREHOUSE_DB))
+    except duckdb.IOException as exc:
+        # DuckDB chỉ cho một tiến trình mở file, kể cả tiến trình kia mở read-only.
+        raise SystemExit(
+            f"Không mở được {WAREHOUSE_DB} để ghi. Hãy tắt API/Streamlit đang chạy rồi thử lại.\n{exc}"
+        ) from exc
     for name, df in tables.items():
         con.register("tmp_df", df)
         con.execute(f"CREATE OR REPLACE TABLE {name} AS SELECT * FROM tmp_df")

@@ -1,0 +1,35 @@
+{"q": "python", "expect_skill": "python", "kind": "chinh-xac"}
+{"q": "docker", "expect_skill": "docker", "kind": "chinh-xac"}
+{"q": "autocad", "expect_skill": "autocad", "kind": "chinh-xac"}
+{"q": "seo", "expect_skill": "seo", "kind": "chinh-xac"}
+{"q": "aws", "expect_skill": "aws", "kind": "chinh-xac"}
+{"q": "excel", "expect_skill": "excel", "kind": "chinh-xac"}
+{"q": "power bi", "expect_skill": "power-bi", "kind": "chinh-xac"}
+{"q": "py", "expect_skill": "python", "kind": "viet-tat"}
+{"q": "mongo", "expect_skill": "mongodb", "kind": "viet-tat"}
+{"q": "postgres", "expect_skill": "postgresql", "kind": "viet-tat"}
+{"q": "k8s", "expect_skill": "kubernetes", "kind": "viet-tat"}
+{"q": "reactjs", "expect_skill": "react", "kind": "viet-tat"}
+{"q": "nodejs", "expect_skill": "node", "kind": "viet-tat"}
+{"q": "next js", "expect_skill": "nextjs", "kind": "viet-tat"}
+{"q": "c#", "expect_skill": "c-sharp", "kind": "nhap-nhang"}
+{"q": "c++", "expect_skill": "c-plus-plus", "kind": "nhap-nhang"}
+{"q": "sql", "expect_skill": "sql", "kind": "nhap-nhang"}
+{"q": "java", "expect_skill": "java", "kind": "nhap-nhang"}
+{"q": "react", "expect_skill": "react", "kind": "nhap-nhang"}
+{"q": "sql server", "expect_skill": "sql-server", "kind": "nhap-nhang"}
+{"q": "photoshop", "expect_skill": "adobe-photoshop", "kind": "nhap-nhang"}
+{"q": "tiếng anh", "expect_skill": "english", "kind": "chinh-xac"}
+{"q": "giao tiếp", "expect_skill": "giao-tiep", "kind": "chinh-xac"}
+{"q": "làm việc nhóm", "expect_skill": "lam-viec-nhom", "kind": "chinh-xac"}
+{"q": "kế toán thuế", "expect_skill": "ke-toan-thue", "kind": "chinh-xac"}
+{"q": "tuyển dụng", "expect_skill": "tuyen-dung", "kind": "chinh-xac"}
+{"q": "tieng anh", "expect_skill": "english", "kind": "khong-dau"}
+{"q": "lam viec nhom", "expect_skill": "lam-viec-nhom", "kind": "khong-dau"}
+{"q": "ke toan thue", "expect_skill": "ke-toan-thue", "kind": "khong-dau"}
+{"q": "tuyen dung", "expect_skill": "tuyen-dung", "kind": "khong-dau"}
+{"q": "ngôn ngữ lập trình", "expect_skill": "ngon-ngu-lap-trinh", "kind": "tong-quat"}
+{"q": "cơ sở dữ liệu", "expect_skill": "co-so-du-lieu", "kind": "tong-quat"}
+{"q": "kỹ năng mềm", "expect_skill": "ky-nang-mem", "kind": "tong-quat"}
+{"q": "ngoại ngữ", "expect_skill": "ngoai-ngu", "kind": "tong-quat"}
+{"q": "kỹ năng công nghệ thông tin", "expect_skill": "ky-nang-cong-nghe-thong-tin", "kind": "tong-quat"}

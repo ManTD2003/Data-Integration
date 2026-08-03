@@ -1,4 +1,4 @@
-from src.process.skill_dictionary import SkillDictionary, build_dictionary
+from src.process.skill_dictionary import SkillDictionary, _slugify, build_dictionary
 
 
 def test_merges_case_variants_into_one_skill():
@@ -38,3 +38,31 @@ def test_alias_shared_between_two_supplement_entries_does_not_merge_them():
     kt_thue = skill_dict.lookup("kế toán thuế")
     kt_no = skill_dict.lookup("kế toán công nợ")
     assert kt_thue["skill_id"] != kt_no["skill_id"]
+
+
+def test_slug_keeps_symbols_apart():
+    assert _slugify("C#") == "c-sharp"
+    assert _slugify("C++") == "c-plus-plus"
+    assert _slugify("c") == "c"
+    assert _slugify("F#") == "f-sharp"
+    assert _slugify(".NET") == "dotnet"
+    assert _slugify("Tính lương, C&B") == "tinh-luong-c-and-b"
+
+
+def test_slug_transliterates_vietnamese_d():
+    assert _slugify("Điện toán đám mây") == "dien-toan-dam-may"
+    assert _slugify("Đọc bản vẽ kỹ thuật") == "doc-ban-ve-ky-thuat"
+
+
+def test_c_family_ids_do_not_depend_on_insertion_order():
+    forward = SkillDictionary()
+    for name in ("c", "C++", "C#"):
+        forward.add(name, "hard", [name])
+
+    backward = SkillDictionary()
+    for name in ("C#", "C++", "c"):
+        backward.add(name, "hard", [name])
+
+    assert forward.lookup("c#")["skill_id"] == backward.lookup("c#")["skill_id"] == "c-sharp"
+    assert forward.lookup("c++")["skill_id"] == backward.lookup("c++")["skill_id"] == "c-plus-plus"
+    assert forward.lookup("c")["skill_id"] == backward.lookup("c")["skill_id"] == "c"

@@ -1,0 +1,81 @@
+"""Kiểm tra ràng buộc trên kho đã nạp.
+
+Khác với `check_integrity` trong build_warehouse (chạy trên DataFrame, chặn việc nạp
+kho lệch), phần này chạy trên file DuckDB thật để báo cáo trạng thái kho hiện có —
+kể cả khi kho được nạp bởi một lượt chạy cũ.
+"""
+
+from __future__ import annotations
+
+import duckdb
+
+from src.process.skill_dictionary import _slugify
+
+Check = tuple[str, bool, str]
+
+FOREIGN_KEYS = [
+    ("fact_job_skill.skill_id", "fact_job_skill", "skill_id", "dim_skill", "skill_id"),
+    ("fact_job_skill.job_id", "fact_job_skill", "job_id", "dim_job", "job_id"),
+    ("bridge_skill_closure.ancestor_id", "bridge_skill_closure", "ancestor_id", "dim_skill", "skill_id"),
+    ("bridge_skill_closure.descendant_id", "bridge_skill_closure", "descendant_id", "dim_skill", "skill_id"),
+    ("dim_skill.parent_skill_id", "dim_skill", "parent_skill_id", "dim_skill", "skill_id"),
+    ("dim_job.company_id", "dim_job", "company_id", "dim_company", "company_id"),
+    ("dim_job.location_id", "dim_job", "location_id", "dim_location", "location_id"),
+    ("dim_job.posted_date", "dim_job", "posted_date", "dim_time", "date_id"),
+]
+
+
+def _orphans(con: duckdb.DuckDBPyConnection, table: str, column: str, ref_table: str, ref_column: str) -> int:
+    sql = f"""
+        SELECT count(*) FROM {table}
+        WHERE {column} IS NOT NULL
+          AND {column} NOT IN (SELECT {ref_column} FROM {ref_table} WHERE {ref_column} IS NOT NULL)
+    """
+    return con.execute(sql).fetchone()[0]
+
+
+def run_checks(con: duckdb.DuckDBPyConnection) -> list[Check]:
+    checks: list[Check] = []
+
+    for label, table, column, ref_table, ref_column in FOREIGN_KEYS:
+        n = _orphans(con, table, column, ref_table, ref_column)
+        checks.append((f"FK {label} -> {ref_table}", n == 0, f"{n} giá trị không tham chiếu được"))
+
+    n_skills = con.execute("SELECT count(*) FROM dim_skill").fetchone()[0]
+    n_self = con.execute("SELECT count(*) FROM bridge_skill_closure WHERE depth = 0").fetchone()[0]
+    checks.append(("Closure có dòng self cho mọi skill", n_self == n_skills, f"{n_self}/{n_skills}"))
+
+    max_depth = con.execute("SELECT max(depth) FROM bridge_skill_closure").fetchone()[0] or 0
+    checks.append(("Closure bắc cầu quá một mức", max_depth >= 2, f"độ sâu tối đa {max_depth}"))
+
+    n_parent = con.execute("SELECT count(*) FROM dim_skill WHERE parent_skill_id IS NOT NULL").fetchone()[0]
+    checks.append(("Phân cấp không rỗng", n_parent > 0, f"{n_parent}/{n_skills} skill có cha"))
+
+    unreachable = con.execute("""
+        SELECT count(*) FROM dim_skill s
+        WHERE NOT EXISTS (
+            SELECT 1 FROM bridge_skill_closure c
+            WHERE c.descendant_id = s.skill_id AND c.depth = 0
+        )
+        """).fetchone()[0]
+    checks.append(("Mọi skill đều tra được qua closure", unreachable == 0, f"{unreachable} skill thiếu"))
+
+    lossy = con.execute("SELECT skill_id, canonical_name FROM dim_skill").fetchall()
+    mismatch = [sid for sid, name in lossy if _slugify(name) != sid]
+    checks.append(
+        (
+            "skill_id khớp slug của canonical_name",
+            not mismatch,
+            f"{len(mismatch)} lệch, ví dụ {mismatch[:5]}",
+        )
+    )
+
+    empty_columns = []
+    for table in ("dim_skill", "dim_job"):
+        for (column,) in con.execute(f"SELECT column_name FROM (DESCRIBE {table})").fetchall():
+            filled = con.execute(f"SELECT count({column}) FROM {table}").fetchone()[0]
+            if filled == 0:
+                empty_columns.append(f"{table}.{column}")
+    checks.append(("Không có cột dimension rỗng hoàn toàn", not empty_columns, ", ".join(empty_columns)))
+
+    return checks

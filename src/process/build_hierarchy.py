@@ -95,10 +95,28 @@ CATEGORY_MAP: dict[str, list[str]] = {
 
 SOFT_SKILL_ROOT = "Kỹ năng mềm"
 
+# Tầng trên của CATEGORY_MAP, để chuỗi cụ thể -> tổng quát có đủ ba mức như ví dụ
+# trong đề (Python -> Ngôn ngữ lập trình -> Kỹ năng công nghệ thông tin).
+ROOT_MAP: dict[str, list[str]] = {
+    "Kỹ năng công nghệ thông tin": [
+        "Ngôn ngữ lập trình", "Phát triển Frontend", "Phát triển Backend",
+        "Cơ sở dữ liệu", "DevOps & CI/CD", "Kiểm thử phần mềm",
+        "Điện toán đám mây", "An ninh mạng", "Machine Learning & AI",
+        "Phân tích dữ liệu & BI",
+    ],
+    "Kỹ năng nghiệp vụ": [
+        "Kế toán", "Marketing & Bán hàng", "Quản lý dự án", "Nhân sự", "Xây dựng",
+    ],
+    "Kỹ năng công cụ và ngoại ngữ": [
+        "Thiết kế đồ hoạ", "Tin học văn phòng", "Ngoại ngữ",
+    ],
+}
+
 
 def assign_parents(skill_dict: SkillDictionary) -> list[str]:
-    """Gán parent_skill_id theo CATEGORY_MAP. Trả về danh sách tên không tìm thấy
-    trong từ điển (để phát hiện lỗi gõ tên trước khi commit)."""
+    """Gán parent_skill_id theo CATEGORY_MAP rồi gom category vào ROOT_MAP. Trả về
+    danh sách tên không tìm thấy trong từ điển (để phát hiện lỗi gõ tên trước khi
+    commit)."""
     missing: list[str] = []
     for category_name, children in CATEGORY_MAP.items():
         category_id = skill_dict.add(category_name, "hard", [category_name])
@@ -111,6 +129,16 @@ def assign_parents(skill_dict: SkillDictionary) -> list[str]:
                 continue
             entry["parent_skill_id"] = category_id
 
+    for root_name, categories in ROOT_MAP.items():
+        root_id = skill_dict.add(root_name, "hard", [root_name])
+        for category_name in categories:
+            entry = skill_dict.lookup(category_name)
+            if entry is None:
+                missing.append(category_name)
+                continue
+            if entry["skill_id"] != root_id:
+                entry["parent_skill_id"] = root_id
+
     soft_root_id = skill_dict.add(SOFT_SKILL_ROOT, "soft", [SOFT_SKILL_ROOT])
     for entry in skill_dict.skills.values():
         if entry["skill_type"] == "soft" and entry["skill_id"] != soft_root_id and not entry["parent_skill_id"]:
@@ -120,11 +148,19 @@ def assign_parents(skill_dict: SkillDictionary) -> list[str]:
 
 
 def build_closure(skill_dict: SkillDictionary) -> list[dict]:
-    rows = [{"ancestor_id": sid, "descendant_id": sid, "depth": 0} for sid in skill_dict.skills]
-    for entry in skill_dict.skills.values():
-        parent_id = entry["parent_skill_id"]
-        if parent_id:
-            rows.append({"ancestor_id": parent_id, "descendant_id": entry["skill_id"], "depth": 1})
+    """Closure bắc cầu: mỗi skill sinh một dòng cho chính nó và một dòng cho từng tổ
+    tiên. Chỉ sinh depth 0/1 thì truy vấn theo nút gốc sẽ không thấy skill ở mức lá."""
+    rows: list[dict] = []
+    for skill_id, entry in skill_dict.skills.items():
+        rows.append({"ancestor_id": skill_id, "descendant_id": skill_id, "depth": 0})
+        seen = {skill_id}
+        ancestor_id = entry["parent_skill_id"]
+        depth = 1
+        while ancestor_id and ancestor_id not in seen:
+            rows.append({"ancestor_id": ancestor_id, "descendant_id": skill_id, "depth": depth})
+            seen.add(ancestor_id)
+            ancestor_id = skill_dict.skills[ancestor_id]["parent_skill_id"]
+            depth += 1
     return rows
 
 
@@ -151,7 +187,11 @@ def run() -> str:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
     with_parent = sum(1 for e in skill_dict.skills.values() if e["parent_skill_id"])
-    print(f"Skills: {len(skill_dict.skills)} | có parent: {with_parent} | closure rows: {len(closure)}")
+    max_depth = max(row["depth"] for row in closure)
+    print(
+        f"Skills: {len(skill_dict.skills)} | có parent: {with_parent} | "
+        f"closure rows: {len(closure)} | độ sâu tối đa: {max_depth}"
+    )
     print(f"Từ điển (đã gắn phân cấp) -> {DICTIONARY_PATH}")
     print(f"Closure table -> {CLOSURE_PATH}")
     return str(CLOSURE_PATH)

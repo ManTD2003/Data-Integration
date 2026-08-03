@@ -116,6 +116,11 @@ def resolve(skills: list[dict]) -> tuple[SkillDictionary, list[dict], dict[str, 
         head = members[0]
         all_aliases = sorted({a for m in members for a in m["aliases"]})
         new_id = merged_dict.add(head["canonical_name"], head["skill_type"], all_aliases)
+        # SkillDictionary.add() luôn khởi tạo parent rỗng, nên phải mang lại quan hệ
+        # cha-con của cụm; nếu không, chạy lại bước này sau build_hierarchy sẽ xoá
+        # sạch phân cấp mà kho vẫn nạp bình thường.
+        parent_id = next((m["parent_skill_id"] for m in members if m.get("parent_skill_id")), None)
+        merged_dict.skills[new_id]["parent_skill_id"] = parent_id
         for m in members:
             old_to_new[m["skill_id"]] = new_id
         if len(members) > 1:
@@ -125,6 +130,13 @@ def resolve(skills: list[dict]) -> tuple[SkillDictionary, list[dict], dict[str, 
                     "absorbed": [m["canonical_name"] for m in members[1:]],
                 }
             )
+
+    for entry in merged_dict.skills.values():
+        parent_id = entry["parent_skill_id"]
+        if not parent_id:
+            continue
+        new_parent = old_to_new.get(parent_id, parent_id)
+        entry["parent_skill_id"] = None if new_parent == entry["skill_id"] else new_parent
 
     return merged_dict, log, old_to_new
 

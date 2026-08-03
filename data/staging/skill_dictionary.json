@@ -41,10 +41,10 @@
     "canonical_name": "Power BI",
     "skill_type": "hard",
     "aliases": [
-      "power bi",
-      "powerbi"
+      "powerbi",
+      "power bi"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "tableau",
@@ -53,10 +53,10 @@
     "aliases": [
       "tableau"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
-    "skill_id": "c",
+    "skill_id": "c-sharp",
     "canonical_name": "C#",
     "skill_type": "hard",
     "aliases": [
@@ -71,7 +71,7 @@
     "aliases": [
       "azure"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "airflow",
@@ -89,7 +89,7 @@
     "aliases": [
       "dax"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "docker",
@@ -98,7 +98,7 @@
     "aliases": [
       "docker"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "kubernetes",
@@ -107,7 +107,7 @@
     "aliases": [
       "kubernetes"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "jenkins",
@@ -116,10 +116,10 @@
     "aliases": [
       "jenkins"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
-    "skill_id": "c-2",
+    "skill_id": "c-plus-plus",
     "canonical_name": "C++",
     "skill_type": "hard",
     "aliases": [
@@ -152,7 +152,7 @@
     "aliases": [
       "aws"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "tensorflow",
@@ -161,7 +161,7 @@
     "aliases": [
       "tensorflow"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "keras",
@@ -170,7 +170,7 @@
     "aliases": [
       "keras"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "pytorch",
@@ -179,7 +179,7 @@
     "aliases": [
       "pytorch"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "bash",
@@ -206,7 +206,7 @@
     "aliases": [
       "ansible"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "puppet",
@@ -215,7 +215,7 @@
     "aliases": [
       "puppet"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "gitlab",
@@ -242,7 +242,7 @@
     "aliases": [
       "gcp"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "sql-server",
@@ -260,7 +260,7 @@
     "aliases": [
       "bigquery"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "hadoop",
@@ -278,7 +278,7 @@
     "aliases": [
       "databricks"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "redshift",
@@ -287,7 +287,7 @@
     "aliases": [
       "redshift"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "kafka",
@@ -360,7 +360,7 @@
     "aliases": [
       "qlik"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "php",
@@ -394,8 +394,8 @@
     "canonical_name": "go",
     "skill_type": "hard",
     "aliases": [
-      "golang",
-      "go"
+      "go",
+      "golang"
     ],
     "parent_skill_id": "ngon-ngu-lap-trinh"
   },
@@ -442,7 +442,7 @@
     "aliases": [
       "terraform"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "powershell",
@@ -478,7 +478,7 @@
     "aliases": [
       "looker"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "scala",
@@ -505,7 +505,7 @@
     "aliases": [
       "scikit-learn"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "matplotlib",
@@ -568,7 +568,7 @@
     "aliases": [
       "snowflake"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "pyspark",
@@ -586,7 +586,7 @@
     "aliases": [
       "nltk"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "flow",
@@ -602,8 +602,8 @@
     "canonical_name": "word",
     "skill_type": "hard",
     "aliases": [
-      "word",
-      "microsoft word"
+      "microsoft word",
+      "word"
     ],
     "parent_skill_id": "tin-hoc-van-phong"
   },
@@ -632,10 +632,10 @@
     "aliases": [
       "spss"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
-    "skill_id": "c-3",
+    "skill_id": "c",
     "canonical_name": "c",
     "skill_type": "hard",
     "aliases": [
@@ -651,7 +651,7 @@
     "aliases": [
       "microstrategy"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "cognos",
@@ -660,7 +660,7 @@
     "aliases": [
       "cognos"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "selenium",
@@ -732,7 +732,7 @@
     "aliases": [
       "chef"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "zoom",
@@ -830,8 +830,8 @@
     "canonical_name": "vue",
     "skill_type": "hard",
     "aliases": [
-      "vuejs",
-      "vue"
+      "vue",
+      "vuejs"
     ],
     "parent_skill_id": "phat-trien-frontend"
   },
@@ -867,10 +867,10 @@
     "canonical_name": "aurora",
     "skill_type": "hard",
     "aliases": [
-      "aurora",
-      "amazon aurora"
+      "amazon aurora",
+      "aurora"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "unity",
@@ -888,7 +888,7 @@
     "aliases": [
       "alteryx"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "t-sql",
@@ -1138,9 +1138,9 @@
     "canonical_name": "node",
     "skill_type": "hard",
     "aliases": [
-      "node",
       "nodejs",
-      "node.js"
+      "node.js",
+      "node"
     ],
     "parent_skill_id": "phat-trien-backend"
   },
@@ -1172,7 +1172,7 @@
     "parent_skill_id": "ngon-ngu-lap-trinh"
   },
   {
-    "skill_id": "asp-net",
+    "skill_id": "asp-dotnet",
     "canonical_name": "ASP.NET",
     "skill_type": "hard",
     "aliases": [
@@ -1187,7 +1187,7 @@
     "aliases": [
       "ibm cloud"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "datarobot",
@@ -1196,7 +1196,7 @@
     "aliases": [
       "datarobot"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "laravel",
@@ -1223,7 +1223,7 @@
     "aliases": [
       "tidyverse"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "slack",
@@ -1259,7 +1259,7 @@
     "aliases": [
       "rshiny"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "plotly",
@@ -1331,7 +1331,7 @@
     "aliases": [
       "openstack"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "seaborn",
@@ -1349,7 +1349,7 @@
     "aliases": [
       "ggplot2"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "ubuntu",
@@ -1448,10 +1448,10 @@
     "aliases": [
       "mxnet"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
-    "skill_id": "f",
+    "skill_id": "f-sharp",
     "canonical_name": "f#",
     "skill_type": "hard",
     "aliases": [
@@ -1529,7 +1529,7 @@
     "aliases": [
       "theano"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "business-intelligence",
@@ -1538,7 +1538,7 @@
     "aliases": [
       "business intelligence"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "adobe",
@@ -1693,7 +1693,7 @@
     "aliases": [
       "aws lambda"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "aws-glue",
@@ -1702,7 +1702,7 @@
     "aliases": [
       "aws glue"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "security",
@@ -1727,8 +1727,8 @@
     "canonical_name": "Pentest",
     "skill_type": "hard",
     "aliases": [
-      "penetration testing",
-      "pentest"
+      "pentest",
+      "penetration testing"
     ],
     "parent_skill_id": "an-ninh-mang"
   },
@@ -1766,7 +1766,7 @@
     "aliases": [
       "data analysis"
     ],
-    "parent_skill_id": "phan-tich-du-lieu-bi"
+    "parent_skill_id": "phan-tich-du-lieu-and-bi"
   },
   {
     "skill_id": "deep-learning",
@@ -1775,7 +1775,7 @@
     "aliases": [
       "deep learning"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "machine-learning",
@@ -1784,7 +1784,7 @@
     "aliases": [
       "machine learning"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "wpf",
@@ -1802,7 +1802,7 @@
     "aliases": [
       "ai"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "technical-writing",
@@ -1820,7 +1820,7 @@
     "aliases": [
       "ci/cd"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "magento",
@@ -1899,10 +1899,10 @@
     "canonical_name": "Project Management",
     "skill_type": "hard",
     "aliases": [
-      "project management",
-      "quản lý dự án"
+      "quản lý dự án",
+      "project management"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-nghiep-vu"
   },
   {
     "skill_id": "software-architecture",
@@ -1983,7 +1983,7 @@
     "aliases": [
       "data science"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "risk-management",
@@ -2010,7 +2010,7 @@
     "aliases": [
       "github actions"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "junit",
@@ -2073,10 +2073,10 @@
     "aliases": [
       "figma"
     ],
-    "parent_skill_id": "thiet-ke-o-hoa"
+    "parent_skill_id": "thiet-ke-do-hoa"
   },
   {
-    "skill_id": "net-core",
+    "skill_id": "dotnet-core",
     "canonical_name": ".Net Core",
     "skill_type": "hard",
     "aliases": [
@@ -2121,7 +2121,7 @@
     "parent_skill_id": null
   },
   {
-    "skill_id": "risk-compliance",
+    "skill_id": "risk-and-compliance",
     "canonical_name": "Risk & Compliance",
     "skill_type": "hard",
     "aliases": [
@@ -2157,7 +2157,7 @@
     "parent_skill_id": null
   },
   {
-    "skill_id": "net",
+    "skill_id": "dotnet",
     "canonical_name": ".NET",
     "skill_type": "hard",
     "aliases": [
@@ -2278,8 +2278,8 @@
     "canonical_name": "Japanese",
     "skill_type": "hard",
     "aliases": [
-      "tiếng nhật",
-      "japanese"
+      "japanese",
+      "tiếng nhật"
     ],
     "parent_skill_id": "ngoai-ngu"
   },
@@ -2374,7 +2374,7 @@
     "parent_skill_id": null
   },
   {
-    "skill_id": "identity-access-management",
+    "skill_id": "identity-and-access-management",
     "canonical_name": "Identity & Access Management",
     "skill_type": "hard",
     "aliases": [
@@ -2398,27 +2398,27 @@
     "aliases": [
       "visual design"
     ],
-    "parent_skill_id": "thiet-ke-o-hoa"
+    "parent_skill_id": "thiet-ke-do-hoa"
   },
   {
     "skill_id": "adobe-illustrator",
     "canonical_name": "Adobe Illustrator",
     "skill_type": "hard",
     "aliases": [
-      "illustrator",
-      "adobe illustrator"
+      "adobe illustrator",
+      "illustrator"
     ],
-    "parent_skill_id": "thiet-ke-o-hoa"
+    "parent_skill_id": "thiet-ke-do-hoa"
   },
   {
     "skill_id": "adobe-photoshop",
     "canonical_name": "Adobe Photoshop",
     "skill_type": "hard",
     "aliases": [
-      "adobe photoshop",
-      "photoshop"
+      "photoshop",
+      "adobe photoshop"
     ],
-    "parent_skill_id": "thiet-ke-o-hoa"
+    "parent_skill_id": "thiet-ke-do-hoa"
   },
   {
     "skill_id": "ui-ux",
@@ -2427,7 +2427,7 @@
     "aliases": [
       "ui-ux"
     ],
-    "parent_skill_id": "thiet-ke-o-hoa"
+    "parent_skill_id": "thiet-ke-do-hoa"
   },
   {
     "skill_id": "user-story",
@@ -2463,7 +2463,7 @@
     "aliases": [
       "amazon rds"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "system-admin",
@@ -2481,7 +2481,7 @@
     "aliases": [
       "aws cloudformation"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "aspice",
@@ -2497,8 +2497,8 @@
     "canonical_name": "Korean",
     "skill_type": "hard",
     "aliases": [
-      "tiếng hàn",
-      "korean"
+      "korean",
+      "tiếng hàn"
     ],
     "parent_skill_id": "ngoai-ngu"
   },
@@ -2545,7 +2545,7 @@
     "aliases": [
       "presale"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "web-application-firewall",
@@ -2626,7 +2626,7 @@
     "aliases": [
       "prompt engineering"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "qt",
@@ -2734,7 +2734,7 @@
     "aliases": [
       "computer vision"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "llm",
@@ -2743,7 +2743,7 @@
     "aliases": [
       "llm"
     ],
-    "parent_skill_id": "machine-learning-ai"
+    "parent_skill_id": "machine-learning-and-ai"
   },
   {
     "skill_id": "security-awareness-training",
@@ -2878,7 +2878,7 @@
     "aliases": [
       "google cloud"
     ],
-    "parent_skill_id": "ien-toan-am-may"
+    "parent_skill_id": "dien-toan-dam-may"
   },
   {
     "skill_id": "domain-driven-design",
@@ -2896,7 +2896,7 @@
     "aliases": [
       "crm"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "togaf",
@@ -2908,7 +2908,7 @@
     "parent_skill_id": null
   },
   {
-    "skill_id": "comptia-security",
+    "skill_id": "comptia-security-plus",
     "canonical_name": "CompTIA Security+",
     "skill_type": "hard",
     "aliases": [
@@ -2986,7 +2986,7 @@
     "aliases": [
       "gitlab ci"
     ],
-    "parent_skill_id": "devops-ci-cd"
+    "parent_skill_id": "devops-and-ci-cd"
   },
   {
     "skill_id": "product-design",
@@ -3002,9 +3002,9 @@
     "canonical_name": "Giao tiếp",
     "skill_type": "soft",
     "aliases": [
+      "communication skill",
       "giao tiếp",
-      "kỹ năng giao tiếp",
-      "communication skill"
+      "kỹ năng giao tiếp"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
@@ -3014,8 +3014,8 @@
     "skill_type": "soft",
     "aliases": [
       "team work",
-      "teamwork",
-      "làm việc nhóm"
+      "làm việc nhóm",
+      "teamwork"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
@@ -3024,13 +3024,13 @@
     "canonical_name": "Quản lý thời gian",
     "skill_type": "soft",
     "aliases": [
-      "time management",
-      "quản lý thời gian"
+      "quản lý thời gian",
+      "time management"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
   {
-    "skill_id": "giai-quyet-van-e",
+    "skill_id": "giai-quyet-van-de",
     "canonical_name": "Giải quyết vấn đề",
     "skill_type": "soft",
     "aliases": [
@@ -3044,8 +3044,8 @@
     "canonical_name": "Tư duy phản biện",
     "skill_type": "soft",
     "aliases": [
-      "critical thinking",
-      "tư duy phản biện"
+      "tư duy phản biện",
+      "critical thinking"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
@@ -3054,15 +3054,15 @@
     "canonical_name": "Chịu áp lực công việc",
     "skill_type": "soft",
     "aliases": [
-      "chịu áp lực công việc",
-      "chịu được áp lực cao",
+      "chịu áp lực",
       "work under pressure",
-      "chịu áp lực"
+      "chịu được áp lực cao",
+      "chịu áp lực công việc"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
   {
-    "skill_id": "am-phan",
+    "skill_id": "dam-phan",
     "canonical_name": "Đàm phán",
     "skill_type": "soft",
     "aliases": [
@@ -3076,8 +3076,8 @@
     "canonical_name": "Thuyết trình",
     "skill_type": "soft",
     "aliases": [
-      "thuyết trình",
-      "presentation skill"
+      "presentation skill",
+      "thuyết trình"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
@@ -3086,9 +3086,9 @@
     "canonical_name": "Chăm chỉ",
     "skill_type": "soft",
     "aliases": [
-      "chăm chỉ",
       "chịu khó",
-      "siêng năng"
+      "siêng năng",
+      "chăm chỉ"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
@@ -3107,20 +3107,20 @@
     "canonical_name": "Cẩn thận, tỉ mỉ",
     "skill_type": "soft",
     "aliases": [
-      "cẩn thận, tỉ mỉ",
+      "cẩn thận",
       "tỉ mỉ",
-      "cẩn thận"
+      "cẩn thận, tỉ mỉ"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
   {
-    "skill_id": "chu-ong-trong-cong-viec",
+    "skill_id": "chu-dong-trong-cong-viec",
     "canonical_name": "Chủ động trong công việc",
     "skill_type": "soft",
     "aliases": [
-      "chủ động",
+      "proactive",
       "chủ động trong công việc",
-      "proactive"
+      "chủ động"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
@@ -3129,8 +3129,8 @@
     "canonical_name": "Tinh thần trách nhiệm",
     "skill_type": "soft",
     "aliases": [
-      "tinh thần trách nhiệm",
-      "trách nhiệm trong công việc"
+      "trách nhiệm trong công việc",
+      "tinh thần trách nhiệm"
     ],
     "parent_skill_id": "ky-nang-mem"
   },
@@ -3149,23 +3149,23 @@
     "canonical_name": "Bán hàng",
     "skill_type": "hard",
     "aliases": [
-      "sales skill",
-      "kinh doanh",
+      "bán hàng",
       "kỹ năng bán hàng",
-      "bán hàng"
+      "sales skill",
+      "kinh doanh"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "cham-soc-khach-hang",
     "canonical_name": "Chăm sóc khách hàng",
     "skill_type": "hard",
     "aliases": [
-      "cskh",
+      "chăm sóc khách hàng",
       "customer service",
-      "chăm sóc khách hàng"
+      "cskh"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "telesale",
@@ -3175,27 +3175,27 @@
       "telesale",
       "tư vấn qua điện thoại"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "tuyen-dung",
     "canonical_name": "Tuyển dụng",
     "skill_type": "hard",
     "aliases": [
-      "tuyển dụng",
-      "recruitment"
+      "recruitment",
+      "tuyển dụng"
     ],
     "parent_skill_id": "nhan-su"
   },
   {
-    "skill_id": "tinh-luong-c-b",
+    "skill_id": "tinh-luong-c-and-b",
     "canonical_name": "Tính lương, C&B",
     "skill_type": "hard",
     "aliases": [
-      "tính lương",
+      "c&b",
       "tính lương, c&b",
-      "compensation and benefits",
-      "c&b"
+      "tính lương",
+      "compensation and benefits"
     ],
     "parent_skill_id": "nhan-su"
   },
@@ -3204,8 +3204,8 @@
     "canonical_name": "Kế toán thuế",
     "skill_type": "hard",
     "aliases": [
-      "kê khai thuế",
       "kế toán thuế",
+      "kê khai thuế",
       "tax accounting"
     ],
     "parent_skill_id": "ke-toan"
@@ -3225,8 +3225,8 @@
     "canonical_name": "Phần mềm kế toán MISA",
     "skill_type": "hard",
     "aliases": [
-      "misa",
-      "phần mềm kế toán misa"
+      "phần mềm kế toán misa",
+      "misa"
     ],
     "parent_skill_id": "ke-toan"
   },
@@ -3235,11 +3235,11 @@
     "canonical_name": "Tin học văn phòng",
     "skill_type": "hard",
     "aliases": [
+      "tin học văn phòng",
       "microsoft office",
-      "ms office",
-      "tin học văn phòng"
+      "ms office"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-cu-va-ngoai-ngu"
   },
   {
     "skill_id": "adobe-premiere",
@@ -3249,7 +3249,7 @@
       "adobe premiere",
       "premiere"
     ],
-    "parent_skill_id": "thiet-ke-o-hoa"
+    "parent_skill_id": "thiet-ke-do-hoa"
   },
   {
     "skill_id": "coreldraw",
@@ -3259,7 +3259,7 @@
       "corel",
       "coreldraw"
     ],
-    "parent_skill_id": "thiet-ke-o-hoa"
+    "parent_skill_id": "thiet-ke-do-hoa"
   },
   {
     "skill_id": "autocad",
@@ -3277,7 +3277,7 @@
     "aliases": [
       "seo"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "content-marketing",
@@ -3287,7 +3287,7 @@
       "viết content",
       "content marketing"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "digital-marketing",
@@ -3296,29 +3296,29 @@
     "aliases": [
       "digital marketing"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "social-media-marketing",
     "canonical_name": "Social Media Marketing",
     "skill_type": "hard",
     "aliases": [
-      "mxh",
       "social media",
-      "social media marketing",
-      "mạng xã hội"
+      "mxh",
+      "mạng xã hội",
+      "social media marketing"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "quang-cao-facebook",
     "canonical_name": "Quảng cáo Facebook",
     "skill_type": "hard",
     "aliases": [
-      "facebook ads",
-      "quảng cáo facebook"
+      "quảng cáo facebook",
+      "facebook ads"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "quang-cao-google",
@@ -3328,15 +3328,15 @@
       "quảng cáo google",
       "google ads"
     ],
-    "parent_skill_id": "marketing-ban-hang"
+    "parent_skill_id": "marketing-and-ban-hang"
   },
   {
     "skill_id": "giam-sat-cong-trinh",
     "canonical_name": "Giám sát công trình",
     "skill_type": "hard",
     "aliases": [
-      "giám sát thi công",
-      "giám sát công trình"
+      "giám sát công trình",
+      "giám sát thi công"
     ],
     "parent_skill_id": "xay-dung"
   },
@@ -3345,13 +3345,13 @@
     "canonical_name": "Dự toán xây dựng",
     "skill_type": "hard",
     "aliases": [
-      "bóc tách khối lượng",
-      "dự toán xây dựng"
+      "dự toán xây dựng",
+      "bóc tách khối lượng"
     ],
     "parent_skill_id": "xay-dung"
   },
   {
-    "skill_id": "oc-ban-ve-ky-thuat",
+    "skill_id": "doc-ban-ve-ky-thuat",
     "canonical_name": "Đọc bản vẽ kỹ thuật",
     "skill_type": "hard",
     "aliases": [
@@ -3366,8 +3366,8 @@
     "canonical_name": "Tiếng Trung",
     "skill_type": "hard",
     "aliases": [
-      "tiếng trung",
-      "chinese"
+      "chinese",
+      "tiếng trung"
     ],
     "parent_skill_id": "ngoai-ngu"
   },
@@ -3378,7 +3378,7 @@
     "aliases": [
       "ngôn ngữ lập trình"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
     "skill_id": "co-so-du-lieu",
@@ -3387,16 +3387,16 @@
     "aliases": [
       "cơ sở dữ liệu"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
-    "skill_id": "ien-toan-am-may",
+    "skill_id": "dien-toan-dam-may",
     "canonical_name": "Điện toán đám mây",
     "skill_type": "hard",
     "aliases": [
       "điện toán đám mây"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
     "skill_id": "phat-trien-frontend",
@@ -3405,7 +3405,7 @@
     "aliases": [
       "phát triển frontend"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
     "skill_id": "phat-trien-backend",
@@ -3414,16 +3414,16 @@
     "aliases": [
       "phát triển backend"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
-    "skill_id": "devops-ci-cd",
+    "skill_id": "devops-and-ci-cd",
     "canonical_name": "DevOps & CI/CD",
     "skill_type": "hard",
     "aliases": [
       "devops & ci/cd"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
     "skill_id": "kiem-thu-phan-mem",
@@ -3432,34 +3432,34 @@
     "aliases": [
       "kiểm thử phần mềm"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
-    "skill_id": "phan-tich-du-lieu-bi",
+    "skill_id": "phan-tich-du-lieu-and-bi",
     "canonical_name": "Phân tích dữ liệu & BI",
     "skill_type": "hard",
     "aliases": [
       "phân tích dữ liệu & bi"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
-    "skill_id": "machine-learning-ai",
+    "skill_id": "machine-learning-and-ai",
     "canonical_name": "Machine Learning & AI",
     "skill_type": "hard",
     "aliases": [
       "machine learning & ai"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
-    "skill_id": "thiet-ke-o-hoa",
+    "skill_id": "thiet-ke-do-hoa",
     "canonical_name": "Thiết kế đồ hoạ",
     "skill_type": "hard",
     "aliases": [
       "thiết kế đồ hoạ"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-cu-va-ngoai-ngu"
   },
   {
     "skill_id": "ngoai-ngu",
@@ -3468,7 +3468,7 @@
     "aliases": [
       "ngoại ngữ"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-cu-va-ngoai-ngu"
   },
   {
     "skill_id": "an-ninh-mang",
@@ -3477,7 +3477,7 @@
     "aliases": [
       "an ninh mạng"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin"
   },
   {
     "skill_id": "ke-toan",
@@ -3486,16 +3486,16 @@
     "aliases": [
       "kế toán"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-nghiep-vu"
   },
   {
-    "skill_id": "marketing-ban-hang",
+    "skill_id": "marketing-and-ban-hang",
     "canonical_name": "Marketing & Bán hàng",
     "skill_type": "hard",
     "aliases": [
       "marketing & bán hàng"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-nghiep-vu"
   },
   {
     "skill_id": "xay-dung",
@@ -3504,7 +3504,7 @@
     "aliases": [
       "xây dựng"
     ],
-    "parent_skill_id": null
+    "parent_skill_id": "ky-nang-nghiep-vu"
   },
   {
     "skill_id": "nhan-su",
@@ -3512,6 +3512,33 @@
     "skill_type": "hard",
     "aliases": [
       "nhân sự"
+    ],
+    "parent_skill_id": "ky-nang-nghiep-vu"
+  },
+  {
+    "skill_id": "ky-nang-cong-nghe-thong-tin",
+    "canonical_name": "Kỹ năng công nghệ thông tin",
+    "skill_type": "hard",
+    "aliases": [
+      "kỹ năng công nghệ thông tin"
+    ],
+    "parent_skill_id": null
+  },
+  {
+    "skill_id": "ky-nang-nghiep-vu",
+    "canonical_name": "Kỹ năng nghiệp vụ",
+    "skill_type": "hard",
+    "aliases": [
+      "kỹ năng nghiệp vụ"
+    ],
+    "parent_skill_id": null
+  },
+  {
+    "skill_id": "ky-nang-cong-cu-va-ngoai-ngu",
+    "canonical_name": "Kỹ năng công cụ và ngoại ngữ",
+    "skill_type": "hard",
+    "aliases": [
+      "kỹ năng công cụ và ngoại ngữ"
     ],
     "parent_skill_id": null
   },

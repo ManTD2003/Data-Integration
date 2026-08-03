@@ -1,0 +1,77 @@
+import duckdb
+import pytest
+
+from src.eval.integrity import run_checks
+
+
+def _warehouse(parent_of_python: str | None = "lang", closure_extra: str = "") -> duckdb.DuckDBPyConnection:
+    con = duckdb.connect(":memory:")
+    con.execute(
+        "CREATE TABLE dim_skill (skill_id VARCHAR, canonical_name VARCHAR, skill_type VARCHAR, "
+        "category VARCHAR, parent_skill_id VARCHAR)"
+    )
+    con.execute(f"""
+        INSERT INTO dim_skill VALUES
+            ('it', 'it', 'hard', NULL, NULL),
+            ('lang', 'lang', 'hard', 'it', 'it'),
+            ('python', 'Python', 'hard', 'lang', {'NULL' if parent_of_python is None else f"'{parent_of_python}'"})
+        """)
+    con.execute("CREATE TABLE dim_company (company_id INTEGER, name VARCHAR, name_norm VARCHAR, industry VARCHAR)")
+    con.execute("INSERT INTO dim_company VALUES (1, 'ACME', 'acme', NULL)")
+    con.execute("CREATE TABLE dim_location (location_id INTEGER, location_raw VARCHAR, city_guess VARCHAR)")
+    con.execute("INSERT INTO dim_location VALUES (1, 'Ha Noi', 'Ha Noi')")
+    con.execute("CREATE TABLE dim_time (date_id VARCHAR, day INTEGER, month INTEGER, quarter INTEGER, year INTEGER)")
+    con.execute("INSERT INTO dim_time VALUES ('2026-01-01', 1, 1, 1, 2026)")
+    con.execute(
+        "CREATE TABLE dim_job (job_id VARCHAR, title_raw VARCHAR, company_id INTEGER, location_id INTEGER, "
+        "posted_date VARCHAR, source VARCHAR)"
+    )
+    con.execute("INSERT INTO dim_job VALUES ('j1', 'Dev', 1, 1, '2026-01-01', 'itviec')")
+    con.execute(
+        "CREATE TABLE fact_job_skill (job_id VARCHAR, skill_id VARCHAR, skill_type VARCHAR, source VARCHAR, "
+        "extraction_method VARCHAR, confidence DOUBLE, evidence_snippet VARCHAR)"
+    )
+    con.execute("INSERT INTO fact_job_skill VALUES ('j1', 'python', 'hard', 'itviec', 'exact_match', 100, 'Python')")
+    con.execute("CREATE TABLE bridge_skill_closure (ancestor_id VARCHAR, descendant_id VARCHAR, depth INTEGER)")
+    con.execute(f"""
+        INSERT INTO bridge_skill_closure VALUES
+            ('it', 'it', 0), ('lang', 'lang', 0), ('python', 'python', 0),
+            ('it', 'lang', 1), ('lang', 'python', 1), ('it', 'python', 2)
+            {closure_extra}
+        """)
+    return con
+
+
+def _failed(checks):
+    return [label for label, ok, _ in checks if not ok]
+
+
+def test_consistent_warehouse_passes_every_check():
+    assert _failed(run_checks(_warehouse())) == []
+
+
+def test_closure_referencing_unknown_skill_is_reported():
+    checks = run_checks(_warehouse(closure_extra=", ('it', 'ghost', 1)"))
+    assert any("bridge_skill_closure.descendant_id" in label for label in _failed(checks))
+
+
+def test_flat_hierarchy_is_reported():
+    con = _warehouse()
+    con.execute("UPDATE dim_skill SET parent_skill_id = NULL")
+    con.execute("DELETE FROM bridge_skill_closure WHERE depth > 0")
+    failed = _failed(run_checks(con))
+    assert "Phân cấp không rỗng" in failed
+    assert "Closure bắc cầu quá một mức" in failed
+
+
+def test_lossy_skill_id_is_reported():
+    con = _warehouse()
+    con.execute("UPDATE dim_skill SET canonical_name = 'C#' WHERE skill_id = 'python'")
+    assert "skill_id khớp slug của canonical_name" in _failed(run_checks(con))
+
+
+@pytest.mark.parametrize("column", ["category", "parent_skill_id"])
+def test_empty_dimension_column_is_reported(column):
+    con = _warehouse()
+    con.execute(f"UPDATE dim_skill SET {column} = NULL")
+    assert "Không có cột dimension rỗng hoàn toàn" in _failed(run_checks(con))

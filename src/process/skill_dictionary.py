@@ -81,9 +81,27 @@ def _fold(text: str) -> str:
     return re.sub(r"\s+", " ", text)
 
 
+# NFKD không tách được "đ" và mọi ký hiệu đều bị bỏ, nên C#/C++/C cùng rơi về slug
+# "c" rồi phải phân biệt bằng hậu tố số theo thứ tự chèn — nghĩa là cùng một skill_id
+# có thể trỏ sang kỹ năng khác sau mỗi lần dựng lại từ điển. Phiên âm trước khi lọc.
+SYMBOL_MAP = [
+    ("c++", "c-plus-plus"),
+    ("c#", "c-sharp"),
+    ("f#", "f-sharp"),
+    (".net", "-dotnet"),
+    ("&", "-and-"),
+    ("+", "-plus"),
+    ("#", "-sharp"),
+]
+
+
 def _slugify(name: str) -> str:
-    ascii_name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()
-    slug = re.sub(r"[^a-z0-9]+", "-", ascii_name.lower()).strip("-")
+    text = _fold(name)
+    for symbol, replacement in SYMBOL_MAP:
+        text = text.replace(symbol, replacement)
+    text = text.replace("đ", "d")
+    ascii_name = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
+    slug = re.sub(r"[^a-z0-9]+", "-", ascii_name).strip("-")
     return slug or "skill"
 
 
@@ -189,6 +207,12 @@ def run() -> str:
     hard = sum(1 for s in skill_dict.skills.values() if s["skill_type"] == "hard")
     soft = sum(1 for s in skill_dict.skills.values() if s["skill_type"] == "soft")
     print(f"Skills: {len(skill_dict.skills)} (hard={hard}, soft={soft}) | aliases: {len(skill_dict.alias_index)}")
+
+    slugs = Counter(_slugify(s["canonical_name"]) for s in skill_dict.skills.values())
+    collided = {slug: n for slug, n in slugs.items() if n > 1}
+    if collided:
+        print("Slug trùng, skill_id phải thêm hậu tố số:", collided)
+
     print(f"Từ điển -> {DICTIONARY_PATH}")
     return str(DICTIONARY_PATH)
 

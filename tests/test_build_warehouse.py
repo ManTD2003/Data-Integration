@@ -1,9 +1,13 @@
+import pandas as pd
+import pytest
+
 from src.warehouse.build_warehouse import (
     _guess_city,
     _months_experience,
     _parse_salary,
     _role_family,
     build_dim_skill,
+    check_integrity,
 )
 
 
@@ -51,3 +55,55 @@ def test_build_dim_skill_fills_category_from_parent():
     df = build_dim_skill(skills)
     row = df[df["skill_id"] == "py"].iloc[0]
     assert row["category"] == "Ngôn ngữ lập trình"
+
+
+def _tables(**overrides) -> dict[str, pd.DataFrame]:
+    tables = {
+        "dim_skill": pd.DataFrame(
+            [
+                {"skill_id": "cat", "canonical_name": "Ngôn ngữ lập trình", "category": None, "parent_skill_id": None},
+                {
+                    "skill_id": "py",
+                    "canonical_name": "Python",
+                    "category": "Ngôn ngữ lập trình",
+                    "parent_skill_id": "cat",
+                },
+            ]
+        ),
+        "dim_job": pd.DataFrame([{"job_id": "j1"}]),
+        "fact_job_skill": pd.DataFrame([{"job_id": "j1", "skill_id": "py"}]),
+        "bridge_skill_closure": pd.DataFrame(
+            [
+                {"ancestor_id": "cat", "descendant_id": "cat", "depth": 0},
+                {"ancestor_id": "py", "descendant_id": "py", "depth": 0},
+                {"ancestor_id": "cat", "descendant_id": "py", "depth": 1},
+            ]
+        ),
+    }
+    tables.update(overrides)
+    return tables
+
+
+def test_check_integrity_accepts_consistent_tables():
+    check_integrity(_tables())
+
+
+def test_check_integrity_rejects_closure_pointing_outside_dim_skill():
+    closure = pd.DataFrame([{"ancestor_id": "cat", "descendant_id": "ghost", "depth": 1}])
+    with pytest.raises(ValueError, match="bridge_skill_closure"):
+        check_integrity(_tables(bridge_skill_closure=closure))
+
+
+def test_check_integrity_rejects_fact_pointing_at_unknown_job():
+    fact = pd.DataFrame([{"job_id": "j404", "skill_id": "py"}])
+    with pytest.raises(ValueError, match="fact_job_skill.job_id"):
+        check_integrity(_tables(fact_job_skill=fact))
+
+
+def test_check_integrity_rejects_missing_hierarchy():
+    skills = pd.DataFrame(
+        [{"skill_id": "py", "canonical_name": "Python", "category": None, "parent_skill_id": None}]
+    )
+    closure = pd.DataFrame([{"ancestor_id": "py", "descendant_id": "py", "depth": 0}])
+    with pytest.raises(ValueError, match="build_hierarchy"):
+        check_integrity(_tables(dim_skill=skills, bridge_skill_closure=closure))
