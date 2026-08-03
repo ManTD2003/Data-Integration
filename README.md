@@ -42,6 +42,9 @@ Chạy tuần tự từ thư mục gốc dự án:
 
 # 9. Phân cấp kỹ năng cụ thể -> tổng quát + closure table
 .venv/bin/python -m src.process.build_hierarchy
+
+# 10. Nạp star schema vào DuckDB (dim_job, dim_skill, fact_job_skill...)
+.venv/bin/python -m src.warehouse.build_warehouse
 ```
 
 Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/records.jsonl`
@@ -49,7 +52,8 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
 `data/staging/skill_dictionary.json` (từ điển kỹ năng, đã gộp biến thể và gắn
 `parent_skill_id`), `data/staging/job_skills.jsonl` (cặp job-skill đã trích xuất),
 `data/staging/skill_merge_log.json` (log các cụm biến thể đã gộp),
-`data/staging/skill_closure.jsonl` (bảng closure ancestor/descendant cho phân cấp).
+`data/staging/skill_closure.jsonl` (bảng closure ancestor/descendant cho phân cấp),
+`data/warehouse.duckdb` (kho dữ liệu star schema).
 
 ## Cấu trúc
 
@@ -75,6 +79,11 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
 - `src/process/build_hierarchy.py` — gán `parent_skill_id` theo `CATEGORY_MAP` (phân
   loại lĩnh vực soát tay qua từ điển đã gộp) và dựng `bridge_skill_closure`
   (`skill_closure.jsonl`) phục vụ mở rộng truy vấn theo phân cấp cụ thể -> tổng quát.
+- `src/warehouse/build_warehouse.py` — nạp star schema vào `data/warehouse.duckdb`:
+  `dim_job/dim_company/dim_location/dim_time/dim_skill/dim_skill_variant` +
+  `fact_job_skill` + `bridge_skill_closure`. `salary_raw` khác đơn vị theo nguồn
+  (vieclam24h/itviec: khoảng lương tháng VNĐ; data_jobs: lương trung bình năm USD)
+  nên giữ nguyên `salary_currency`/`salary_period` thay vì tự quy đổi tỷ giá.
 
 ## Kiểm thử
 
