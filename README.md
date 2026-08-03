@@ -85,6 +85,25 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   (vieclam24h/itviec: khoảng lương tháng VNĐ; data_jobs: lương trung bình năm USD)
   nên giữ nguyên `salary_currency`/`salary_period` thay vì tự quy đổi tỷ giá.
 
+## Công cụ tìm kiếm
+
+```bash
+# API: tìm việc theo kỹ năng (mở rộng phân cấp), tra cứu kỹ năng, thống kê OLAP
+.venv/bin/uvicorn src.api.main:app --reload
+
+# Web app (Streamlit) — gọi thẳng lớp truy vấn, không qua HTTP
+.venv/bin/streamlit run src/app/streamlit_app.py
+```
+
+- `src/api/queries.py` — lớp truy vấn DuckDB dùng chung cho cả API và Streamlit
+  (mỗi hàm nhận `con` để test độc lập với dữ liệu mẫu, không phụ thuộc kho thật).
+- `src/api/main.py` — FastAPI: `/skills` (tìm kỹ năng theo tên/biến thể),
+  `/skills/{id}` (chi tiết + provenance), `/jobs/search` (tìm việc theo kỹ năng,
+  `expand=true` mở rộng qua closure table), `/stats/top-skills`,
+  `/stats/hard-soft-ratio`.
+- `src/app/streamlit_app.py` — 3 trang: tìm việc theo kỹ năng, tra cứu kỹ năng
+  (canonical, biến thể, cha/con, ví dụ trích chọn), dashboard OLAP.
+
 ## Kiểm thử
 
 ```bash
