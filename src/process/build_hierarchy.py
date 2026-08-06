@@ -49,7 +49,7 @@ CATEGORY_MAP: dict[str, list[str]] = {
         "Terraform", "puppet", "chef", "CI/CD",
     ],
     "Kiểm thử phần mềm": [
-        "Selenium", "Playwright", "JUnit", "Appium", "Automation Test", "Tester", "QA QC",
+        "Selenium", "Playwright", "JUnit", "Appium", "Automation Test",
     ],
     "Phân tích dữ liệu & BI": [
         "Power BI", "Tableau", "qlik", "Looker", "microstrategy", "cognos", "spss",
@@ -80,11 +80,11 @@ CATEGORY_MAP: dict[str, list[str]] = {
     "Marketing & Bán hàng": [
         "Bán hàng", "Chăm sóc khách hàng", "Telesale", "Content Marketing",
         "Digital Marketing", "Social Media Marketing", "Quảng cáo Facebook",
-        "Quảng cáo Google", "SEO", "CRM", "Presale",
+        "Quảng cáo Google", "SEO", "CRM",
     ],
     "Quản lý dự án": [
         "Project Management", "Lean Project Management", "Scrum", "Agile",
-        "Waterfall Methodology", "User story", "Product Owner", "Product Management",
+        "Waterfall Methodology", "User story", "Product Management",
         "Product roadmap", "Product strategy", "Product Design", "Product Metrics",
     ],
     "Xây dựng": [
@@ -116,10 +116,15 @@ ROOT_MAP: dict[str, list[str]] = {
 def assign_parents(skill_dict: SkillDictionary) -> list[str]:
     """Gán parent_skill_id theo CATEGORY_MAP rồi gom category vào ROOT_MAP. Trả về
     danh sách tên không tìm thấy trong từ điển (để phát hiện lỗi gõ tên trước khi
-    commit)."""
+    commit).
+
+    Nút nhóm nào phải tạo mới thì đánh dấu `is_category` để bước trích chọn bỏ qua.
+    Nút trùng tên với một kỹ năng đã có (``Tin học văn phòng``, ``Project
+    Management``) vẫn là kỹ năng trích chọn được, chỉ nhận thêm vai trò làm cha.
+    """
     missing: list[str] = []
     for category_name, children in CATEGORY_MAP.items():
-        category_id = skill_dict.add(category_name, "hard", [category_name])
+        category_id = skill_dict.add(category_name, "hard", [category_name], is_category=True)
         for child_name in children:
             entry = skill_dict.lookup(child_name)
             if entry is None:
@@ -130,7 +135,7 @@ def assign_parents(skill_dict: SkillDictionary) -> list[str]:
             entry["parent_skill_id"] = category_id
 
     for root_name, categories in ROOT_MAP.items():
-        root_id = skill_dict.add(root_name, "hard", [root_name])
+        root_id = skill_dict.add(root_name, "hard", [root_name], is_category=True)
         for category_name in categories:
             entry = skill_dict.lookup(category_name)
             if entry is None:
@@ -139,7 +144,7 @@ def assign_parents(skill_dict: SkillDictionary) -> list[str]:
             if entry["skill_id"] != root_id:
                 entry["parent_skill_id"] = root_id
 
-    soft_root_id = skill_dict.add(SOFT_SKILL_ROOT, "soft", [SOFT_SKILL_ROOT])
+    soft_root_id = skill_dict.add(SOFT_SKILL_ROOT, "soft", [SOFT_SKILL_ROOT], is_category=True)
     for entry in skill_dict.skills.values():
         if entry["skill_type"] == "soft" and entry["skill_id"] != soft_root_id and not entry["parent_skill_id"]:
             entry["parent_skill_id"] = soft_root_id
@@ -169,6 +174,7 @@ def run() -> str:
     skill_dict = SkillDictionary()
     for entry in skills:
         entry.setdefault("parent_skill_id", None)
+        entry.setdefault("is_category", False)
         skill_dict.skills[entry["skill_id"]] = entry
         for alias in entry["aliases"]:
             skill_dict.alias_index[alias] = entry["skill_id"]

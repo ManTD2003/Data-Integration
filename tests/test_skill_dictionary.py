@@ -54,6 +54,41 @@ def test_slug_transliterates_vietnamese_d():
     assert _slugify("Đọc bản vẽ kỹ thuật") == "doc-ban-ve-ky-thuat"
 
 
+def test_role_titles_are_not_mined_as_skills():
+    """Tag của nguồn trộn kỹ năng với chức danh; giữ lại thì gazetteer khớp tiêu đề
+    'Senior Data Engineer' thành một kỹ năng."""
+    records = [{"extra": {"skills_given": ["Data Engineer", "Tester", "Python"]}}]
+    skill_dict = build_dictionary(records)
+    assert skill_dict.lookup("data engineer") is None
+    assert skill_dict.lookup("tester") is None
+    assert skill_dict.lookup("python") is not None
+
+
+def test_extra_aliases_cover_common_abbreviations():
+    skill_dict = build_dictionary([{"extra": {"skills_given": ["Kubernetes"]}}])
+    assert skill_dict.lookup("k8s")["canonical_name"] == "Kubernetes"
+
+
+def test_for_extraction_drops_category_nodes():
+    skill_dict = SkillDictionary()
+    skill_dict.add("Python", "hard", ["python"])
+    skill_dict.add("Ngôn ngữ lập trình", "hard", [], is_category=True)
+
+    view = skill_dict.for_extraction()
+
+    assert view.lookup("python") is not None
+    assert view.lookup("ngôn ngữ lập trình") is None
+
+
+def test_add_keeps_existing_entry_extractable_when_promoted_to_category():
+    """Kỹ năng có thật rồi mới được chọn làm nút cha thì vẫn phải trích chọn được."""
+    skill_dict = SkillDictionary()
+    skill_dict.add("Tin học văn phòng", "hard", ["tin học văn phòng"])
+    skill_dict.add("Tin học văn phòng", "hard", [], is_category=True)
+
+    assert skill_dict.for_extraction().lookup("tin học văn phòng") is not None
+
+
 def test_c_family_ids_do_not_depend_on_insertion_order():
     forward = SkillDictionary()
     for name in ("c", "C++", "C#"):

@@ -14,8 +14,33 @@ import unicodedata
 from collections import Counter
 
 from src.common.paths import STAGING
+from src.common.schema import strip_accents
 
 DICTIONARY_PATH = STAGING / "skill_dictionary.json"
+
+# Tag của nguồn trộn lẫn kỹ năng với tên vị trí tuyển dụng. Giữ lại tên vị trí thì
+# gazetteer khớp "Senior Data Engineer" thành kỹ năng "Data Engineer" — sai loại
+# thực thể, và làm bẩn cả bảng xếp hạng nhu cầu kỹ năng.
+ROLE_TERMS = {
+    "data engineer",
+    "data scientist",
+    "data analyst",
+    "software engineer",
+    "bridge engineer",
+    "product owner",
+    "tester",
+    "qa qc",
+    "system admin",
+    "presale",
+}
+
+# Viết tắt thông dụng không xuất hiện trong tag của nguồn nên không mine được.
+# Chỉ nhận các viết tắt không nhập nhằng: "js"/"ts"/"ml" bị loại vì chúng cũng là
+# token thường gặp trong văn bản tiếng Việt, thêm vào sẽ sinh dương tính giả.
+EXTRA_ALIASES: dict[str, list[str]] = {
+    "Kubernetes": ["k8s"],
+    "PostgreSql": ["postgres"],
+}
 
 # Kỹ năng mined từ skills_given thường là công cụ/công nghệ cụ thể (hard). Vài mục
 # mang tính quản lý/con người thì cần gắn lại thành soft.
@@ -99,9 +124,7 @@ def _slugify(name: str) -> str:
     text = _fold(name)
     for symbol, replacement in SYMBOL_MAP:
         text = text.replace(symbol, replacement)
-    text = text.replace("đ", "d")
-    ascii_name = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
-    slug = re.sub(r"[^a-z0-9]+", "-", ascii_name).strip("-")
+    slug = re.sub(r"[^a-z0-9]+", "-", strip_accents(text)).strip("-")
     return slug or "skill"
 
 
@@ -117,16 +140,19 @@ class SkillDictionary:
         self.skills: dict[str, dict] = {}
         self.alias_index: dict[str, str] = {}
 
-    def _new_skill(self, skill_id: str, canonical_name: str, skill_type: str) -> None:
+    def _new_skill(self, skill_id: str, canonical_name: str, skill_type: str, is_category: bool) -> None:
         self.skills[skill_id] = {
             "skill_id": skill_id,
             "canonical_name": canonical_name,
             "skill_type": skill_type,
             "aliases": [],
             "parent_skill_id": None,
+            "is_category": is_category,
         }
 
-    def add(self, canonical_name: str, skill_type: str, aliases: list[str]) -> str:
+    def add(
+        self, canonical_name: str, skill_type: str, aliases: list[str], is_category: bool = False
+    ) -> str:
         all_aliases = {_fold(canonical_name), *[_fold(a) for a in aliases]}
         existing_id = next((self.alias_index[a] for a in all_aliases if a in self.alias_index), None)
 
@@ -136,7 +162,7 @@ class SkillDictionary:
             while skill_id in self.skills:
                 skill_id = f"{_slugify(canonical_name)}-{suffix}"
                 suffix += 1
-            self._new_skill(skill_id, canonical_name, skill_type)
+            self._new_skill(skill_id, canonical_name, skill_type, is_category)
             existing_id = skill_id
 
         entry = self.skills[existing_id]
@@ -145,6 +171,22 @@ class SkillDictionary:
             if alias not in entry["aliases"]:
                 entry["aliases"].append(alias)
         return existing_id
+
+    def for_extraction(self) -> SkillDictionary:
+        """Bản từ điển bỏ các nút nhóm do bước phân cấp sinh ra.
+
+        Nếu không lọc, chạy lại bước trích chọn sau bước phân cấp sẽ khớp thêm chính
+        các nhãn nhóm ("ngôn ngữ lập trình", "cơ sở dữ liệu"...) mà bước trích chọn
+        chạy trước đó không hề thấy — kết quả phụ thuộc thứ tự chạy.
+        """
+        view = SkillDictionary()
+        for skill_id, entry in self.skills.items():
+            if entry.get("is_category"):
+                continue
+            view.skills[skill_id] = entry
+            for alias in entry["aliases"]:
+                view.alias_index[alias] = skill_id
+        return view
 
     def lookup(self, alias: str) -> dict | None:
         skill_id = self.alias_index.get(_fold(alias))
@@ -169,7 +211,10 @@ def build_dictionary(records: list[dict]) -> SkillDictionary:
     mined = _mine_from_records(records)
     grouped: dict[str, Counter] = {}
     for name, count in mined.items():
-        grouped.setdefault(_fold(name), Counter())[name] += count
+        folded = _fold(name)
+        if folded in ROLE_TERMS:
+            continue
+        grouped.setdefault(folded, Counter())[name] += count
 
     skill_dict = SkillDictionary()
     for folded, variants in grouped.items():
@@ -180,6 +225,11 @@ def build_dictionary(records: list[dict]) -> SkillDictionary:
     for canonical_name, skill_type, aliases in SUPPLEMENT:
         skill_dict.add(canonical_name, skill_type, aliases)
 
+    for canonical_name, aliases in EXTRA_ALIASES.items():
+        entry = skill_dict.lookup(canonical_name)
+        if entry is not None:
+            skill_dict.add(entry["canonical_name"], entry["skill_type"], aliases)
+
     return skill_dict
 
 
@@ -187,6 +237,7 @@ def load_or_build(records: list[dict], force_rebuild: bool = False) -> SkillDict
     if not force_rebuild and DICTIONARY_PATH.exists():
         skill_dict = SkillDictionary()
         for entry in json.loads(DICTIONARY_PATH.read_text(encoding="utf-8")):
+            entry.setdefault("is_category", False)
             skill_dict.skills[entry["skill_id"]] = entry
             for alias in entry["aliases"]:
                 skill_dict.alias_index[alias] = entry["skill_id"]

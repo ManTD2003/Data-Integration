@@ -2,49 +2,11 @@ import pandas as pd
 import pytest
 
 from src.warehouse.build_warehouse import (
-    _guess_city,
-    _months_experience,
-    _parse_salary,
-    _role_family,
     build_dim_skill,
+    build_dim_skill_term,
     check_integrity,
+    search_terms,
 )
-
-
-def test_parse_salary_splits_vieclam24h_range():
-    rec = {"source": "vieclam24h", "salary_raw": "15000000-20000000"}
-    assert _parse_salary(rec) == (15000000.0, 20000000.0)
-
-
-def test_parse_salary_handles_partial_range():
-    rec = {"source": "vieclam24h", "salary_raw": "None-20000000"}
-    assert _parse_salary(rec) == (None, 20000000.0)
-
-
-def test_parse_salary_uses_single_value_for_data_jobs():
-    rec = {"source": "data_jobs", "salary_raw": "95000"}
-    assert _parse_salary(rec) == (95000.0, 95000.0)
-
-
-def test_parse_salary_missing_returns_none():
-    assert _parse_salary({"source": "itviec", "salary_raw": None}) == (None, None)
-
-
-def test_guess_city_takes_last_comma_segment():
-    assert _guess_city("Thành phố Thủ Đức, Hồ Chí Minh") == "Hồ Chí Minh"
-    assert _guess_city(None) is None
-
-
-def test_months_experience_parses_itviec_level():
-    assert _months_experience("37 months") == 37
-    assert _months_experience(None) is None
-    assert _months_experience("senior") is None
-
-
-def test_role_family_uses_source_specific_field():
-    assert _role_family({"source": "data_jobs", "extra": {"job_title_short": "Data Engineer"}}) == "Data Engineer"
-    assert _role_family({"source": "vieclam24h", "extra": {"query": "marketing"}}) == "marketing"
-    assert _role_family({"source": "itviec", "extra": {}}) is None
 
 
 def test_build_dim_skill_fills_category_from_parent():
@@ -55,23 +17,51 @@ def test_build_dim_skill_fills_category_from_parent():
     df = build_dim_skill(skills)
     row = df[df["skill_id"] == "py"].iloc[0]
     assert row["category"] == "Ngôn ngữ lập trình"
+    assert not row["is_category"]
+
+
+def test_search_terms_cover_accentless_and_compact_forms():
+    terms = search_terms({"canonical_name": "Tiếng Anh", "aliases": ["tiếng anh", "english"]})
+    assert {"tiếng anh", "tieng anh", "tienganh", "english"} <= terms
+
+
+def test_search_terms_keep_symbols():
+    terms = search_terms({"canonical_name": "C++", "aliases": ["c++"]})
+    assert "c++" in terms
+
+
+def test_build_dim_skill_term_lists_one_row_per_term():
+    skills = [{"skill_id": "next", "canonical_name": "NextJS", "aliases": ["nextjs", "next js"]}]
+    df = build_dim_skill_term(skills)
+    assert set(df["skill_id"]) == {"next"}
+    assert {"nextjs", "next js"} <= set(df["term"])
 
 
 def _tables(**overrides) -> dict[str, pd.DataFrame]:
     tables = {
         "dim_skill": pd.DataFrame(
             [
-                {"skill_id": "cat", "canonical_name": "Ngôn ngữ lập trình", "category": None, "parent_skill_id": None},
+                {
+                    "skill_id": "cat",
+                    "canonical_name": "Ngôn ngữ lập trình",
+                    "category": None,
+                    "parent_skill_id": None,
+                    "is_category": True,
+                },
                 {
                     "skill_id": "py",
                     "canonical_name": "Python",
                     "category": "Ngôn ngữ lập trình",
                     "parent_skill_id": "cat",
+                    "is_category": False,
                 },
             ]
         ),
         "dim_job": pd.DataFrame([{"job_id": "j1"}]),
         "fact_job_skill": pd.DataFrame([{"job_id": "j1", "skill_id": "py"}]),
+        "dim_skill_term": pd.DataFrame(
+            [{"skill_id": "cat", "term": "ngon ngu lap trinh"}, {"skill_id": "py", "term": "python"}]
+        ),
         "bridge_skill_closure": pd.DataFrame(
             [
                 {"ancestor_id": "cat", "descendant_id": "cat", "depth": 0},
@@ -102,8 +92,30 @@ def test_check_integrity_rejects_fact_pointing_at_unknown_job():
 
 def test_check_integrity_rejects_missing_hierarchy():
     skills = pd.DataFrame(
-        [{"skill_id": "py", "canonical_name": "Python", "category": None, "parent_skill_id": None}]
+        [
+            {
+                "skill_id": "py",
+                "canonical_name": "Python",
+                "category": None,
+                "parent_skill_id": None,
+                "is_category": False,
+            }
+        ]
     )
     closure = pd.DataFrame([{"ancestor_id": "py", "descendant_id": "py", "depth": 0}])
     with pytest.raises(ValueError, match="build_hierarchy"):
         check_integrity(_tables(dim_skill=skills, bridge_skill_closure=closure))
+
+
+def test_check_integrity_rejects_fact_on_category_node():
+    """Nút nhóm có dòng fact nghĩa là bước trích chọn đã chạy trên từ điển đã gắn
+    phân cấp, tức kết quả phụ thuộc thứ tự chạy pipeline."""
+    fact = pd.DataFrame([{"job_id": "j1", "skill_id": "cat"}])
+    with pytest.raises(ValueError, match="nút nhóm"):
+        check_integrity(_tables(fact_job_skill=fact))
+
+
+def test_check_integrity_rejects_term_pointing_outside_dim_skill():
+    terms = pd.DataFrame([{"skill_id": "ghost", "term": "ma"}])
+    with pytest.raises(ValueError, match="dim_skill_term"):
+        check_integrity(_tables(dim_skill_term=terms))

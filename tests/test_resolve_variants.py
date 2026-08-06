@@ -30,6 +30,41 @@ def test_symbol_suffix_does_not_collapse_c_variants():
     assert log == []
 
 
+def test_protected_pair_is_never_merged():
+    """Chặn tường minh các cặp tên gần nhau nhưng khác nghĩa, để luật chuẩn hoá thêm
+    về sau không âm thầm gộp chúng."""
+    skill_dict = SkillDictionary()
+    skill_dict.add("java", "hard", ["java"])
+    skill_dict.add("javascript", "hard", ["javascript"])
+    skill_dict.add("react", "hard", ["react"])
+    skill_dict.add("react native", "hard", ["react native"])
+
+    merged, _, _ = resolve(_dict_to_skills(skill_dict))
+
+    assert len(merged.skills) == 4
+
+
+def test_short_name_keeps_js_suffix():
+    """Bỏ hậu tố của tên quá ngắn thì phần lõi còn lại không đủ để coi là cùng kỹ năng."""
+    skill_dict = SkillDictionary()
+    skill_dict.add("js", "hard", ["js"])
+    skill_dict.add("j", "hard", ["j"])
+
+    merged, log, _ = resolve(_dict_to_skills(skill_dict))
+
+    assert len(merged.skills) == 2
+    assert log == []
+
+
+def test_category_flag_survives_merge():
+    skill_dict = SkillDictionary()
+    skill_dict.add("Ngôn ngữ lập trình", "hard", ["ngôn ngữ lập trình"], is_category=True)
+
+    merged, _, _ = resolve(_dict_to_skills(skill_dict))
+
+    assert all(entry["is_category"] for entry in merged.skills.values())
+
+
 def test_curated_merge_applies_known_abbreviation():
     skill_dict = SkillDictionary()
     skill_dict.add("mongo", "hard", ["mongo"])

@@ -60,9 +60,14 @@ def page_search_jobs(con) -> None:
             title = job["title_raw"] or "(không có tiêu đề)"
             if job.get("url"):
                 st.markdown(f"**[{title}]({job['url']})**")
+            elif job.get("source_search_url"):
+                # Hai nguồn không phát hành URL tin nên chỉ dẫn về trang tìm kiếm của họ.
+                st.markdown(f"**{title}** — [tìm trên nguồn]({job['source_search_url']})")
             else:
                 st.markdown(f"**{title}**")
-            st.caption(f"{job.get('company') or '—'} · {job.get('location') or '—'} · {job['source']}")
+            location = job.get("city") or job.get("location") or "—"
+            seniority = job.get("seniority") or "—"
+            st.caption(f"{job.get('company') or '—'} · {location} · {seniority} · {job['source']}")
             st.write(f"Kỹ năng khớp: {job['matched_skills']}")
 
 
@@ -111,7 +116,7 @@ def page_dashboard(con) -> None:
 
     ratio = queries.hard_soft_ratio(con, role_family=role_family)
     if ratio:
-        st.write("Tỉ lệ kỹ năng cứng / mềm")
+        st.write("Số tin có yêu cầu kỹ năng cứng / kỹ năng mềm")
         st.bar_chart(pd.Series(ratio))
 
 

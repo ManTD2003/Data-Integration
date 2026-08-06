@@ -70,6 +70,29 @@ def test_closure_reaches_leaf_from_root():
     assert {"ancestor_id": root_id, "descendant_id": python_id, "depth": 2} in closure
 
 
+def test_created_group_nodes_are_marked_as_category():
+    skill_dict = SkillDictionary()
+    skill_dict.add("Python", "hard", ["python"])
+    assign_parents(skill_dict)
+
+    category = skill_dict.skills[skill_dict.lookup("python")["parent_skill_id"]]
+    assert category["is_category"]
+    assert not skill_dict.lookup("python")["is_category"]
+
+
+def test_extraction_result_does_not_depend_on_hierarchy_step():
+    """Bước phân cấp thêm nhãn nhóm vào từ điển; nếu bước trích chọn nhìn thấy chúng
+    thì chạy lại pipeline theo thứ tự khác sẽ ra kết quả khác."""
+    skill_dict = SkillDictionary()
+    skill_dict.add("Python", "hard", ["python"])
+    before = set(skill_dict.for_extraction().alias_index)
+
+    assign_parents(skill_dict)
+    after = set(skill_dict.for_extraction().alias_index)
+
+    assert before == after
+
+
 def test_closure_stops_on_cyclic_parent():
     skill_dict = SkillDictionary()
     first = skill_dict.add("A", "hard", ["a"])

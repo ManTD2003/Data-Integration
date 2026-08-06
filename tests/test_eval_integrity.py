@@ -8,25 +8,30 @@ def _warehouse(parent_of_python: str | None = "lang", closure_extra: str = "") -
     con = duckdb.connect(":memory:")
     con.execute(
         "CREATE TABLE dim_skill (skill_id VARCHAR, canonical_name VARCHAR, skill_type VARCHAR, "
-        "category VARCHAR, parent_skill_id VARCHAR)"
+        "category VARCHAR, parent_skill_id VARCHAR, is_category BOOLEAN)"
     )
     con.execute(f"""
         INSERT INTO dim_skill VALUES
-            ('it', 'it', 'hard', NULL, NULL),
-            ('lang', 'lang', 'hard', 'it', 'it'),
-            ('python', 'Python', 'hard', 'lang', {'NULL' if parent_of_python is None else f"'{parent_of_python}'"})
+            ('it', 'it', 'hard', NULL, NULL, true),
+            ('lang', 'lang', 'hard', 'it', 'it', true),
+            ('python', 'Python', 'hard', 'lang',
+             {'NULL' if parent_of_python is None else f"'{parent_of_python}'"}, false)
         """)
+    con.execute("CREATE TABLE dim_skill_term (skill_id VARCHAR, term VARCHAR)")
+    con.execute("INSERT INTO dim_skill_term VALUES ('it', 'it'), ('lang', 'lang'), ('python', 'python')")
+    con.execute("CREATE TABLE dim_skill_variant (variant_id INTEGER, skill_id VARCHAR, surface_form VARCHAR)")
+    con.execute("INSERT INTO dim_skill_variant VALUES (1, 'python', 'python')")
     con.execute("CREATE TABLE dim_company (company_id INTEGER, name VARCHAR, name_norm VARCHAR, industry VARCHAR)")
     con.execute("INSERT INTO dim_company VALUES (1, 'ACME', 'acme', NULL)")
-    con.execute("CREATE TABLE dim_location (location_id INTEGER, location_raw VARCHAR, city_guess VARCHAR)")
-    con.execute("INSERT INTO dim_location VALUES (1, 'Ha Noi', 'Ha Noi')")
+    con.execute("CREATE TABLE dim_location (location_id INTEGER, location_raw VARCHAR, city VARCHAR, country VARCHAR)")
+    con.execute("INSERT INTO dim_location VALUES (1, 'Ha Noi', 'Hà Nội', 'Việt Nam')")
     con.execute("CREATE TABLE dim_time (date_id VARCHAR, day INTEGER, month INTEGER, quarter INTEGER, year INTEGER)")
     con.execute("INSERT INTO dim_time VALUES ('2026-01-01', 1, 1, 1, 2026)")
     con.execute(
         "CREATE TABLE dim_job (job_id VARCHAR, title_raw VARCHAR, company_id INTEGER, location_id INTEGER, "
-        "posted_date VARCHAR, source VARCHAR)"
+        "posted_date VARCHAR, source VARCHAR, seniority VARCHAR)"
     )
-    con.execute("INSERT INTO dim_job VALUES ('j1', 'Dev', 1, 1, '2026-01-01', 'itviec')")
+    con.execute("INSERT INTO dim_job VALUES ('j1', 'Dev', 1, 1, '2026-01-01', 'itviec', 'Cao cấp')")
     con.execute(
         "CREATE TABLE fact_job_skill (job_id VARCHAR, skill_id VARCHAR, skill_type VARCHAR, source VARCHAR, "
         "extraction_method VARCHAR, confidence DOUBLE, evidence_snippet VARCHAR)"
@@ -68,6 +73,18 @@ def test_lossy_skill_id_is_reported():
     con = _warehouse()
     con.execute("UPDATE dim_skill SET canonical_name = 'C#' WHERE skill_id = 'python'")
     assert "skill_id khớp slug của canonical_name" in _failed(run_checks(con))
+
+
+def test_fact_on_category_node_is_reported():
+    con = _warehouse()
+    con.execute("INSERT INTO fact_job_skill VALUES ('j1', 'lang', 'hard', 'itviec', 'exact_match', 100, 'lang')")
+    assert "Nút nhóm không bị trích chọn như kỹ năng thường" in _failed(run_checks(con))
+
+
+def test_missing_accentless_term_is_reported():
+    con = _warehouse()
+    con.execute("UPDATE dim_skill SET canonical_name = 'Tiếng Anh' WHERE skill_id = 'python'")
+    assert "Kỹ năng có dấu đều tra được bằng chuỗi không dấu" in _failed(run_checks(con))
 
 
 @pytest.mark.parametrize("column", ["category", "parent_skill_id"])

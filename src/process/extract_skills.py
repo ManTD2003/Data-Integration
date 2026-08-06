@@ -151,7 +151,9 @@ def run() -> str:
     records = [json.loads(line) for line in open(records_path, encoding="utf-8")]
     canonical = [r for r in records if r.get("is_canonical", True)]
 
-    skill_dict = load_or_build(records)
+    # Nút nhóm của cây phân cấp không phải kỹ năng viết trong tin, và chúng chỉ tồn
+    # tại sau bước build_hierarchy — lọc ra để kết quả không phụ thuộc thứ tự chạy.
+    skill_dict = load_or_build(records).for_extraction()
     single_word_aliases = [a for a in skill_dict.alias_index if " " not in a and len(a) >= MIN_FUZZY_TOKEN_LEN]
 
     method_counts: dict[str, int] = {}

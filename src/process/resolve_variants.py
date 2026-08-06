@@ -32,13 +32,31 @@ CURATED_MERGES = [
 ]
 
 
+MIN_JS_CORE_LEN = 3
+
+# Cặp tên gần nhau nhưng khác nghĩa; chặn tường minh để một luật chuẩn hoá thêm vào
+# sau này không âm thầm gộp chúng.
+PROTECTED_PAIRS = {
+    frozenset({"java", "javascript"}),
+    frozenset({"sql", "mysql"}),
+    frozenset({"c", "c++"}),
+    frozenset({"c", "c#"}),
+    frozenset({"react", "react native"}),
+}
+
+
 def _strip_js_suffix(folded: str) -> str:
     # Chỉ bỏ dấu phân cách (khoảng trắng/dấu chấm/gạch), KHÔNG bỏ +/# — nếu không
     # C, C++, C# đều rơi về cùng một khoá "c" (lỗi đã gặp khi thử phiên bản đầu).
     core = re.sub(r"[\s\-_.]", "", folded)
-    if core.endswith("js") and len(core) > 4:
+    if core.endswith("js") and len(core) - 2 >= MIN_JS_CORE_LEN:
         return core[:-2]
     return core
+
+
+def _protected(a: dict, b: dict) -> bool:
+    pair = frozenset({_fold(a["canonical_name"]), _fold(b["canonical_name"])})
+    return pair in PROTECTED_PAIRS
 
 
 def _cluster(skills: list[dict]) -> dict[str, str]:
@@ -55,6 +73,7 @@ def _cluster(skills: list[dict]) -> dict[str, str]:
         if ra != rb:
             parent[ra] = rb
 
+    by_id = {s["skill_id"]: s for s in skills}
     by_alias: dict[str, str] = {}
     by_suffix_key: dict[tuple[str, str], list[str]] = {}
     for s in skills:
@@ -65,11 +84,13 @@ def _cluster(skills: list[dict]) -> dict[str, str]:
 
     for ids in by_suffix_key.values():
         for other in ids[1:]:
+            if _protected(by_id[ids[0]], by_id[other]):
+                continue
             union(ids[0], other)
 
     for alias_a, alias_b in CURATED_MERGES:
         id_a, id_b = by_alias.get(alias_a), by_alias.get(alias_b)
-        if id_a and id_b:
+        if id_a and id_b and not _protected(by_id[id_a], by_id[id_b]):
             union(id_a, id_b)
 
     return {sid: find(sid) for sid in parent}
@@ -121,6 +142,7 @@ def resolve(skills: list[dict]) -> tuple[SkillDictionary, list[dict], dict[str, 
         # sạch phân cấp mà kho vẫn nạp bình thường.
         parent_id = next((m["parent_skill_id"] for m in members if m.get("parent_skill_id")), None)
         merged_dict.skills[new_id]["parent_skill_id"] = parent_id
+        merged_dict.skills[new_id]["is_category"] = any(m.get("is_category") for m in members)
         for m in members:
             old_to_new[m["skill_id"]] = new_id
         if len(members) > 1:

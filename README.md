@@ -76,7 +76,20 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
 - `src/ingestion/loaders/hf_dataset.py` — nạp dataset qua HuggingFace datasets-server.
 - `src/integration/schema_mapping.py` — ánh xạ GAV từng nguồn; `FIELD_MAP` ghi lại
   quan hệ trường nguồn ↔ trường mediated; `suggest_field_matches` là name-based matcher.
+- `src/integration/build_staging.py` — nạp `data/raw/*.jsonl` về mediated schema. Các
+  lượt cào chồng lấn nhau nên bản ghi được khử trùng theo `(nguồn, id)`, file mới hơn
+  thắng; lỗi ánh xạ in ra stderr kèm id thay vì chỉ đếm.
 - `src/integration/dedup.py` — gom bản ghi trùng theo union-find trên các block.
+  `company_key` cắt lặp tiền tố loại hình doanh nghiệp trước khi lấy khoá block: lấy
+  thẳng 12 ký tự đầu thì "công ty tnhh" và "công ty cổ p" nuốt 1380/3242 bản ghi vào
+  hai block, blocking mất tác dụng. Đối sánh chạy cả liên nguồn; bản ghi đại diện của
+  mỗi nhóm là bản có nhãn kỹ năng sẵn (rồi tới bản nhiều văn bản nhất) để gộp không
+  làm mất nhãn của nguồn.
+- `src/integration/normalize.py` — đưa nhóm nghề, địa điểm, cấp bậc và đơn vị lương của
+  ba nguồn về từ vựng chung. Nhóm nghề suy từ tiêu đề (trường duy nhất mọi nguồn đều
+  có) rồi mới tới giá trị nguồn; địa điểm tách thành thành phố + quốc gia; cấp bậc suy
+  từ từ khoá tiêu đề vì `level_requirement` của vieclam24h chỉ là mã số không kèm bảng
+  nghĩa; đơn vị lương đọc từ chính chuỗi gốc thay vì gán cứng theo nguồn.
 - `src/process/skill_dictionary.py` — từ điển kỹ năng: mining `skills_given` (itviec,
   data_jobs) gộp biến thể chữ hoa/thường + bổ sung tay kỹ năng mềm và kỹ năng ngoài
   IT (vieclam24h đa ngành). Ghi ra `data/staging/skill_dictionary.json`. `_slugify`
@@ -96,13 +109,19 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   chuỗi cụ thể -> tổng quát có ba mức (Python -> Ngôn ngữ lập trình -> Kỹ năng công
   nghệ thông tin), rồi dựng `bridge_skill_closure` (`skill_closure.jsonl`) theo kiểu
   bắc cầu: mỗi skill sinh một dòng cho từng tổ tiên, không chỉ cho cha trực tiếp.
+  Nút nhóm phải tạo mới được đánh dấu `is_category` và `extract_skills` bỏ qua chúng
+  qua `SkillDictionary.for_extraction()`; nếu không, chạy lại bước 7 sau bước 9 sẽ khớp
+  thêm chính các nhãn nhóm (đo được: 717 tin vieclam24h) và kết quả pipeline phụ thuộc
+  thứ tự chạy. Nút trùng tên với kỹ năng đã có sẵn (Tin học văn phòng, Project
+  Management) không bị đánh dấu nên vẫn trích chọn được.
 - `src/warehouse/build_warehouse.py` — nạp star schema vào `data/warehouse.duckdb`:
-  `dim_job/dim_company/dim_location/dim_time/dim_skill/dim_skill_variant` +
-  `fact_job_skill` + `bridge_skill_closure`. `check_integrity` chặn việc nạp khi
-  staging không nhất quán (closure trỏ tới skill_id không tồn tại, phân cấp rỗng).
-  `salary_raw` khác đơn vị theo nguồn (vieclam24h/itviec: khoảng lương tháng VNĐ;
-  data_jobs: lương trung bình năm USD) nên giữ nguyên `salary_currency`/
-  `salary_period` thay vì tự quy đổi tỷ giá.
+  `dim_job/dim_company/dim_location/dim_time/dim_skill/dim_skill_variant/dim_skill_term`
+  + `fact_job_skill` + `bridge_skill_closure`. `check_integrity` chặn việc nạp khi
+  staging không nhất quán (closure trỏ tới skill_id không tồn tại, phân cấp rỗng, nút
+  nhóm có dòng fact). `dim_skill_variant` là bảng để hiển thị các biến thể đã gộp, còn
+  `dim_skill_term` là bảng đối sánh truy vấn (thêm dạng bỏ dấu và dạng bỏ khoảng
+  trắng) — tách hai bảng để trang tra cứu kỹ năng không hiện chuỗi rác. Đơn vị lương
+  suy từ chuỗi gốc, giữ nguyên `salary_currency`/`salary_period` thay vì tự quy đổi.
 
 ## Công cụ tìm kiếm
 
@@ -116,6 +135,11 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
 
 - `src/api/queries.py` — lớp truy vấn DuckDB dùng chung cho cả API và Streamlit
   (mỗi hàm nhận `con` để test độc lập với dữ liệu mẫu, không phụ thuộc kho thật).
+  `search_skills` chuẩn hoá truy vấn về dạng không dấu, thử thêm dạng bỏ khoảng trắng
+  ("next js" -> NextJS) và xếp theo mức khớp (đúng cả chuỗi > tiền tố > tên ngắn hơn):
+  xếp theo alphabet như trước thì "sql" trả về MySQL, NoSQL, PostgreSQL rồi mới tới
+  SQL. Ký tự đại diện của LIKE trong truy vấn được escape. `hard_soft_ratio` đếm số
+  tin (như `top_skills`) chứ không đếm dòng fact.
 - `src/api/main.py` — FastAPI: `/skills` (tìm kỹ năng theo tên/biến thể),
   `/skills/{id}` (chi tiết + provenance), `/jobs/search` (tìm việc theo kỹ năng,
   `expand=true` mở rộng qua closure table), `/stats/top-skills`,
@@ -143,7 +167,9 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   viết theo ý người dùng chứ không theo kết quả hệ thống). Phần mở rộng phân cấp không
   cần nhãn: nó dựng lại tập hậu duệ từ `parent_skill_id` bằng Python rồi so với
   `bridge_skill_closure`, hai đường tính độc lập kiểm nhau.
-- `src/eval/integrity.py` — ràng buộc khoá ngoại và bất biến phân cấp trên kho đã nạp.
+- `src/eval/integrity.py` — 19 ràng buộc khoá ngoại và bất biến trên kho đã nạp, gồm cả
+  hai bất biến bắt lỗi thứ tự pipeline: nút nhóm không được có dòng fact, và kỹ năng có
+  dấu phải tra được bằng chuỗi không dấu.
 
 ## Kiểm thử
 

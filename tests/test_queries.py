@@ -5,6 +5,7 @@ from src.api.queries import (
     expand_skill_ids,
     get_skill_detail,
     hard_soft_ratio,
+    list_cities,
     search_jobs,
     search_skills,
     top_skills,
@@ -31,6 +32,16 @@ def con():
     con.execute(
         "INSERT INTO dim_skill_variant VALUES (1, 'python', 'python3'), (2, 'python', 'py')"
     )
+    con.execute("CREATE TABLE dim_skill_term (skill_id VARCHAR, term VARCHAR)")
+    con.execute(
+        """
+        INSERT INTO dim_skill_term VALUES
+            ('lang', 'ngôn ngữ lập trình'), ('lang', 'ngon ngu lap trinh'), ('lang', 'ngonngulaptrinh'),
+            ('python', 'python'), ('python', 'python3'), ('python', 'py'),
+            ('java', 'java'),
+            ('teamwork', 'làm việc nhóm'), ('teamwork', 'lam viec nhom'), ('teamwork', 'lamviecnhom')
+        """
+    )
     con.execute("CREATE TABLE bridge_skill_closure (ancestor_id VARCHAR, descendant_id VARCHAR, depth INTEGER)")
     con.execute(
         """
@@ -41,19 +52,19 @@ def con():
     )
     con.execute(
         "CREATE TABLE dim_job (job_id VARCHAR, title_raw VARCHAR, role_family VARCHAR, company_id INTEGER, "
-        "location_id INTEGER, posted_date VARCHAR, source VARCHAR, url VARCHAR)"
+        "location_id INTEGER, posted_date VARCHAR, source VARCHAR, url VARCHAR, seniority VARCHAR)"
     )
     con.execute(
         """
         INSERT INTO dim_job VALUES
-            ('j1', 'Backend Dev', 'Data Engineer', 1, 1, '2026-01-01', 'itviec', NULL),
-            ('j2', 'Data Scientist', 'Data Engineer', 1, 1, '2026-02-01', 'data_jobs', NULL)
+            ('j1', 'Backend Dev', 'Kỹ sư phần mềm', 1, 1, '2026-01-01', 'itviec', NULL, NULL),
+            ('j2', 'Data Scientist', 'Khoa học dữ liệu', 1, 1, '2026-02-01', 'data_jobs', NULL, 'Cao cấp')
         """
     )
     con.execute("CREATE TABLE dim_company (company_id INTEGER, name VARCHAR, name_norm VARCHAR, industry VARCHAR)")
     con.execute("INSERT INTO dim_company VALUES (1, 'ACME', 'acme', NULL)")
-    con.execute("CREATE TABLE dim_location (location_id INTEGER, location_raw VARCHAR, city_guess VARCHAR)")
-    con.execute("INSERT INTO dim_location VALUES (1, 'Ha Noi', 'Ha Noi')")
+    con.execute("CREATE TABLE dim_location (location_id INTEGER, location_raw VARCHAR, city VARCHAR, country VARCHAR)")
+    con.execute("INSERT INTO dim_location VALUES (1, 'Ha Noi', 'Hà Nội', 'Việt Nam')")
     con.execute(
         "CREATE TABLE fact_job_skill (job_id VARCHAR, skill_id VARCHAR, skill_type VARCHAR, source VARCHAR, "
         "extraction_method VARCHAR, confidence DOUBLE, evidence_snippet VARCHAR)"
@@ -72,6 +83,31 @@ def con():
 def test_search_skills_matches_canonical_and_variant(con):
     assert {r["skill_id"] for r in search_skills(con, "python")} == {"python"}
     assert {r["skill_id"] for r in search_skills(con, "py")} == {"python"}
+
+
+def test_search_skills_ignores_diacritics(con):
+    assert [r["skill_id"] for r in search_skills(con, "lam viec nhom")] == ["teamwork"]
+    assert [r["skill_id"] for r in search_skills(con, "Làm việc nhóm")] == ["teamwork"]
+
+
+def test_search_skills_ignores_spacing(con):
+    assert [r["skill_id"] for r in search_skills(con, "ngonngu lap trinh")] == ["lang"]
+
+
+def test_search_skills_ranks_exact_match_first(con):
+    """Xếp theo tên thì 'java' trả về Java sau các tên đứng trước theo alphabet."""
+    con.execute("INSERT INTO dim_skill VALUES ('javascript', 'JavaScript', 'hard', NULL, NULL)")
+    con.execute("INSERT INTO dim_skill_term VALUES ('javascript', 'javascript')")
+    assert [r["skill_id"] for r in search_skills(con, "java")] == ["java", "javascript"]
+
+
+def test_search_skills_escapes_like_wildcards(con):
+    assert search_skills(con, "%") == []
+    assert search_skills(con, "_") == []
+
+
+def test_search_skills_empty_query_returns_nothing(con):
+    assert search_skills(con, "   ") == []
 
 
 def test_get_skill_detail_includes_parent_children_variants(con):
@@ -110,6 +146,19 @@ def test_top_skills_orders_by_job_count(con):
     assert ranked[0]["n"] >= ranked[-1]["n"]
 
 
-def test_hard_soft_ratio_counts_by_type(con):
-    ratio = hard_soft_ratio(con)
-    assert ratio == {"hard": 2, "soft": 1}
+def test_hard_soft_ratio_counts_jobs_not_fact_rows(con):
+    """Cùng đơn vị với top_skills: một tin đòi hai kỹ năng cứng vẫn chỉ tính một lần."""
+    con.execute(
+        "INSERT INTO fact_job_skill VALUES ('j1', 'java', 'hard', 'itviec', 'exact_match', 100, 'Java')"
+    )
+    assert hard_soft_ratio(con) == {"hard": 2, "soft": 1}
+
+
+def test_search_jobs_offers_link_back_to_source(con):
+    jobs = search_jobs(con, "python", expand=False)
+    assert jobs[0]["source_search_url"].startswith("https://itviec.com/it-jobs?query=")
+
+
+def test_list_cities_hides_values_below_threshold(con):
+    assert list_cities(con, min_jobs=5) == []
+    assert list_cities(con, min_jobs=1) == ["Hà Nội"]

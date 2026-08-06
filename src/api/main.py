@@ -85,9 +85,9 @@ def api_role_families():
 
 
 @app.get("/filters/cities")
-def api_cities():
+def api_cities(min_jobs: int = 5):
     con = queries.get_connection()
     try:
-        return queries.list_cities(con)
+        return queries.list_cities(con, min_jobs=min_jobs)
     finally:
         con.close()

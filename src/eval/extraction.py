@@ -84,6 +84,6 @@ def evaluate(records: list[dict], skill_dict: SkillDictionary, aliases: list[str
 
 def run() -> dict:
     records = load_records()
-    skill_dict = load_or_build(records)
+    skill_dict = load_or_build(records).for_extraction()
     aliases = [a for a in skill_dict.alias_index if " " not in a and len(a) >= MIN_FUZZY_TOKEN_LEN]
     return evaluate(records, skill_dict, aliases)

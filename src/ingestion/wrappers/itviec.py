@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from collections.abc import Iterator
 
 from selectolax.parser import HTMLParser
@@ -98,7 +99,14 @@ class ItviecWrapper:
                     if self.fetch_detail:
                         try:
                             self._enrich(rec)
-                        except Exception:
+                        except Exception as exc:
+                            # Tin vẫn giữ lại nhưng mất mô tả và thẻ kỹ năng; im lặng
+                            # bỏ qua thì trang đổi cấu trúc cũng không ai biết.
+                            print(
+                                f"itviec: không lấy được chi tiết {rec.get('slug')}: "
+                                f"{type(exc).__name__} {exc}",
+                                file=sys.stderr,
+                            )
                             self.fetcher.sleep()
                     yield rec
             self.fetcher.sleep()

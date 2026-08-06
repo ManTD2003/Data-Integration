@@ -379,9 +379,6 @@
 {"ancestor_id": "phan-tich-du-lieu-and-bi", "descendant_id": "business-intelligence", "depth": 1}
 {"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "business-intelligence", "depth": 2}
 {"ancestor_id": "adobe", "descendant_id": "adobe", "depth": 0}
-{"ancestor_id": "product-owner", "descendant_id": "product-owner", "depth": 0}
-{"ancestor_id": "project-management", "descendant_id": "product-owner", "depth": 1}
-{"ancestor_id": "ky-nang-nghiep-vu", "descendant_id": "product-owner", "depth": 2}
 {"ancestor_id": "api", "descendant_id": "api", "depth": 0}
 {"ancestor_id": "microservices", "descendant_id": "microservices", "depth": 0}
 {"ancestor_id": "devops", "descendant_id": "devops", "depth": 0}
@@ -401,7 +398,6 @@
 {"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "objective-c", "depth": 2}
 {"ancestor_id": "database", "descendant_id": "database", "depth": 0}
 {"ancestor_id": "react-native", "descendant_id": "react-native", "depth": 0}
-{"ancestor_id": "data-engineer", "descendant_id": "data-engineer", "depth": 0}
 {"ancestor_id": "aws-lambda", "descendant_id": "aws-lambda", "depth": 0}
 {"ancestor_id": "dien-toan-dam-may", "descendant_id": "aws-lambda", "depth": 1}
 {"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "aws-lambda", "depth": 2}
@@ -515,9 +511,6 @@
 {"ancestor_id": "middleware", "descendant_id": "middleware", "depth": 0}
 {"ancestor_id": "firmware", "descendant_id": "firmware", "depth": 0}
 {"ancestor_id": "games", "descendant_id": "games", "depth": 0}
-{"ancestor_id": "tester", "descendant_id": "tester", "depth": 0}
-{"ancestor_id": "kiem-thu-phan-mem", "descendant_id": "tester", "depth": 1}
-{"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "tester", "depth": 2}
 {"ancestor_id": "a-b-testing", "descendant_id": "a-b-testing", "depth": 0}
 {"ancestor_id": "postman", "descendant_id": "postman", "depth": 0}
 {"ancestor_id": "automation-test", "descendant_id": "automation-test", "depth": 0}
@@ -534,7 +527,6 @@
 {"ancestor_id": "japanese", "descendant_id": "japanese", "depth": 0}
 {"ancestor_id": "ngoai-ngu", "descendant_id": "japanese", "depth": 1}
 {"ancestor_id": "ky-nang-cong-cu-va-ngoai-ngu", "descendant_id": "japanese", "depth": 2}
-{"ancestor_id": "bridge-engineer", "descendant_id": "bridge-engineer", "depth": 0}
 {"ancestor_id": "japanese-it-communication", "descendant_id": "japanese-it-communication", "depth": 0}
 {"ancestor_id": "ky-nang-mem", "descendant_id": "japanese-it-communication", "depth": 1}
 {"ancestor_id": "lean-project-management", "descendant_id": "lean-project-management", "depth": 0}
@@ -543,9 +535,6 @@
 {"ancestor_id": "information-security", "descendant_id": "information-security", "depth": 0}
 {"ancestor_id": "an-ninh-mang", "descendant_id": "information-security", "depth": 1}
 {"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "information-security", "depth": 2}
-{"ancestor_id": "qa-qc", "descendant_id": "qa-qc", "depth": 0}
-{"ancestor_id": "kiem-thu-phan-mem", "descendant_id": "qa-qc", "depth": 1}
-{"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "qa-qc", "depth": 2}
 {"ancestor_id": "waterfall-methodology", "descendant_id": "waterfall-methodology", "depth": 0}
 {"ancestor_id": "project-management", "descendant_id": "waterfall-methodology", "depth": 1}
 {"ancestor_id": "ky-nang-nghiep-vu", "descendant_id": "waterfall-methodology", "depth": 2}
@@ -581,7 +570,6 @@
 {"ancestor_id": "amazon-rds", "descendant_id": "amazon-rds", "depth": 0}
 {"ancestor_id": "dien-toan-dam-may", "descendant_id": "amazon-rds", "depth": 1}
 {"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "amazon-rds", "depth": 2}
-{"ancestor_id": "system-admin", "descendant_id": "system-admin", "depth": 0}
 {"ancestor_id": "aws-cloudformation", "descendant_id": "aws-cloudformation", "depth": 0}
 {"ancestor_id": "dien-toan-dam-may", "descendant_id": "aws-cloudformation", "depth": 1}
 {"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "aws-cloudformation", "depth": 2}
@@ -597,9 +585,6 @@
 {"ancestor_id": "soar", "descendant_id": "soar", "depth": 0}
 {"ancestor_id": "an-ninh-mang", "descendant_id": "soar", "depth": 1}
 {"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "soar", "depth": 2}
-{"ancestor_id": "presale", "descendant_id": "presale", "depth": 0}
-{"ancestor_id": "marketing-and-ban-hang", "descendant_id": "presale", "depth": 1}
-{"ancestor_id": "ky-nang-nghiep-vu", "descendant_id": "presale", "depth": 2}
 {"ancestor_id": "web-application-firewall", "descendant_id": "web-application-firewall", "depth": 0}
 {"ancestor_id": "an-ninh-mang", "descendant_id": "web-application-firewall", "depth": 1}
 {"ancestor_id": "ky-nang-cong-nghe-thong-tin", "descendant_id": "web-application-firewall", "depth": 2}

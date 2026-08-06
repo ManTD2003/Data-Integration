@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import json
+import sys
 from datetime import date, datetime
 
 from selectolax.parser import HTMLParser
@@ -62,9 +63,11 @@ def _skill_list(value) -> list[str]:
         return [str(x) for x in value]
     try:
         parsed = ast.literal_eval(value)
-        return [str(x) for x in parsed] if isinstance(parsed, list) else []
     except (ValueError, SyntaxError):
+        # Nhãn kỹ năng hỏng nghĩa là mất toàn bộ kỹ năng của tin đó, phải nhìn thấy được.
+        print(f"schema_mapping: không đọc được danh sách kỹ năng {value!r:.80}", file=sys.stderr)
         return []
+    return [str(x) for x in parsed] if isinstance(parsed, list) else []
 
 
 def _first_place(places) -> str | None:
@@ -87,8 +90,10 @@ def map_vieclam24h(raw: dict) -> JobRecord:
     employer = raw.get("employer_info") or {}
     location = _first_place(raw.get("places"))
 
-    smin, smax = raw.get("salary_min"), raw.get("salary_max")
-    salary_raw = f"{smin}-{smax}" if smin or smax else None
+    # Chỉ nối các giá trị thực có: "None-20000000" sẽ bị bước nạp kho đọc thành mức
+    # lương tối thiểu 20 triệu.
+    bounds = [str(v) for v in (raw.get("salary_min"), raw.get("salary_max")) if v]
+    salary_raw = "-".join(bounds) or None
 
     req_parts = [
         html_to_text(raw.get("job_requirement")),

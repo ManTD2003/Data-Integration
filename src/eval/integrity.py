@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import duckdb
 
+from src.common.schema import strip_accents
 from src.process.skill_dictionary import _slugify
 
 Check = tuple[str, bool, str]
@@ -19,6 +20,8 @@ FOREIGN_KEYS = [
     ("bridge_skill_closure.ancestor_id", "bridge_skill_closure", "ancestor_id", "dim_skill", "skill_id"),
     ("bridge_skill_closure.descendant_id", "bridge_skill_closure", "descendant_id", "dim_skill", "skill_id"),
     ("dim_skill.parent_skill_id", "dim_skill", "parent_skill_id", "dim_skill", "skill_id"),
+    ("dim_skill_term.skill_id", "dim_skill_term", "skill_id", "dim_skill", "skill_id"),
+    ("dim_skill_variant.skill_id", "dim_skill_variant", "skill_id", "dim_skill", "skill_id"),
     ("dim_job.company_id", "dim_job", "company_id", "dim_company", "company_id"),
     ("dim_job.location_id", "dim_job", "location_id", "dim_location", "location_id"),
     ("dim_job.posted_date", "dim_job", "posted_date", "dim_time", "date_id"),
@@ -59,6 +62,39 @@ def run_checks(con: duckdb.DuckDBPyConnection) -> list[Check]:
         )
         """).fetchone()[0]
     checks.append(("Mọi skill đều tra được qua closure", unreachable == 0, f"{unreachable} skill thiếu"))
+
+    leaked = con.execute("""
+        SELECT count(*) FROM fact_job_skill f
+        JOIN dim_skill s ON s.skill_id = f.skill_id
+        WHERE s.is_category
+        """).fetchone()[0]
+    checks.append(
+        ("Nút nhóm không bị trích chọn như kỹ năng thường", leaked == 0, f"{leaked} dòng fact")
+    )
+
+    no_term = con.execute("""
+        SELECT count(*) FROM dim_skill s
+        WHERE NOT EXISTS (SELECT 1 FROM dim_skill_term t WHERE t.skill_id = s.skill_id)
+        """).fetchone()[0]
+    checks.append(("Mọi skill đều có từ khoá tìm kiếm", no_term == 0, f"{no_term} skill thiếu"))
+
+    # So bằng hàm bỏ dấu của hệ thống, không dùng strip_accents của DuckDB: hàm đó
+    # không xử lý "đ" nên "Đọc bản vẽ" sẽ bị báo lỗi oan.
+    terms_by_skill: dict[str, set[str]] = {}
+    for skill_id, term in con.execute("SELECT skill_id, term FROM dim_skill_term").fetchall():
+        terms_by_skill.setdefault(skill_id, set()).add(term)
+    missing_ascii = [
+        skill_id
+        for skill_id, name in con.execute("SELECT skill_id, canonical_name FROM dim_skill").fetchall()
+        if strip_accents(name) not in terms_by_skill.get(skill_id, set())
+    ]
+    checks.append(
+        (
+            "Kỹ năng có dấu đều tra được bằng chuỗi không dấu",
+            not missing_ascii,
+            f"{len(missing_ascii)} skill thiếu, ví dụ {missing_ascii[:5]}",
+        )
+    )
 
     lossy = con.execute("SELECT skill_id, canonical_name FROM dim_skill").fetchall()
     mismatch = [sid for sid, name in lossy if _slugify(name) != sid]

@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import hashlib
-from datetime import date, datetime
+import unicodedata
+from datetime import date
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -22,7 +23,6 @@ class JobRecord(BaseModel):
     description: str | None = None
     requirements_raw: str | None = None
     posted_date: date | None = None
-    crawled_at: datetime = Field(default_factory=datetime.now)
     extra: dict[str, Any] = Field(default_factory=dict)
 
     @property
@@ -38,3 +38,15 @@ def norm_text(value: str | None) -> str:
     if not value:
         return ""
     return " ".join(value.lower().split())
+
+
+def strip_accents(value: str | None) -> str:
+    """Bỏ dấu tiếng Việt, giữ nguyên ký hiệu ASCII (C++, C#, .NET).
+
+    NFKD không tách được dấu của "đ" nên phải thay trước khi lọc ASCII.
+    """
+    if not value:
+        return ""
+    text = unicodedata.normalize("NFC", value).lower().replace("đ", "d")
+    folded = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
+    return " ".join(folded.split())

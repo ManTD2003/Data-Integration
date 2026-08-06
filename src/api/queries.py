@@ -7,26 +7,63 @@ DuckDB tạm dựng từ dữ liệu mẫu, không phụ thuộc `data/warehouse
 
 from __future__ import annotations
 
+from urllib.parse import quote_plus
+
 import duckdb
 
 from src.common.paths import WAREHOUSE_DB
+from src.common.schema import strip_accents
 
 
 def get_connection(read_only: bool = True) -> duckdb.DuckDBPyConnection:
     return duckdb.connect(str(WAREHOUSE_DB), read_only=read_only)
 
 
+def _escape_like(value: str) -> str:
+    """Chặn ký tự đại diện của LIKE lọt từ truy vấn người dùng vào mẫu đối sánh."""
+    for char in ("\\", "%", "_"):
+        value = value.replace(char, "\\" + char)
+    return value
+
+
 def search_skills(con: duckdb.DuckDBPyConnection, query: str, limit: int = 20) -> list[dict]:
-    pattern = f"%{query}%"
+    """Tìm kỹ năng theo chuỗi người dùng gõ, không phân biệt dấu và có xếp hạng.
+
+    Đối sánh chạy trên `dim_skill_term` (đã bỏ dấu và có dạng dính liền) nên "tieng
+    anh" ra "Tiếng Anh" và "next js" ra "NextJS". Thứ tự trả về ưu tiên khớp đúng cả
+    chuỗi, rồi khớp tiền tố, rồi tên ngắn hơn — nếu chỉ ORDER BY tên thì truy vấn
+    "sql" trả về MySQL, NoSQL, PostgreSQL trước chính SQL.
+    """
+    term = " ".join(strip_accents(query).split())
+    if not term:
+        return []
+    compact = term.replace(" ", "")
+    escaped, escaped_compact = _escape_like(term), _escape_like(compact)
+
     sql = """
-        SELECT DISTINCT s.skill_id, s.canonical_name, s.skill_type, s.category
+        SELECT s.skill_id, s.canonical_name, s.skill_type, s.category,
+               max(CASE
+                     WHEN t.term IN (?, ?) THEN 3
+                     WHEN t.term LIKE ? ESCAPE '\\' OR t.term LIKE ? ESCAPE '\\' THEN 2
+                     ELSE 1
+                   END) AS match_rank
         FROM dim_skill s
-        LEFT JOIN dim_skill_variant v ON v.skill_id = s.skill_id
-        WHERE s.canonical_name ILIKE ? OR v.surface_form ILIKE ?
-        ORDER BY s.canonical_name
+        JOIN dim_skill_term t ON t.skill_id = s.skill_id
+        WHERE t.term LIKE ? ESCAPE '\\' OR t.term LIKE ? ESCAPE '\\'
+        GROUP BY s.skill_id, s.canonical_name, s.skill_type, s.category
+        ORDER BY match_rank DESC, length(s.canonical_name), s.canonical_name
         LIMIT ?
     """
-    return con.execute(sql, [pattern, pattern, limit]).fetchdf().to_dict("records")
+    params = [
+        term, compact,
+        f"{escaped}%", f"{escaped_compact}%",
+        f"%{escaped}%", f"%{escaped_compact}%",
+        limit,
+    ]
+    rows = con.execute(sql, params).fetchdf().to_dict("records")
+    for row in rows:
+        row.pop("match_rank", None)
+    return rows
 
 
 def get_skill_detail(con: duckdb.DuckDBPyConnection, skill_id: str) -> dict | None:
@@ -109,13 +146,13 @@ def search_jobs(
         filters.append("j.role_family = ?")
         params.append(role_family)
     if city:
-        filters.append("l.city_guess = ?")
+        filters.append("l.city = ?")
         params.append(city)
 
     where = " AND ".join(filters)
     sql = f"""
         SELECT j.job_id, j.title_raw, c.name AS company, l.location_raw AS location,
-               j.source, j.url, j.posted_date,
+               l.city, j.source, j.url, j.posted_date, j.seniority,
                string_agg(DISTINCT sk.canonical_name, ', ') AS matched_skills
         FROM fact_job_skill f
         JOIN dim_job j ON j.job_id = f.job_id
@@ -123,12 +160,33 @@ def search_jobs(
         LEFT JOIN dim_company c ON c.company_id = j.company_id
         LEFT JOIN dim_location l ON l.location_id = j.location_id
         WHERE {where}
-        GROUP BY j.job_id, j.title_raw, c.name, l.location_raw, j.source, j.url, j.posted_date
+        GROUP BY j.job_id, j.title_raw, c.name, l.location_raw, l.city, j.source,
+                 j.url, j.posted_date, j.seniority
         ORDER BY j.posted_date DESC NULLS LAST
         LIMIT ? OFFSET ?
     """
     params += [limit, offset]
-    return con.execute(sql, params).fetchdf().to_dict("records")
+    rows = con.execute(sql, params).fetchdf().to_dict("records")
+    for row in rows:
+        row["source_search_url"] = source_search_url(row["source"], row["title_raw"])
+    return rows
+
+
+# Chỉ itviec trả về đường dẫn tin trong dữ liệu; hai nguồn còn lại không phát hành
+# URL chi tiết (vieclam24h render phía trình duyệt, data_jobs là bản trích từ Google
+# Jobs không kèm link). Không đoán đường dẫn, chỉ đưa người dùng về trang tìm kiếm
+# của nguồn để tự đối chiếu.
+SOURCE_SEARCH = {
+    "vieclam24h": "https://vieclam24h.vn/tim-kiem-viec-lam-nhanh?q={q}",
+    "itviec": "https://itviec.com/it-jobs?query={q}",
+}
+
+
+def source_search_url(source: str, title: str | None) -> str | None:
+    template = SOURCE_SEARCH.get(source)
+    if not template or not title:
+        return None
+    return template.format(q=quote_plus(title))
 
 
 def top_skills(
@@ -147,7 +205,7 @@ def top_skills(
         filters.append("j.role_family = ?")
         params.append(role_family)
     if city:
-        filters.append("l.city_guess = ?")
+        filters.append("l.city = ?")
         params.append(city)
     where = ("WHERE " + " AND ".join(filters)) if filters else ""
 
@@ -167,6 +225,11 @@ def top_skills(
 
 
 def hard_soft_ratio(con: duckdb.DuckDBPyConnection, role_family: str | None = None) -> dict[str, int]:
+    """Số tin có yêu cầu kỹ năng cứng / kỹ năng mềm.
+
+    Đếm theo tin chứ không theo dòng fact để cùng đơn vị với `top_skills`; một tin đòi
+    cả hai loại thì được tính ở cả hai nhóm.
+    """
     filters = []
     params: list = []
     if role_family:
@@ -175,7 +238,7 @@ def hard_soft_ratio(con: duckdb.DuckDBPyConnection, role_family: str | None = No
     where = ("WHERE " + " AND ".join(filters)) if filters else ""
 
     sql = f"""
-        SELECT s.skill_type, count(*) AS n
+        SELECT s.skill_type, count(DISTINCT f.job_id) AS n
         FROM fact_job_skill f
         JOIN dim_skill s ON s.skill_id = f.skill_id
         JOIN dim_job j ON j.job_id = f.job_id
@@ -193,8 +256,22 @@ def list_role_families(con: duckdb.DuckDBPyConnection) -> list[str]:
     return rows["role_family"].tolist()
 
 
-def list_cities(con: duckdb.DuckDBPyConnection) -> list[str]:
+def list_cities(con: duckdb.DuckDBPyConnection, min_jobs: int = 5) -> list[str]:
+    """Các thành phố đủ số tin để lọc có nghĩa, xếp theo số tin giảm dần.
+
+    Trả về toàn bộ giá trị phân biệt thì danh sách dài hàng nghìn dòng và hơn nửa chỉ
+    ứng với đúng một tin, không dùng được làm bộ lọc.
+    """
     rows = con.execute(
-        "SELECT DISTINCT city_guess FROM dim_location WHERE city_guess IS NOT NULL ORDER BY city_guess"
+        """
+        SELECT l.city, count(*) AS n
+        FROM dim_job j
+        JOIN dim_location l ON l.location_id = j.location_id
+        WHERE l.city IS NOT NULL
+        GROUP BY l.city
+        HAVING count(*) >= ?
+        ORDER BY n DESC, l.city
+        """,
+        [min_jobs],
     ).fetchdf()
-    return rows["city_guess"].tolist()
+    return rows["city"].tolist()
