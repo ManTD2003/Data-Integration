@@ -9,12 +9,13 @@ from src.integration.schema_mapping import (
 
 def test_first_place_parses_json_string():
     raw = '[{"province_id":120,"address":"874 Bui Huu Nghia","lat":10.9}]'
-    assert _first_place(raw) == "874 Bui Huu Nghia"
+    place = _first_place(raw)
+    assert (place["address"], place["province_id"]) == ("874 Bui Huu Nghia", 120)
 
 
 def test_first_place_handles_empty():
-    assert _first_place(None) is None
-    assert _first_place("[]") is None
+    assert _first_place(None) == {}
+    assert _first_place("[]") == {}
 
 
 def test_skill_list_parses_repr():
@@ -41,6 +42,18 @@ def test_map_vieclam24h_core_fields():
     assert rec.location == "Ha Noi"
     assert rec.salary_raw == "15000000-20000000"
     assert "Python" in rec.requirements_raw
+
+
+def test_map_vieclam24h_carries_province_code_for_location_normalisation():
+    raw = {
+        "id": 1,
+        "title": "Ky su",
+        "places": '[{"province_id":122,"address":"617A Au Co"}]',
+        "contact_address": "617A Au Co Phuong Tan Phu, Quan Tan Phu",
+    }
+    rec = map_vieclam24h(raw)
+    assert rec.extra["province_id"] == 122
+    assert rec.extra["contact_address"] == "617A Au Co Phuong Tan Phu, Quan Tan Phu"
 
 
 def test_map_data_jobs_uses_skill_list():

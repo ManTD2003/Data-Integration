@@ -15,7 +15,11 @@ FIELD_MAP = {
         "id": "source_id",
         "title": "title",
         "employer_info.name": "company",
+        # Ba trường cùng mô tả nơi làm việc: địa chỉ (bị nguồn cắt ngắn), mã tỉnh của
+        # tin, và địa chỉ liên hệ của doanh nghiệp. Phải giữ cả ba mới suy được tỉnh.
         "places[0].address": "location",
+        "places[0].province_id": "location",
+        "contact_address": "location",
         "salary_min/salary_max": "salary_raw",
         "level_requirement": "level",
         "working_method": "job_type",
@@ -70,25 +74,22 @@ def _skill_list(value) -> list[str]:
     return [str(x) for x in parsed] if isinstance(parsed, list) else []
 
 
-def _first_place(places) -> str | None:
-    if not places:
-        return None
+def _first_place(places) -> dict:
     if isinstance(places, str):
         try:
             places = json.loads(places)
         except json.JSONDecodeError:
-            return None
-        if not places:
-            return None
+            return {}
+    if not places:
+        return {}
     first = places[0]
-    if isinstance(first, dict):
-        return first.get("address") or None
-    return str(first) or None
+    return first if isinstance(first, dict) else {"address": str(first)}
 
 
 def map_vieclam24h(raw: dict) -> JobRecord:
     employer = raw.get("employer_info") or {}
-    location = _first_place(raw.get("places"))
+    place = _first_place(raw.get("places"))
+    location = place.get("address") or None
 
     # Chỉ nối các giá trị thực có: "None-20000000" sẽ bị bước nạp kho đọc thành mức
     # lương tối thiểu 20 triệu.
@@ -122,6 +123,8 @@ def map_vieclam24h(raw: dict) -> JobRecord:
             "title_slug": raw.get("title_slug"),
             "occupation_ids": raw.get("occupation_ids_main"),
             "experience_range": raw.get("experience_range"),
+            "province_id": place.get("province_id"),
+            "contact_address": raw.get("contact_address"),
         },
     )
 

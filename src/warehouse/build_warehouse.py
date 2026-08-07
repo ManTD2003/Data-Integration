@@ -25,9 +25,18 @@ def _load_jsonl(path) -> list[dict]:
         return [json.loads(line) for line in f if line.strip()]
 
 
-def _location_hints(rec: dict) -> tuple[str | None, str | None]:
-    extra = rec.get("extra") or {}
-    return rec.get("location"), extra.get("country")
+def _location_key(rec: dict) -> str | None:
+    """Khoá tự nhiên của dim_location: địa chỉ thô ghép mã tỉnh.
+
+    vieclam24h cắt ngắn địa chỉ nên hai tin ở hai tỉnh vẫn có thể trùng chuỗi ("Tại
+    công trình dự án"); chỉ khoá theo địa chỉ thì chúng gộp thành một dòng và một
+    trong hai tin bị gán sai tỉnh.
+    """
+    location = rec.get("location")
+    if not location:
+        return None
+    province_id = (rec.get("extra") or {}).get("province_id")
+    return f"{norm_text(location)}|{province_id if province_id is not None else ''}"
 
 
 def _role_hint(rec: dict) -> str | None:
@@ -52,22 +61,28 @@ def build_dim_company(records: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(seen.values())
 
 
-def build_dim_location(records: list[dict]) -> pd.DataFrame:
+def build_dim_location(records: list[dict]) -> tuple[pd.DataFrame, dict[str, int]]:
     seen: dict[str, dict] = {}
     for rec in records:
-        loc, country_hint = _location_hints(rec)
-        if not loc:
+        key = _location_key(rec)
+        if key is None or key in seen:
             continue
-        key = norm_text(loc)
-        if key not in seen:
-            city, country = normalize.city_country(loc, rec["source"], country_hint)
-            seen[key] = {
-                "location_id": len(seen) + 1,
-                "location_raw": loc,
-                "city": city,
-                "country": country,
-            }
-    return pd.DataFrame(seen.values())
+        extra = rec.get("extra") or {}
+        city, country = normalize.city_country(
+            rec["location"],
+            rec["source"],
+            extra.get("country"),
+            province_id=extra.get("province_id"),
+            address_hint=extra.get("contact_address"),
+        )
+        seen[key] = {
+            "location_id": len(seen) + 1,
+            "location_raw": rec["location"],
+            "city": city,
+            "country": country,
+        }
+    ids = {key: row["location_id"] for key, row in seen.items()}
+    return pd.DataFrame(seen.values()), ids
 
 
 def build_dim_time(records: list[dict]) -> pd.DataFrame:
@@ -98,7 +113,7 @@ def build_dim_job(records: list[dict], company_ids: dict[str, int], location_ids
                 "title_raw": rec.get("title"),
                 "role_family": normalize.role_family(rec.get("title"), _role_hint(rec)),
                 "company_id": company_ids.get(norm_text(rec.get("company"))),
-                "location_id": location_ids.get(norm_text(rec.get("location"))),
+                "location_id": location_ids.get(_location_key(rec)),
                 "level_raw": rec.get("level"),
                 "seniority": normalize.seniority(rec.get("title"), months),
                 "months_experience": months,
@@ -244,14 +259,9 @@ def run() -> str:
     closure = _load_jsonl(STAGING / "skill_closure.jsonl")
 
     dim_company = build_dim_company(records)
-    dim_location = build_dim_location(records)
+    dim_location, location_ids = build_dim_location(records)
     dim_time = build_dim_time(records)
     company_ids = dict(zip(dim_company["name_norm"], dim_company["company_id"])) if not dim_company.empty else {}
-    location_ids = (
-        dict(zip(dim_location["location_raw"].map(norm_text), dim_location["location_id"]))
-        if not dim_location.empty
-        else {}
-    )
 
     dim_job = build_dim_job(records, company_ids, location_ids)
     # Cột toàn NULL bị pandas suy thành float rồi DuckDB tạo cột INTEGER, khiến join

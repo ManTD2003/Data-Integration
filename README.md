@@ -87,9 +87,16 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   làm mất nhãn của nguồn.
 - `src/integration/normalize.py` — đưa nhóm nghề, địa điểm, cấp bậc và đơn vị lương của
   ba nguồn về từ vựng chung. Nhóm nghề suy từ tiêu đề (trường duy nhất mọi nguồn đều
-  có) rồi mới tới giá trị nguồn; địa điểm tách thành thành phố + quốc gia; cấp bậc suy
-  từ từ khoá tiêu đề vì `level_requirement` của vieclam24h chỉ là mã số không kèm bảng
-  nghĩa; đơn vị lương đọc từ chính chuỗi gốc thay vì gán cứng theo nguồn.
+  có) rồi mới tới giá trị nguồn; cấp bậc suy từ từ khoá tiêu đề vì `level_requirement`
+  của vieclam24h chỉ là mã số không kèm bảng nghĩa; đơn vị lương đọc từ chính chuỗi
+  gốc thay vì gán cứng theo nguồn. Địa điểm tách thành tỉnh thành + quốc gia, trong đó
+  `city` chỉ nhận tên cấp tỉnh thành: cắt đoạn cuối sau dấu phẩy làm thành phố như
+  trước thì cột này đầy tên phường ("Phường 14", "Phường Hiệp Bình Phước") lẫn tên
+  đường và mã bang. Tin Việt Nam tra theo thứ tự địa chỉ nơi làm việc → mã tỉnh của
+  tin → địa chỉ liên hệ, vì vieclam24h cắt ngắn địa chỉ nên chỉ 21% số tin đọc được
+  tỉnh từ đó (`VN_PROVINCE_IDS` suy từ dữ liệu đã cào, chỉ giữ mã có đa số áp đảo);
+  tin nước ngoài không tin `job_country` khi mã bang nói khác, vì nguồn gán 'Sudan'
+  cho 88 tin ở Mỹ. Không suy ra được thì để trống thay vì đoán.
 - `src/process/skill_dictionary.py` — từ điển kỹ năng: mining `skills_given` (itviec,
   data_jobs) gộp biến thể chữ hoa/thường + bổ sung tay kỹ năng mềm và kỹ năng ngoài
   IT (vieclam24h đa ngành). Ghi ra `data/staging/skill_dictionary.json`. `_slugify`
@@ -122,6 +129,9 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   `dim_skill_term` là bảng đối sánh truy vấn (thêm dạng bỏ dấu và dạng bỏ khoảng
   trắng) — tách hai bảng để trang tra cứu kỹ năng không hiện chuỗi rác. Đơn vị lương
   suy từ chuỗi gốc, giữ nguyên `salary_currency`/`salary_period` thay vì tự quy đổi.
+  Khoá tự nhiên của `dim_location` là địa chỉ thô ghép mã tỉnh: địa chỉ vieclam24h bị
+  cắt ngắn nên hai tin ở hai tỉnh vẫn trùng chuỗi ("Tại công trình dự án"), khoá theo
+  mỗi địa chỉ thì chúng gộp làm một dòng và một tin bị gán sai tỉnh.
 
 ## Công cụ tìm kiếm
 
@@ -139,13 +149,39 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   ("next js" -> NextJS) và xếp theo mức khớp (đúng cả chuỗi > tiền tố > tên ngắn hơn):
   xếp theo alphabet như trước thì "sql" trả về MySQL, NoSQL, PostgreSQL rồi mới tới
   SQL. Ký tự đại diện của LIKE trong truy vấn được escape. `hard_soft_ratio` đếm số
-  tin (như `top_skills`) chứ không đếm dòng fact.
+  tin (như `top_skills`) chứ không đếm dòng fact. `list_cities` nhận thêm quốc gia để
+  lọc: gộp tỉnh thành Việt Nam với thành phố của gần bốn mươi nước vào một danh sách
+  phẳng thì người dùng phải cuộn qua cả trăm mục.
 - `src/api/main.py` — FastAPI: `/skills` (tìm kỹ năng theo tên/biến thể),
   `/skills/{id}` (chi tiết + provenance), `/jobs/search` (tìm việc theo kỹ năng,
   `expand=true` mở rộng qua closure table), `/stats/top-skills`,
-  `/stats/hard-soft-ratio`.
+  `/stats/hard-soft-ratio`, `/filters/countries`, `/filters/cities`.
 - `src/app/streamlit_app.py` — 3 trang: tìm việc theo kỹ năng, tra cứu kỹ năng
-  (canonical, biến thể, cha/con, ví dụ trích chọn), dashboard OLAP.
+  (canonical, biến thể, cha/con, ví dụ trích chọn), dashboard OLAP. Bộ lọc địa điểm
+  đi hai cấp quốc gia -> tỉnh/thành phố, danh sách tỉnh thành đổi theo quốc gia đã chọn.
+- `src/app/charts.py` — các biểu đồ Altair của dashboard. Nhận list[dict] từ
+  `queries.py` và trả `alt.Chart`, không chạm DuckDB nên test được bằng dữ liệu mẫu.
+  Một chuỗi số liệu thì một màu (độ dài cột đã mang thông tin, tô đậm nhạt theo giá
+  trị là mã hoá lặp); nhiều chuỗi thì lấy lần lượt các slot đã định sẵn nên lọc bớt
+  một chuỗi không làm các chuỗi còn lại đổi màu; thang liên tục chạy từ bước gần màu
+  nền nhất tới bước xa nhất, nên nền tối phải đảo chiều thang chứ không dùng lại thang
+  của nền sáng. Mỗi biểu đồ có kèm bảng số liệu để giá trị không bị khoá sau tooltip.
+
+Dashboard có một hàng bộ lọc chung (loại kỹ năng, nhóm nghề, quốc gia, tỉnh/thành phố)
+áp cho toàn bộ 4 tab bên dưới:
+
+| Tab | Biểu đồ |
+| --- | --- |
+| Tổng quan | hàng chỉ số; kỹ năng được yêu cầu nhiều nhất; kỹ năng cứng/mềm theo nhóm nghề |
+| Lĩnh vực & địa điểm | nhu cầu theo lĩnh vực kỹ năng; heatmap kỹ năng × tỉnh thành; khoảng lương theo nhóm nghề |
+| Quan hệ kỹ năng | ma trận kỹ năng thường được đòi cùng nhau |
+| Nguồn dữ liệu | cách trích chọn kỹ năng theo nguồn; tin đăng theo tháng |
+
+Vài lựa chọn có chủ ý: heatmap kỹ năng × tỉnh thành hiển thị **tỉ lệ trong nội bộ từng
+tỉnh** chứ không phải số tuyệt đối, vì TP HCM và Hà Nội chiếm hơn hai phần ba số tin và
+sẽ nuốt hết dải màu; ma trận đồng xuất hiện bỏ đường chéo vì cùng lý do; biểu đồ lương
+chỉ vẽ tin ghi VNĐ theo tháng, do kho cố tình không quy đổi tỷ giá nên gộp với USD/năm
+vào cùng một trục là sai. Nền sáng/tối chọn theo `base` trong `.streamlit/config.toml`.
 
 ## Đánh giá
 

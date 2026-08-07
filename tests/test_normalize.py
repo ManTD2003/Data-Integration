@@ -22,8 +22,46 @@ def test_city_country_normalises_vietnamese_provinces():
     assert city_country("Ha Noi", "itviec") == ("Hà Nội", "Việt Nam")
 
 
+def test_city_country_reads_province_code_when_address_has_no_province():
+    """Địa chỉ vieclam24h bị nguồn cắt ngắn, phần lớn tin chỉ còn mã tỉnh để dựa vào."""
+    city, _ = city_country("874 Bùi Hữu Nghĩa, Hoa A", "vieclam24h", province_id=120)
+    assert city == "Đồng Nai"
+
+
+def test_city_country_prefers_workplace_address_over_contact_address():
+    city, _ = city_country(
+        "Lô T2-1.1a, Khu Công Nghệ Cao, TP. Thủ Đức",
+        "vieclam24h",
+        province_id=73,
+        address_hint="96 Hoàng Ngân, Yên Hòa, Hà Nội",
+    )
+    assert city == "TP Hồ Chí Minh"
+
+
+def test_city_country_rejects_ward_and_street_names():
+    """Tên phường hay số nhà không phải tỉnh thành, thà bỏ trống còn hơn lọt vào bộ lọc."""
+    assert city_country("36/1/2B/5A Đường 4, khu phố 6, Phường Hiệp Bình Phước", "vieclam24h") == (
+        None,
+        "Việt Nam",
+    )
+
+
 def test_city_country_keeps_foreign_country_from_source_field():
     assert city_country("Watertown, CT", "data_jobs", "United States") == ("Watertown", "United States")
+
+
+def test_city_country_takes_city_not_region_from_foreign_address():
+    assert city_country("Bengaluru, Karnataka, India", "data_jobs", "India") == ("Bengaluru", "India")
+
+
+def test_city_country_trusts_us_state_code_over_wrong_source_country():
+    """Nguồn data_jobs gán 'Sudan' cho một loạt tin ở Mỹ; mã bang mới là căn cứ đúng."""
+    assert city_country("Austin, TX", "data_jobs", "Sudan") == ("Austin", "United States")
+
+
+def test_city_country_treats_country_only_string_as_country():
+    assert city_country("India", "data_jobs", "India") == (None, "India")
+    assert city_country("Singapore", "data_jobs", "Singapore") == ("Singapore", "Singapore")
 
 
 def test_city_country_detects_remote():

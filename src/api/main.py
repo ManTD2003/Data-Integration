@@ -39,6 +39,7 @@ def api_search_jobs(
     skill_type: str | None = None,
     role_family: str | None = None,
     city: str | None = None,
+    country: str | None = None,
     limit: int = 20,
     offset: int = 0,
 ):
@@ -46,7 +47,7 @@ def api_search_jobs(
     try:
         return queries.search_jobs(
             con, skill_id, expand=expand, skill_type=skill_type, role_family=role_family,
-            city=city, limit=limit, offset=offset,
+            city=city, country=country, limit=limit, offset=offset,
         )
     finally:
         con.close()
@@ -84,10 +85,19 @@ def api_role_families():
         con.close()
 
 
-@app.get("/filters/cities")
-def api_cities(min_jobs: int = 5):
+@app.get("/filters/countries")
+def api_countries(min_jobs: int = 5):
     con = queries.get_connection()
     try:
-        return queries.list_cities(con, min_jobs=min_jobs)
+        return queries.list_countries(con, min_jobs=min_jobs)
+    finally:
+        con.close()
+
+
+@app.get("/filters/cities")
+def api_cities(country: str | None = None, min_jobs: int = 5):
+    con = queries.get_connection()
+    try:
+        return queries.list_cities(con, country=country, min_jobs=min_jobs)
     finally:
         con.close()

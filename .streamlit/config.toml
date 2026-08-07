@@ -1,0 +1,4 @@
+[theme]
+# Cố định nền sáng để màu biểu đồ trong src/app/charts.py chọn được đúng bộ token.
+# Đổi sang "dark" thì charts.tokens() tự lấy bộ token nền tối tương ứng.
+base = "light"

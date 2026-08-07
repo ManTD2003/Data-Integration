@@ -2,12 +2,19 @@ import duckdb
 import pytest
 
 from src.api.queries import (
+    corpus_stats,
     expand_skill_ids,
     get_skill_detail,
     hard_soft_ratio,
+    jobs_by_month,
+    jobs_by_skill_category,
     list_cities,
+    list_countries,
+    salary_band_by_role_family,
     search_jobs,
     search_skills,
+    skill_cooccurrence,
+    skill_type_by_role_family,
     top_skills,
 )
 
@@ -52,13 +59,16 @@ def con():
     )
     con.execute(
         "CREATE TABLE dim_job (job_id VARCHAR, title_raw VARCHAR, role_family VARCHAR, company_id INTEGER, "
-        "location_id INTEGER, posted_date VARCHAR, source VARCHAR, url VARCHAR, seniority VARCHAR)"
+        "location_id INTEGER, posted_date VARCHAR, source VARCHAR, url VARCHAR, seniority VARCHAR, "
+        "salary_min DOUBLE, salary_max DOUBLE, salary_currency VARCHAR, salary_period VARCHAR)"
     )
     con.execute(
         """
         INSERT INTO dim_job VALUES
-            ('j1', 'Backend Dev', 'Kỹ sư phần mềm', 1, 1, '2026-01-01', 'itviec', NULL, NULL),
-            ('j2', 'Data Scientist', 'Khoa học dữ liệu', 1, 1, '2026-02-01', 'data_jobs', NULL, 'Cao cấp')
+            ('j1', 'Backend Dev', 'Kỹ sư phần mềm', 1, 1, '2026-01-01', 'itviec', NULL, NULL,
+             15000000, 20000000, 'VND', 'month'),
+            ('j2', 'Data Scientist', 'Khoa học dữ liệu', 1, 1, '2026-02-01', 'data_jobs', NULL, 'Cao cấp',
+             95000, 95000, 'USD', 'year')
         """
     )
     con.execute("CREATE TABLE dim_company (company_id INTEGER, name VARCHAR, name_norm VARCHAR, industry VARCHAR)")
@@ -162,3 +172,69 @@ def test_search_jobs_offers_link_back_to_source(con):
 def test_list_cities_hides_values_below_threshold(con):
     assert list_cities(con, min_jobs=5) == []
     assert list_cities(con, min_jobs=1) == ["Hà Nội"]
+
+
+def test_list_cities_scopes_to_country(con):
+    con.execute("INSERT INTO dim_location VALUES (2, 'Austin, TX', 'Austin', 'United States')")
+    con.execute(
+        "INSERT INTO dim_job VALUES ('j3', 'ML Engineer', 'Khoa học dữ liệu', 1, 2, "
+        "'2026-03-01', 'data_jobs', NULL, NULL, NULL, NULL, NULL, NULL)"
+    )
+    assert list_cities(con, min_jobs=1) == ["Hà Nội", "Austin"]
+    assert list_cities(con, country="Việt Nam", min_jobs=1) == ["Hà Nội"]
+    assert list_countries(con, min_jobs=1) == ["Việt Nam", "United States"]
+
+
+def test_corpus_stats_counts_jobs_and_pairs(con):
+    stats = corpus_stats(con)
+    assert (stats["n_jobs"], stats["n_sources"], stats["n_pairs"], stats["n_skills"]) == (2, 2, 3, 3)
+    assert stats["skills_per_job"] == pytest.approx(1.5)
+
+
+def test_corpus_stats_follows_the_filter(con):
+    assert corpus_stats(con, role_family="Kỹ sư phần mềm")["n_jobs"] == 1
+    assert corpus_stats(con, city="Đà Nẵng")["n_jobs"] == 0
+
+
+def test_skill_type_by_role_family_counts_a_job_in_both_types(con):
+    rows = {(r["role_family"], r["skill_type"]): r["n"] for r in skill_type_by_role_family(con)}
+    assert rows[("Kỹ sư phần mềm", "hard")] == 1
+    assert rows[("Kỹ sư phần mềm", "soft")] == 1
+
+
+def test_jobs_by_skill_category_skips_skills_without_category(con):
+    rows = jobs_by_skill_category(con)
+    assert [(r["category"], r["n"]) for r in rows] == [("Ngôn ngữ lập trình", 2)]
+
+
+def test_skill_cooccurrence_is_symmetric_and_keeps_the_diagonal(con):
+    rows = {(r["skill_a"], r["skill_b"]): r["n"] for r in skill_cooccurrence(con)}
+    assert rows[("Python", "Làm việc nhóm")] == rows[("Làm việc nhóm", "Python")] == 1
+    assert rows[("Python", "Python")] == 1
+    assert ("Python", "Java") not in rows
+
+
+def test_salary_band_keeps_one_currency_and_period(con):
+    """Kho không quy đổi tỷ giá nên tin USD/năm không được lẫn vào cùng trục với VNĐ."""
+    rows = salary_band_by_role_family(con, min_jobs=1)
+    assert [(r["role_family"], r["low"], r["high"]) for r in rows] == [
+        ("Kỹ sư phần mềm", 15000000, 20000000)
+    ]
+    assert salary_band_by_role_family(con, currency="USD", period="year", min_jobs=1)[0][
+        "role_family"
+    ] == "Khoa học dữ liệu"
+
+
+def test_jobs_by_month_groups_by_month_and_source(con):
+    rows = jobs_by_month(con)
+    assert [(r["month"], r["source"], r["n"]) for r in rows] == [
+        ("2026-01", "itviec", 1),
+        ("2026-02", "data_jobs", 1),
+    ]
+
+
+def test_search_jobs_filters_by_country(con):
+    con.execute("INSERT INTO dim_location VALUES (2, 'Austin, TX', 'Austin', 'United States')")
+    con.execute("UPDATE dim_job SET location_id = 2 WHERE job_id = 'j2'")
+    assert {j["job_id"] for j in search_jobs(con, "lang", country="Việt Nam")} == {"j1"}
+    assert {j["job_id"] for j in search_jobs(con, "lang", country="United States")} == {"j2"}
