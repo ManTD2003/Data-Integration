@@ -69,6 +69,39 @@ def test_extra_aliases_cover_common_abbreviations():
     assert skill_dict.lookup("k8s")["canonical_name"] == "Kubernetes"
 
 
+def test_development_oov_supplement_adds_recurring_technical_skills():
+    skill_dict = build_dictionary([])
+
+    assert skill_dict.lookup("cloudwatch")["canonical_name"] == "Amazon CloudWatch"
+    infrastructure = skill_dict.lookup("infrastructure-as-code")
+    assert infrastructure["canonical_name"] == "Infrastructure as Code"
+    assert skill_dict.lookup("manual test")["canonical_name"] == "Manual Testing"
+    assert skill_dict.lookup("dlp")["canonical_name"] == "Data Loss Prevention"
+    assert skill_dict.lookup("hibernate")["canonical_name"] == "Hibernate"
+
+
+def test_contextual_aliases_avoid_ambiguous_single_words():
+    skill_dict = build_dictionary([])
+
+    assert skill_dict.lookup("communication skills")["canonical_name"] == "Giao tiếp"
+    assert skill_dict.lookup("communication") is None
+    assert skill_dict.lookup("office applications")["canonical_name"] == "Tin học văn phòng"
+    assert skill_dict.lookup("office") is None
+
+
+def test_curated_oov_entries_keep_ambiguous_short_forms_out():
+    skill_dict = build_dictionary([])
+
+    assert skill_dict.lookup("rest api")["canonical_name"] == "RESTful API"
+    assert skill_dict.lookup("prometheus")["canonical_name"] == "Prometheus"
+    assert skill_dict.lookup("hospital information system")["canonical_name"] == (
+        "Hospital Information System (HIS)"
+    )
+    assert skill_dict.lookup("his") is None
+    assert skill_dict.lookup("espresso") is None
+    assert skill_dict.lookup("monitoring") is None
+
+
 def test_for_extraction_drops_category_nodes():
     skill_dict = SkillDictionary()
     skill_dict.add("Python", "hard", ["python"])

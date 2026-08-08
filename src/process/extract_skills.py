@@ -13,15 +13,28 @@ from __future__ import annotations
 
 import json
 import re
+from collections import Counter
 
-from rapidfuzz import fuzz, process
+from rapidfuzz import process
 
 from src.common.paths import STAGING
+from src.common.similarity import normalized_levenshtein
 from src.process.skill_dictionary import SkillDictionary, _fold, load_or_build
 
 MAX_NGRAM = 4
-FUZZY_SCORE_CUTOFF = 92
+FUZZY_SCORE_CUTOFF = 85
 MIN_FUZZY_TOKEN_LEN = 5
+
+# Khớp mờ chỉ nhằm bắt lỗi gõ và viết tắt, mà lỗi gõ thì chỉ xuất hiện ở vài tin.
+# Token nào có mặt ở quá tỉ lệ này của corpus là từ thông dụng chứ không phải lỗi gõ,
+# và cho nó đi qua khớp mờ thì sinh ra khớp nhầm hàng loạt: "testing" chỉ cách
+# "testng" một phép sửa nên đạt 92,3 điểm, đủ vượt ngưỡng, khiến 112 tin bị gán
+# TestNG. Chặn theo document frequency giữ được các ca đúng vì chúng vốn hiếm
+# ("posgresql" xuất hiện đúng một lần).
+MAX_FUZZY_DF_RATIO = 0.002
+# Sàn tuyệt đối: với corpus nhỏ, ngưỡng theo tỉ lệ tụt xuống dưới 1 và chặn sạch mọi
+# token. Một lỗi gõ vẫn có thể lặp ở vài tin của cùng một doanh nghiệp.
+MIN_FUZZY_DF_CUTOFF = 3
 
 OUTPUT_PATH = STAGING / "job_skills.jsonl"
 
@@ -68,7 +81,27 @@ def _match_exact(text: str, skill_dict: SkillDictionary) -> dict[str, dict]:
     return found
 
 
-def _match_fuzzy(text: str, skill_dict: SkillDictionary, single_word_aliases: list[str], already: dict) -> dict[str, dict]:
+def common_tokens(records: list[dict], max_df_ratio: float = MAX_FUZZY_DF_RATIO) -> frozenset[str]:
+    """Các token xuất hiện ở quá nhiều tin để có thể là lỗi gõ."""
+    df: Counter[str] = Counter()
+    n_docs = 0
+    for rec in records:
+        text = _record_text(rec)
+        if not text:
+            continue
+        n_docs += 1
+        df.update({_fold(text[t.start() : t.end()]) for t in _iter_token_spans(text)})
+    cutoff = max(MIN_FUZZY_DF_CUTOFF, max_df_ratio * n_docs)
+    return frozenset(token for token, count in df.items() if count > cutoff)
+
+
+def _match_fuzzy(
+    text: str,
+    skill_dict: SkillDictionary,
+    single_word_aliases: list[str],
+    already: dict,
+    common: frozenset[str],
+) -> dict[str, dict]:
     covered_tokens: set[int] = set()
     for info in already.values():
         covered_tokens |= info["matched_tokens"]
@@ -80,8 +113,13 @@ def _match_fuzzy(text: str, skill_dict: SkillDictionary, single_word_aliases: li
         word = text[tok.start() : tok.end()]
         if len(word) < MIN_FUZZY_TOKEN_LEN or word.isdigit():
             continue
+        if _fold(word) in common:
+            continue
         match = process.extractOne(
-            _fold(word), single_word_aliases, scorer=fuzz.ratio, score_cutoff=FUZZY_SCORE_CUTOFF
+            _fold(word),
+            single_word_aliases,
+            scorer=normalized_levenshtein,
+            score_cutoff=FUZZY_SCORE_CUTOFF,
         )
         if match is None:
             continue
@@ -116,13 +154,18 @@ def extract_from_source_field(rec: dict, skill_dict: SkillDictionary) -> list[di
     return matches
 
 
-def extract_from_text(rec: dict, skill_dict: SkillDictionary, single_word_aliases: list[str]) -> list[dict]:
+def extract_from_text(
+    rec: dict,
+    skill_dict: SkillDictionary,
+    single_word_aliases: list[str],
+    common: frozenset[str] = frozenset(),
+) -> list[dict]:
     text = _record_text(rec)
     if not text:
         return []
 
     exact = _match_exact(text, skill_dict)
-    fuzzy = _match_fuzzy(text, skill_dict, single_word_aliases, exact)
+    fuzzy = _match_fuzzy(text, skill_dict, single_word_aliases, exact, common)
 
     matches = []
     for skill_id, info in {**exact, **fuzzy}.items():
@@ -140,10 +183,15 @@ def extract_from_text(rec: dict, skill_dict: SkillDictionary, single_word_aliase
     return matches
 
 
-def extract_skills(rec: dict, skill_dict: SkillDictionary, single_word_aliases: list[str]) -> list[dict]:
+def extract_skills(
+    rec: dict,
+    skill_dict: SkillDictionary,
+    single_word_aliases: list[str],
+    common: frozenset[str] = frozenset(),
+) -> list[dict]:
     if rec.get("extra", {}).get("skills_given"):
         return extract_from_source_field(rec, skill_dict)
-    return extract_from_text(rec, skill_dict, single_word_aliases)
+    return extract_from_text(rec, skill_dict, single_word_aliases, common)
 
 
 def run() -> str:
@@ -155,12 +203,13 @@ def run() -> str:
     # tại sau bước build_hierarchy — lọc ra để kết quả không phụ thuộc thứ tự chạy.
     skill_dict = load_or_build(records).for_extraction()
     single_word_aliases = [a for a in skill_dict.alias_index if " " not in a and len(a) >= MIN_FUZZY_TOKEN_LEN]
+    common = common_tokens(canonical)
 
     method_counts: dict[str, int] = {}
     with open(OUTPUT_PATH, "w", encoding="utf-8") as out:
         for rec in canonical:
             record_id = f"{rec['source']}:{rec['source_id']}"
-            for match in extract_skills(rec, skill_dict, single_word_aliases):
+            for match in extract_skills(rec, skill_dict, single_word_aliases, common):
                 match["record_id"] = record_id
                 match["source"] = rec["source"]
                 out.write(json.dumps(match, ensure_ascii=False) + "\n")

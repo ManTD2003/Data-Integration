@@ -207,6 +207,42 @@ vào cùng một trục là sai. Nền sáng/tối chọn theo `base` trong `.st
   hai bất biến bắt lỗi thứ tự pipeline: nút nhóm không được có dòng fact, và kỹ năng có
   dấu phải tra được bằng chuỗi không dấu.
 
+### Manual gold cho skill extraction
+
+```bash
+./run.sh annotate init       # tạo batch cố định
+./run.sh annotate app        # mở giao diện gán nhãn
+./run.sh annotate status     # xem tiến độ và lỗi
+./run.sh annotate freeze     # khóa hệ thống trước khi gán test split
+./run.sh annotate export     # xuất gold khi toàn bộ task đã xong
+./run.sh annotate score      # đo trên test split
+```
+
+Batch mặc định lấy 100 tin itviec và 100 tin vieclam24h, cân bằng ba dải độ dài
+văn bản. Mỗi dải được chia 30% vào development split và phần còn lại vào test
+split bằng seed cố định. Giao diện chỉ hiện tiêu đề, yêu cầu và mô tả; source tags
+và prediction không được đưa vào màn hình để tránh bias.
+
+Người gán nhãn chọn canonical skill được nhắc trực tiếp trong văn bản, không suy
+diễn từ chức danh. Kỹ năng chưa có trong dictionary được ghi riêng dưới canonical
+name; khi chấm, các mục OOV này thuộc gold và được tính là false negative. Lệnh
+`export` từ chối khi còn task thiếu nhãn hoặc input đã thay đổi sau lúc tạo batch.
+
+Development split được gán trước để sửa rule, threshold và dictionary. Khi phần
+này đã xong, lệnh `freeze` ghi checksum của dictionary và extractor rồi mới mở
+test split trên giao diện. Mọi thay đổi đối với hai thành phần đó sau thời điểm
+khóa sẽ làm lệnh `export` và `score` dừng lại.
+
+Các file của workflow nằm trong `data/eval/`: manifest giữ seed và checksum,
+`skill_extraction_tasks.jsonl` giữ input đã khóa,
+`skill_extraction_annotations.jsonl` giữ phần đang gán, còn
+`skill_extraction_gold.jsonl` là dữ liệu đã kiểm tra để tính metric.
+
+Batch hiện tại mang `annotator=codex`, vì vậy kết quả của nó được báo là
+LLM-assisted gold, không phải manual gold do người gán. Score tách end-to-end
+metric, trong đó OOV được tính là false negative, khỏi in-vocabulary metric chỉ
+đo các canonical skill đã có trong dictionary.
+
 ## Kiểm thử
 
 ```bash

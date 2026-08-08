@@ -23,6 +23,7 @@ from src.common.paths import STAGING
 from src.eval.metrics import SetScore
 from src.process.extract_skills import (
     MIN_FUZZY_TOKEN_LEN,
+    common_tokens,
     extract_from_source_field,
     extract_from_text,
 )
@@ -46,7 +47,12 @@ def _masked(rec: dict, fields: tuple[str, ...]) -> dict:
     return {field: rec.get(field) for field in fields}
 
 
-def evaluate(records: list[dict], skill_dict: SkillDictionary, aliases: list[str]) -> dict:
+def evaluate(
+    records: list[dict],
+    skill_dict: SkillDictionary,
+    aliases: list[str],
+    common: frozenset[str] = frozenset(),
+) -> dict:
     overall = SetScore()
     per_source: dict[str, SetScore] = {}
     per_method: dict[str, list[int]] = {}
@@ -61,7 +67,7 @@ def evaluate(records: list[dict], skill_dict: SkillDictionary, aliases: list[str
         if not gold:
             continue
 
-        matches = extract_from_text(_masked(rec, fields), skill_dict, aliases)
+        matches = extract_from_text(_masked(rec, fields), skill_dict, aliases, common)
         pred = {m["skill_id"] for m in matches}
 
         overall.update(gold, pred)
@@ -86,4 +92,6 @@ def run() -> dict:
     records = load_records()
     skill_dict = load_or_build(records).for_extraction()
     aliases = [a for a in skill_dict.alias_index if " " not in a and len(a) >= MIN_FUZZY_TOKEN_LEN]
-    return evaluate(records, skill_dict, aliases)
+    # Tính trên toàn corpus như bước trích chọn thật, không chỉ trên tập đo, để phép
+    # đo phản ánh đúng cấu hình đang chạy.
+    return evaluate(records, skill_dict, aliases, common_tokens(records))

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-08-08T06:03:01.519343+00:00",
+  "seed": 5420,
+  "per_source": 100,
+  "development_ratio": 0.3,
+  "sources": [
+    "itviec",
+    "vieclam24h"
+  ],
+  "input_fields": [
+    "title",
+    "requirements_raw",
+    "description"
+  ],
+  "task_count": 200,
+  "annotation_method": "llm_assisted",
+  "annotator": "codex",
+  "annotator_model": "gpt-5.6-sol",
+  "annotation_reasoning_effort": {
+    "orders_1_50": "high",
+    "orders_51_200": "medium"
+  },
+  "label_review_method": "codex_second_pass",
+  "label_review_model": "gpt-5.6-sol",
+  "label_review_reasoning_effort": "medium",
+  "label_review_policy": "strict_explicit_mentions_without_inference",
+  "label_reviewed_at": "2026-08-08T08:55:00+00:00",
+  "label_review_removed_count": 115,
+  "label_review_conflict_count": 34,
+  "label_review_restored_count": 13,
+  "source_labels_visible": false,
+  "predictions_visible": false,
+  "test_frozen": true,
+  "dictionary_revision": 4,
+  "dictionary_retuned_from_split": "development",
+  "dictionary_revision_3_policy": "curated terms explicitly present in development text",
+  "dictionary_revision_4_policy": "warehouse rebuild after normalized Levenshtein migration; no test OOV tuning",
+  "similarity_metric": "normalized_levenshtein",
+  "similarity_thresholds": {
+    "dedup_title": 87.5,
+    "dedup_company": 88,
+    "skill_fuzzy_match": 85
+  },
+  "baseline_test_was_viewed": true,
+  "baseline_dictionary_sha256": "edb06cc6923d3533e73e9adff9ee0824f45bef96882961ca46ccfbbf898bc042",
+  "previous_dictionary_sha256": "6c275aeb59fdbd041fcc44679e3c2c27d66ea43a3d93461c695391084e52e4ed",
+  "dictionary_sha256": "2fdb355b6a002bc9d06d3c58f9ffc0204b43776b5109d2e1a33c02a71e25297d",
+  "extractor_sha256": "a2172d0ce78843bfc85c3f4561ec9a2cdb5d3f067a843de342269bbabbe3a31a",
+  "similarity_sha256": "452aef94e7996a710608c433297efb38c4d06f465de029ba0aca457ec2ca4ac3",
+  "records_sha256": "c5343d3acf492ae15da2632ab224e3580cb535654e945fc88cf660de30745146",
+  "frozen_at": "2026-08-08T07:01:25.105846+00:00",
+  "dictionary_refrozen_at": "2026-08-08T08:08:39.6261078Z",
+  "similarity_refrozen_at": "2026-08-08T10:15:00+00:00"
+}

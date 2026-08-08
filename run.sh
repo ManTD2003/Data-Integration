@@ -89,6 +89,22 @@ cmd_app() {
     "$PY" -m streamlit run src/app/streamlit_app.py --server.headless true
 }
 
+cmd_annotate() {
+    need_venv
+    case "${1:-}" in
+        init|status|freeze|export|score)
+            "$PY" -m src.eval.annotation "$@"
+            ;;
+        app)
+            "$PY" -m streamlit run src/eval/annotation_app.py --server.headless true
+            ;;
+        *)
+            echo "Cách dùng: ./run.sh annotate {init|app|status|freeze|export|score}" >&2
+            exit 1
+            ;;
+    esac
+}
+
 usage() {
     cat <<'EOF'
 Cách dùng: ./run.sh <lệnh>
@@ -99,6 +115,7 @@ Cách dùng: ./run.sh <lệnh>
   all     crawl + build
   test    Chạy pytest
   eval    In bảng chỉ số đánh giá (thêm --json để lưu kết quả thô)
+  annotate  Tạo, gán nhãn và đánh giá manual gold cho skill extraction
   api     Chạy FastAPI (http://127.0.0.1:8000, tài liệu ở /docs)
   app     Chạy web app Streamlit (http://localhost:8501)
 
@@ -114,6 +131,7 @@ case "${1:-}" in
     all) cmd_crawl; cmd_build ;;
     test) cmd_test ;;
     eval) shift; cmd_eval "$@" ;;
+    annotate) shift; cmd_annotate "$@" ;;
     api) cmd_api ;;
     app) cmd_app ;;
     *) usage; exit 1 ;;

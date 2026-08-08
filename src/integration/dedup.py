@@ -4,12 +4,11 @@ import json
 import re
 from collections import defaultdict
 
-from rapidfuzz import fuzz
-
 from src.common.paths import STAGING
 from src.common.schema import norm_text, strip_accents
+from src.common.similarity import token_sort_levenshtein
 
-TITLE_SIM = 92
+TITLE_SIM = 87.5
 COMPANY_SIM = 88
 KEY_LEN = 12
 
@@ -52,10 +51,10 @@ def is_duplicate(a: dict, b: dict) -> bool:
     điều kiện không ràng buộc `source`; tên công ty được so sau khi đã bỏ dấu và cắt
     tiền tố loại hình để "Công ty TNHH ABC" và "ABC Co., Ltd" không bị coi là khác nhau.
     """
-    title_sim = fuzz.token_sort_ratio(norm_text(a["title"]), norm_text(b["title"]))
+    title_sim = token_sort_levenshtein(norm_text(a["title"]), norm_text(b["title"]))
     if title_sim < TITLE_SIM:
         return False
-    comp_sim = fuzz.token_sort_ratio(company_key(a.get("company")), company_key(b.get("company")))
+    comp_sim = token_sort_levenshtein(company_key(a.get("company")), company_key(b.get("company")))
     return comp_sim >= COMPANY_SIM
 
 

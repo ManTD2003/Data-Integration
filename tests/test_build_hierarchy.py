@@ -104,3 +104,23 @@ def test_closure_stops_on_cyclic_parent():
 
     assert len(closure) == 4
     assert max(row["depth"] for row in closure) == 1
+
+
+def test_development_oov_skills_receive_domain_parents():
+    skill_dict = SkillDictionary()
+    skill_dict.add("Amazon CloudWatch", "hard", ["cloudwatch"])
+    skill_dict.add("Manual Testing", "hard", ["manual testing"])
+    skill_dict.add("Data Loss Prevention", "hard", ["dlp"])
+
+    missing = assign_parents(skill_dict)
+
+    expected = {
+        "cloudwatch": "Điện toán đám mây",
+        "manual testing": "Kiểm thử phần mềm",
+        "dlp": "An ninh mạng",
+    }
+    for alias, parent_name in expected.items():
+        entry = skill_dict.lookup(alias)
+        parent = skill_dict.skills[entry["parent_skill_id"]]
+        assert parent["canonical_name"] == parent_name
+    assert not set(expected.values()) & set(missing)

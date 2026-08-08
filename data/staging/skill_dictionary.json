@@ -34,8 +34,8 @@
     "canonical_name": "NoSQL",
     "skill_type": "hard",
     "aliases": [
-      "nosql",
-      "no-sql"
+      "no-sql",
+      "nosql"
     ],
     "parent_skill_id": "co-so-du-lieu",
     "is_category": false
@@ -45,8 +45,8 @@
     "canonical_name": "Power BI",
     "skill_type": "hard",
     "aliases": [
-      "power bi",
-      "powerbi"
+      "powerbi",
+      "power bi"
     ],
     "parent_skill_id": "phan-tich-du-lieu-and-bi",
     "is_category": false
@@ -438,8 +438,8 @@
     "canonical_name": "go",
     "skill_type": "hard",
     "aliases": [
-      "golang",
-      "go"
+      "go",
+      "golang"
     ],
     "parent_skill_id": "ngon-ngu-lap-trinh",
     "is_category": false
@@ -471,7 +471,7 @@
     "aliases": [
       "flask"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -481,7 +481,7 @@
     "aliases": [
       "fastapi"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -710,8 +710,8 @@
     "canonical_name": "c",
     "skill_type": "hard",
     "aliases": [
-      "c language",
-      "c"
+      "c",
+      "c language"
     ],
     "parent_skill_id": "ngon-ngu-lap-trinh",
     "is_category": false
@@ -753,7 +753,7 @@
     "aliases": [
       "html"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -763,7 +763,7 @@
     "aliases": [
       "css"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -895,7 +895,7 @@
       "react",
       "reactjs"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -905,7 +905,7 @@
     "aliases": [
       "angular"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -923,10 +923,10 @@
     "canonical_name": "vue",
     "skill_type": "hard",
     "aliases": [
-      "vue",
-      "vuejs"
+      "vuejs",
+      "vue"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -956,7 +956,7 @@
     "aliases": [
       "express"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -964,8 +964,8 @@
     "canonical_name": "aurora",
     "skill_type": "hard",
     "aliases": [
-      "amazon aurora",
-      "aurora"
+      "aurora",
+      "amazon aurora"
     ],
     "parent_skill_id": "dien-toan-dam-may",
     "is_category": false
@@ -1037,7 +1037,7 @@
     "aliases": [
       "sass"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -1057,7 +1057,7 @@
     "aliases": [
       "jquery"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -1067,7 +1067,7 @@
     "aliases": [
       "django"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -1127,7 +1127,7 @@
     "aliases": [
       "spring"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -1237,7 +1237,7 @@
     "aliases": [
       "symfony"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -1269,7 +1269,7 @@
       "nodejs",
       "node.js"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -1309,7 +1309,7 @@
     "aliases": [
       "asp.net"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -1339,7 +1339,7 @@
     "aliases": [
       "laravel"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -1777,8 +1777,8 @@
     "canonical_name": "Robotic Process Automation (RPA)",
     "skill_type": "hard",
     "aliases": [
-      "rpa",
-      "robotic process automation (rpa)"
+      "robotic process automation (rpa)",
+      "rpa"
     ],
     "parent_skill_id": null,
     "is_category": false
@@ -1899,8 +1899,8 @@
     "canonical_name": "Pentest",
     "skill_type": "hard",
     "aliases": [
-      "penetration testing",
-      "pentest"
+      "pentest",
+      "penetration testing"
     ],
     "parent_skill_id": "an-ninh-mang",
     "is_category": false
@@ -1940,7 +1940,11 @@
     "canonical_name": "Data Analysis",
     "skill_type": "hard",
     "aliases": [
-      "data analysis"
+      "data analytics",
+      "phân tích dữ liệu",
+      "analyze data",
+      "data analysis",
+      "analyse data"
     ],
     "parent_skill_id": "phan-tich-du-lieu-and-bi",
     "is_category": false
@@ -1990,6 +1994,7 @@
     "canonical_name": "Technical Writing",
     "skill_type": "hard",
     "aliases": [
+      "technical documentation",
       "technical writing"
     ],
     "parent_skill_id": null,
@@ -2022,7 +2027,7 @@
     "aliases": [
       "html5"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -2090,8 +2095,8 @@
     "canonical_name": "Project Management",
     "skill_type": "hard",
     "aliases": [
-      "quản lý dự án",
-      "project management"
+      "project management",
+      "quản lý dự án"
     ],
     "parent_skill_id": "ky-nang-nghiep-vu",
     "is_category": false
@@ -2191,7 +2196,12 @@
     "canonical_name": "Risk Management",
     "skill_type": "hard",
     "aliases": [
-      "risk management"
+      "risk assessment",
+      "risk management",
+      "risk mitigation",
+      "risk control",
+      "risk register",
+      "technical risk assessment"
     ],
     "parent_skill_id": null,
     "is_category": false
@@ -2293,7 +2303,7 @@
     "aliases": [
       ".net core"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -2383,7 +2393,7 @@
     "aliases": [
       ".net"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -2393,7 +2403,7 @@
     "aliases": [
       "blazor"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -2461,7 +2471,10 @@
     "canonical_name": "Automation Test",
     "skill_type": "hard",
     "aliases": [
-      "automation test"
+      "automation testing",
+      "automated testing",
+      "automation test",
+      "test automation"
     ],
     "parent_skill_id": "kiem-thu-phan-mem",
     "is_category": false
@@ -2532,7 +2545,11 @@
     "canonical_name": "Information Security",
     "skill_type": "hard",
     "aliases": [
-      "information security"
+      "bảo mật thông tin",
+      "attt",
+      "an toàn thông tin",
+      "information security",
+      "an ninh thông tin"
     ],
     "parent_skill_id": "an-ninh-mang",
     "is_category": false
@@ -2554,7 +2571,7 @@
     "aliases": [
       "ruby on rails"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -2592,6 +2609,8 @@
     "canonical_name": "Identity & Access Management",
     "skill_type": "hard",
     "aliases": [
+      "identity and access management",
+      "iam",
       "identity & access management"
     ],
     "parent_skill_id": "an-ninh-mang",
@@ -2604,7 +2623,7 @@
     "aliases": [
       "j2ee"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -2644,7 +2663,12 @@
     "canonical_name": "UI-UX",
     "skill_type": "hard",
     "aliases": [
-      "ui-ux"
+      "user interface design",
+      "ui-ux",
+      "ui/ux",
+      "ux design",
+      "user experience design",
+      "ui ux"
     ],
     "parent_skill_id": "thiet-ke-do-hoa",
     "is_category": false
@@ -2714,8 +2738,8 @@
     "canonical_name": "Korean",
     "skill_type": "hard",
     "aliases": [
-      "korean",
-      "tiếng hàn"
+      "tiếng hàn",
+      "korean"
     ],
     "parent_skill_id": "ngoai-ngu",
     "is_category": false
@@ -2765,6 +2789,7 @@
     "canonical_name": "Web Application Firewall",
     "skill_type": "hard",
     "aliases": [
+      "waf",
       "web application firewall"
     ],
     "parent_skill_id": "an-ninh-mang",
@@ -3047,7 +3072,7 @@
     "aliases": [
       "spring boot"
     ],
-    "parent_skill_id": "phat-trien-backend",
+    "parent_skill_id": "backend-development",
     "is_category": false
   },
   {
@@ -3207,7 +3232,7 @@
     "aliases": [
       "nextjs"
     ],
-    "parent_skill_id": "phat-trien-frontend",
+    "parent_skill_id": "frontend-development",
     "is_category": false
   },
   {
@@ -3566,9 +3591,14 @@
     "canonical_name": "Giao tiếp",
     "skill_type": "soft",
     "aliases": [
+      "communicate effectively",
+      "strong communication skills",
+      "interpersonal skills",
       "kỹ năng giao tiếp",
+      "excellent communication skills",
+      "communication skill",
       "giao tiếp",
-      "communication skill"
+      "communication skills"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3579,8 +3609,8 @@
     "skill_type": "soft",
     "aliases": [
       "teamwork",
-      "team work",
-      "làm việc nhóm"
+      "làm việc nhóm",
+      "team work"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3601,8 +3631,10 @@
     "canonical_name": "Giải quyết vấn đề",
     "skill_type": "soft",
     "aliases": [
+      "problem-solving",
       "giải quyết vấn đề",
-      "problem solving"
+      "problem solving",
+      "problem-solving skills"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3612,8 +3644,8 @@
     "canonical_name": "Tư duy phản biện",
     "skill_type": "soft",
     "aliases": [
-      "critical thinking",
-      "tư duy phản biện"
+      "tư duy phản biện",
+      "critical thinking"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3624,9 +3656,13 @@
     "skill_type": "soft",
     "aliases": [
       "chịu áp lực",
-      "work under pressure",
       "chịu được áp lực cao",
-      "chịu áp lực công việc"
+      "chịu áp lực công việc",
+      "work well under pressure",
+      "làm việc dưới áp lực",
+      "khả năng chịu áp lực",
+      "work under pressure",
+      "chịu áp lực cao"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3636,8 +3672,8 @@
     "canonical_name": "Đàm phán",
     "skill_type": "soft",
     "aliases": [
-      "đàm phán",
-      "negotiation"
+      "negotiation",
+      "đàm phán"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3647,8 +3683,8 @@
     "canonical_name": "Thuyết trình",
     "skill_type": "soft",
     "aliases": [
-      "thuyết trình",
-      "presentation skill"
+      "presentation skill",
+      "thuyết trình"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3659,8 +3695,8 @@
     "skill_type": "soft",
     "aliases": [
       "chăm chỉ",
-      "siêng năng",
-      "chịu khó"
+      "chịu khó",
+      "siêng năng"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3670,8 +3706,8 @@
     "canonical_name": "Trung thực",
     "skill_type": "soft",
     "aliases": [
-      "trung thực",
-      "honest"
+      "honest",
+      "trung thực"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3693,9 +3729,9 @@
     "canonical_name": "Chủ động trong công việc",
     "skill_type": "soft",
     "aliases": [
+      "proactive",
       "chủ động trong công việc",
-      "chủ động",
-      "proactive"
+      "chủ động"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3705,8 +3741,10 @@
     "canonical_name": "Tinh thần trách nhiệm",
     "skill_type": "soft",
     "aliases": [
+      "trách nhiệm trong công việc",
       "tinh thần trách nhiệm",
-      "trách nhiệm trong công việc"
+      "có tinh thần trách nhiệm",
+      "high sense of responsibility"
     ],
     "parent_skill_id": "ky-nang-mem",
     "is_category": false
@@ -3728,8 +3766,8 @@
     "skill_type": "hard",
     "aliases": [
       "kinh doanh",
-      "sales skill",
       "bán hàng",
+      "sales skill",
       "kỹ năng bán hàng"
     ],
     "parent_skill_id": "marketing-and-ban-hang",
@@ -3740,9 +3778,9 @@
     "canonical_name": "Chăm sóc khách hàng",
     "skill_type": "hard",
     "aliases": [
+      "chăm sóc khách hàng",
       "cskh",
-      "customer service",
-      "chăm sóc khách hàng"
+      "customer service"
     ],
     "parent_skill_id": "marketing-and-ban-hang",
     "is_category": false
@@ -3752,8 +3790,8 @@
     "canonical_name": "Telesale",
     "skill_type": "hard",
     "aliases": [
-      "telesale",
-      "tư vấn qua điện thoại"
+      "tư vấn qua điện thoại",
+      "telesale"
     ],
     "parent_skill_id": "marketing-and-ban-hang",
     "is_category": false
@@ -3763,8 +3801,8 @@
     "canonical_name": "Tuyển dụng",
     "skill_type": "hard",
     "aliases": [
-      "tuyển dụng",
-      "recruitment"
+      "recruitment",
+      "tuyển dụng"
     ],
     "parent_skill_id": "nhan-su",
     "is_category": false
@@ -3810,8 +3848,8 @@
     "canonical_name": "Phần mềm kế toán MISA",
     "skill_type": "hard",
     "aliases": [
-      "phần mềm kế toán misa",
-      "misa"
+      "misa",
+      "phần mềm kế toán misa"
     ],
     "parent_skill_id": "ke-toan",
     "is_category": false
@@ -3821,9 +3859,13 @@
     "canonical_name": "Tin học văn phòng",
     "skill_type": "hard",
     "aliases": [
-      "tin học văn phòng",
+      "microsoft office",
+      "ứng dụng văn phòng",
+      "office văn phòng",
+      "office software",
+      "office applications",
       "ms office",
-      "microsoft office"
+      "tin học văn phòng"
     ],
     "parent_skill_id": "ky-nang-cong-cu-va-ngoai-ngu",
     "is_category": false
@@ -3844,8 +3886,8 @@
     "canonical_name": "CorelDRAW",
     "skill_type": "hard",
     "aliases": [
-      "coreldraw",
-      "corel"
+      "corel",
+      "coreldraw"
     ],
     "parent_skill_id": "thiet-ke-do-hoa",
     "is_category": false
@@ -3896,10 +3938,10 @@
     "canonical_name": "Social Media Marketing",
     "skill_type": "hard",
     "aliases": [
-      "mạng xã hội",
       "mxh",
-      "social media marketing",
-      "social media"
+      "mạng xã hội",
+      "social media",
+      "social media marketing"
     ],
     "parent_skill_id": "marketing-and-ban-hang",
     "is_category": false
@@ -3920,8 +3962,8 @@
     "canonical_name": "Quảng cáo Google",
     "skill_type": "hard",
     "aliases": [
-      "quảng cáo google",
-      "google ads"
+      "google ads",
+      "quảng cáo google"
     ],
     "parent_skill_id": "marketing-and-ban-hang",
     "is_category": false
@@ -3953,11 +3995,1904 @@
     "canonical_name": "Đọc bản vẽ kỹ thuật",
     "skill_type": "hard",
     "aliases": [
-      "bản vẽ kỹ thuật",
       "đọc bản vẽ kỹ thuật",
+      "bản vẽ kỹ thuật",
       "đọc bản vẽ"
     ],
     "parent_skill_id": "xay-dung",
+    "is_category": false
+  },
+  {
+    "skill_id": "amazon-cloudwatch",
+    "canonical_name": "Amazon CloudWatch",
+    "skill_type": "hard",
+    "aliases": [
+      "cloudwatch",
+      "amazon cloudwatch"
+    ],
+    "parent_skill_id": "dien-toan-dam-may",
+    "is_category": false
+  },
+  {
+    "skill_id": "amazon-ec2",
+    "canonical_name": "Amazon EC2",
+    "skill_type": "hard",
+    "aliases": [
+      "ec2",
+      "aws ec2",
+      "amazon ec2"
+    ],
+    "parent_skill_id": "dien-toan-dam-may",
+    "is_category": false
+  },
+  {
+    "skill_id": "infrastructure-as-code",
+    "canonical_name": "Infrastructure as Code",
+    "skill_type": "hard",
+    "aliases": [
+      "infrastructure as code",
+      "infrastructure-as-code",
+      "iac"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "circleci",
+    "canonical_name": "CircleCI",
+    "skill_type": "hard",
+    "aliases": [
+      "circleci",
+      "circle ci"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "root-cause-analysis",
+    "canonical_name": "Root Cause Analysis",
+    "skill_type": "hard",
+    "aliases": [
+      "root cause analysis",
+      "root-cause analysis",
+      "rca"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "high-availability",
+    "canonical_name": "High Availability",
+    "skill_type": "hard",
+    "aliases": [
+      "high availability"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "observability",
+    "canonical_name": "Observability",
+    "skill_type": "hard",
+    "aliases": [
+      "observability"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "backend-development",
+    "canonical_name": "Backend Development",
+    "skill_type": "hard",
+    "aliases": [
+      "backend development",
+      "back-end development",
+      "phát triển backend"
+    ],
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin",
+    "is_category": false
+  },
+  {
+    "skill_id": "frontend-development",
+    "canonical_name": "Frontend Development",
+    "skill_type": "hard",
+    "aliases": [
+      "front-end development",
+      "frontend development",
+      "phát triển frontend"
+    ],
+    "parent_skill_id": "ky-nang-cong-nghe-thong-tin",
+    "is_category": false
+  },
+  {
+    "skill_id": "data-structures",
+    "canonical_name": "Data Structures",
+    "skill_type": "hard",
+    "aliases": [
+      "data structure",
+      "data structures"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "algorithms",
+    "canonical_name": "Algorithms",
+    "skill_type": "hard",
+    "aliases": [
+      "algorithm",
+      "algorithms"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "design-patterns",
+    "canonical_name": "Design Patterns",
+    "skill_type": "hard",
+    "aliases": [
+      "design pattern",
+      "design patterns"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "system-design",
+    "canonical_name": "System Design",
+    "skill_type": "hard",
+    "aliases": [
+      "system design"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "distributed-systems",
+    "canonical_name": "Distributed Systems",
+    "skill_type": "hard",
+    "aliases": [
+      "distributed system",
+      "distributed systems"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "hibernate",
+    "canonical_name": "Hibernate",
+    "skill_type": "hard",
+    "aliases": [
+      "hibernate"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "query-optimization",
+    "canonical_name": "Query Optimization",
+    "skill_type": "hard",
+    "aliases": [
+      "query optimisation",
+      "query optimization"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "database-performance-tuning",
+    "canonical_name": "Database Performance Tuning",
+    "skill_type": "hard",
+    "aliases": [
+      "database tuning",
+      "database performance tuning"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "database-clustering",
+    "canonical_name": "Database Clustering",
+    "skill_type": "hard",
+    "aliases": [
+      "database clustering"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "manual-testing",
+    "canonical_name": "Manual Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "manual test",
+      "manual testing"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "performance-testing",
+    "canonical_name": "Performance Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "performance test",
+      "performance testing"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "regression-testing",
+    "canonical_name": "Regression Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "regression test",
+      "regression testing"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "user-acceptance-testing",
+    "canonical_name": "User Acceptance Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "user acceptance testing",
+      "uat"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "system-testing",
+    "canonical_name": "System Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "system testing",
+      "system test"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "acceptance-criteria",
+    "canonical_name": "Acceptance Criteria",
+    "skill_type": "hard",
+    "aliases": [
+      "acceptance criterion",
+      "acceptance criteria"
+    ],
+    "parent_skill_id": "project-management",
+    "is_category": false
+  },
+  {
+    "skill_id": "intrusion-prevention-system",
+    "canonical_name": "Intrusion Prevention System",
+    "skill_type": "hard",
+    "aliases": [
+      "intrusion prevention system",
+      "ips"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "data-loss-prevention",
+    "canonical_name": "Data Loss Prevention",
+    "skill_type": "hard",
+    "aliases": [
+      "data loss prevention",
+      "dlp"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "privileged-access-management",
+    "canonical_name": "Privileged Access Management",
+    "skill_type": "hard",
+    "aliases": [
+      "privileged access management",
+      "pam"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "endpoint-security",
+    "canonical_name": "Endpoint Security",
+    "skill_type": "hard",
+    "aliases": [
+      "endpoint security"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "antivirus",
+    "canonical_name": "Antivirus",
+    "skill_type": "hard",
+    "aliases": [
+      "anti-virus",
+      "antivirus"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "nist-cybersecurity-framework",
+    "canonical_name": "NIST Cybersecurity Framework",
+    "skill_type": "hard",
+    "aliases": [
+      "nist csf",
+      "nist cybersecurity framework"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "security-operations-center",
+    "canonical_name": "Security Operations Center",
+    "skill_type": "hard",
+    "aliases": [
+      "security operations centre",
+      "security operations center"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "virtual-private-network",
+    "canonical_name": "Virtual Private Network",
+    "skill_type": "hard",
+    "aliases": [
+      "vpn",
+      "virtual private network"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "tcp-ip",
+    "canonical_name": "TCP/IP",
+    "skill_type": "hard",
+    "aliases": [
+      "tcp ip",
+      "tcp/ip"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "oscp",
+    "canonical_name": "OSCP",
+    "skill_type": "hard",
+    "aliases": [
+      "oscp"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "ccnp",
+    "canonical_name": "CCNP",
+    "skill_type": "hard",
+    "aliases": [
+      "ccnp"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "cisa",
+    "canonical_name": "CISA",
+    "skill_type": "hard",
+    "aliases": [
+      "cisa"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "cissp",
+    "canonical_name": "CISSP",
+    "skill_type": "hard",
+    "aliases": [
+      "cissp"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "ai-agents",
+    "canonical_name": "AI Agents",
+    "skill_type": "hard",
+    "aliases": [
+      "ai agent",
+      "ai agents"
+    ],
+    "parent_skill_id": "machine-learning-and-ai",
+    "is_category": false
+  },
+  {
+    "skill_id": "core-banking",
+    "canonical_name": "Core Banking",
+    "skill_type": "hard",
+    "aliases": [
+      "core banking"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "claude-code",
+    "canonical_name": "Claude Code",
+    "skill_type": "hard",
+    "aliases": [
+      "claude code"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "kiro",
+    "canonical_name": "Kiro",
+    "skill_type": "hard",
+    "aliases": [
+      "kiro"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "market-research",
+    "canonical_name": "Market Research",
+    "skill_type": "hard",
+    "aliases": [
+      "nghiên cứu thị trường",
+      "market research"
+    ],
+    "parent_skill_id": "marketing-and-ban-hang",
+    "is_category": false
+  },
+  {
+    "skill_id": "independent-working",
+    "canonical_name": "Independent Working",
+    "skill_type": "soft",
+    "aliases": [
+      "làm việc độc lập",
+      "work independently",
+      "independent working"
+    ],
+    "parent_skill_id": "ky-nang-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "organizational-skills",
+    "canonical_name": "Organizational Skills",
+    "skill_type": "soft",
+    "aliases": [
+      "work organization",
+      "organizational skills",
+      "sắp xếp công việc",
+      "tổ chức công việc",
+      "organisational skills"
+    ],
+    "parent_skill_id": "ky-nang-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "continuous-learning",
+    "canonical_name": "Continuous Learning",
+    "skill_type": "soft",
+    "aliases": [
+      "continuous learning",
+      "willingness to learn",
+      "ham học hỏi"
+    ],
+    "parent_skill_id": "ky-nang-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "mentoring",
+    "canonical_name": "Mentoring",
+    "skill_type": "soft",
+    "aliases": [
+      "mentoring",
+      "mentor team members"
+    ],
+    "parent_skill_id": "ky-nang-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "creative-thinking",
+    "canonical_name": "Creative Thinking",
+    "skill_type": "soft",
+    "aliases": [
+      "tư duy sáng tạo",
+      "creative thinking"
+    ],
+    "parent_skill_id": "ky-nang-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "platform-governance",
+    "canonical_name": "Platform Governance",
+    "skill_type": "hard",
+    "aliases": [
+      "platform governance"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "quality-management",
+    "canonical_name": "Quality Management",
+    "skill_type": "hard",
+    "aliases": [
+      "quality management"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "refactoring",
+    "canonical_name": "Refactoring",
+    "skill_type": "hard",
+    "aliases": [
+      "refactoring",
+      "code refactoring"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "uml",
+    "canonical_name": "UML",
+    "skill_type": "hard",
+    "aliases": [
+      "uml",
+      "unified modeling language"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "information-architecture",
+    "canonical_name": "Information Architecture",
+    "skill_type": "hard",
+    "aliases": [
+      "information architecture"
+    ],
+    "parent_skill_id": "thiet-ke-do-hoa",
+    "is_category": false
+  },
+  {
+    "skill_id": "interaction-design",
+    "canonical_name": "Interaction Design",
+    "skill_type": "hard",
+    "aliases": [
+      "interaction design"
+    ],
+    "parent_skill_id": "thiet-ke-do-hoa",
+    "is_category": false
+  },
+  {
+    "skill_id": "ux-research",
+    "canonical_name": "UX Research",
+    "skill_type": "hard",
+    "aliases": [
+      "ux research",
+      "user experience research"
+    ],
+    "parent_skill_id": "thiet-ke-do-hoa",
+    "is_category": false
+  },
+  {
+    "skill_id": "conversational-ux",
+    "canonical_name": "Conversational UX",
+    "skill_type": "hard",
+    "aliases": [
+      "conversational ux"
+    ],
+    "parent_skill_id": "thiet-ke-do-hoa",
+    "is_category": false
+  },
+  {
+    "skill_id": "product-thinking",
+    "canonical_name": "Product Thinking",
+    "skill_type": "hard",
+    "aliases": [
+      "product thinking"
+    ],
+    "parent_skill_id": "project-management",
+    "is_category": false
+  },
+  {
+    "skill_id": "product-analytics",
+    "canonical_name": "Product Analytics",
+    "skill_type": "hard",
+    "aliases": [
+      "product analytics"
+    ],
+    "parent_skill_id": "project-management",
+    "is_category": false
+  },
+  {
+    "skill_id": "product-discovery",
+    "canonical_name": "Product Discovery",
+    "skill_type": "hard",
+    "aliases": [
+      "product discovery"
+    ],
+    "parent_skill_id": "project-management",
+    "is_category": false
+  },
+  {
+    "skill_id": "rapid-prototyping",
+    "canonical_name": "Rapid Prototyping",
+    "skill_type": "hard",
+    "aliases": [
+      "rapid prototyping"
+    ],
+    "parent_skill_id": "project-management",
+    "is_category": false
+  },
+  {
+    "skill_id": "figjam",
+    "canonical_name": "FigJam",
+    "skill_type": "hard",
+    "aliases": [
+      "figjam"
+    ],
+    "parent_skill_id": "thiet-ke-do-hoa",
+    "is_category": false
+  },
+  {
+    "skill_id": "sales-automation",
+    "canonical_name": "Sales Automation",
+    "skill_type": "hard",
+    "aliases": [
+      "sales automation"
+    ],
+    "parent_skill_id": "marketing-and-ban-hang",
+    "is_category": false
+  },
+  {
+    "skill_id": "saas",
+    "canonical_name": "SaaS",
+    "skill_type": "hard",
+    "aliases": [
+      "saas",
+      "software as a service"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "ftth",
+    "canonical_name": "FTTH",
+    "skill_type": "hard",
+    "aliases": [
+      "ftth",
+      "fiber to the home"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "gis",
+    "canonical_name": "GIS",
+    "skill_type": "hard",
+    "aliases": [
+      "geographic information system",
+      "gis"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "gpon",
+    "canonical_name": "GPON",
+    "skill_type": "hard",
+    "aliases": [
+      "gpon"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "odn",
+    "canonical_name": "ODN",
+    "skill_type": "hard",
+    "aliases": [
+      "optical distribution network",
+      "odn"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "olt",
+    "canonical_name": "OLT",
+    "skill_type": "hard",
+    "aliases": [
+      "optical line terminal",
+      "olt"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "ont",
+    "canonical_name": "ONT",
+    "skill_type": "hard",
+    "aliases": [
+      "ont",
+      "optical network terminal"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "xgs-pon",
+    "canonical_name": "XGS-PON",
+    "skill_type": "hard",
+    "aliases": [
+      "xgs-pon",
+      "xgs pon"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "digital-banking",
+    "canonical_name": "Digital Banking",
+    "skill_type": "hard",
+    "aliases": [
+      "digital banking"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "digital-onboarding",
+    "canonical_name": "Digital Onboarding",
+    "skill_type": "hard",
+    "aliases": [
+      "digital onboarding"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "ekyc",
+    "canonical_name": "eKYC",
+    "skill_type": "hard",
+    "aliases": [
+      "ekyc",
+      "electronic know your customer"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "internet-banking",
+    "canonical_name": "Internet Banking",
+    "skill_type": "hard",
+    "aliases": [
+      "internet banking"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "mobile-banking",
+    "canonical_name": "Mobile Banking",
+    "skill_type": "hard",
+    "aliases": [
+      "mobile banking"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "self-service-banking",
+    "canonical_name": "Self-Service Banking",
+    "skill_type": "hard",
+    "aliases": [
+      "self service banking",
+      "self-service banking"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "autify",
+    "canonical_name": "Autify",
+    "skill_type": "hard",
+    "aliases": [
+      "autify"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "istqb",
+    "canonical_name": "ISTQB",
+    "skill_type": "hard",
+    "aliases": [
+      "istqb"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "magicpod",
+    "canonical_name": "MagicPod",
+    "skill_type": "hard",
+    "aliases": [
+      "magic pod",
+      "magicpod"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "mobile-application-testing",
+    "canonical_name": "Mobile Application Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "mobile application testing",
+      "mobile app testing"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "test-analysis",
+    "canonical_name": "Test Analysis",
+    "skill_type": "hard",
+    "aliases": [
+      "test analysis"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "test-design",
+    "canonical_name": "Test Design",
+    "skill_type": "hard",
+    "aliases": [
+      "test design"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "test-execution",
+    "canonical_name": "Test Execution",
+    "skill_type": "hard",
+    "aliases": [
+      "test execution"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "cucumber",
+    "canonical_name": "Cucumber",
+    "skill_type": "hard",
+    "aliases": [
+      "cucumber"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "android-espresso",
+    "canonical_name": "Android Espresso",
+    "skill_type": "hard",
+    "aliases": [
+      "espresso testing",
+      "android espresso"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "integration-testing",
+    "canonical_name": "Integration Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "integration testing",
+      "integration test"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "uiautomator",
+    "canonical_name": "UIAutomator",
+    "skill_type": "hard",
+    "aliases": [
+      "ui automator",
+      "uiautomator"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "xcuitest",
+    "canonical_name": "XCUITest",
+    "skill_type": "hard",
+    "aliases": [
+      "xcui test",
+      "xcuitest"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "accessibility-testing",
+    "canonical_name": "Accessibility Testing",
+    "skill_type": "hard",
+    "aliases": [
+      "accessibility testing"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "cypress",
+    "canonical_name": "Cypress",
+    "skill_type": "hard",
+    "aliases": [
+      "cypress"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "wcag",
+    "canonical_name": "WCAG",
+    "skill_type": "hard",
+    "aliases": [
+      "web content accessibility guidelines",
+      "wcag"
+    ],
+    "parent_skill_id": "kiem-thu-phan-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "nuxt-js",
+    "canonical_name": "Nuxt.js",
+    "skill_type": "hard",
+    "aliases": [
+      "nuxt.js",
+      "nuxtjs",
+      "nuxt"
+    ],
+    "parent_skill_id": "frontend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "swagger",
+    "canonical_name": "Swagger",
+    "skill_type": "hard",
+    "aliases": [
+      "swagger"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "openapi",
+    "canonical_name": "OpenAPI",
+    "skill_type": "hard",
+    "aliases": [
+      "openapi",
+      "open api"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "restful-api",
+    "canonical_name": "RESTful API",
+    "skill_type": "hard",
+    "aliases": [
+      "restful api",
+      "rest api"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "api-integration",
+    "canonical_name": "API Integration",
+    "skill_type": "hard",
+    "aliases": [
+      "api integration"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "cursor",
+    "canonical_name": "Cursor",
+    "skill_type": "hard",
+    "aliases": [
+      "cursor",
+      "cursor ai",
+      "cursor ide"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "chatgpt",
+    "canonical_name": "ChatGPT",
+    "skill_type": "hard",
+    "aliases": [
+      "chatgpt",
+      "chat gpt"
+    ],
+    "parent_skill_id": "machine-learning-and-ai",
+    "is_category": false
+  },
+  {
+    "skill_id": "openai",
+    "canonical_name": "OpenAI",
+    "skill_type": "hard",
+    "aliases": [
+      "openai"
+    ],
+    "parent_skill_id": "machine-learning-and-ai",
+    "is_category": false
+  },
+  {
+    "skill_id": "azure-openai",
+    "canonical_name": "Azure OpenAI",
+    "skill_type": "hard",
+    "aliases": [
+      "azure openai"
+    ],
+    "parent_skill_id": "machine-learning-and-ai",
+    "is_category": false
+  },
+  {
+    "skill_id": "anthropic",
+    "canonical_name": "Anthropic",
+    "skill_type": "hard",
+    "aliases": [
+      "anthropic"
+    ],
+    "parent_skill_id": "machine-learning-and-ai",
+    "is_category": false
+  },
+  {
+    "skill_id": "n8n",
+    "canonical_name": "n8n",
+    "skill_type": "hard",
+    "aliases": [
+      "n8n"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "zapier",
+    "canonical_name": "Zapier",
+    "skill_type": "hard",
+    "aliases": [
+      "zapier"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "ai-automation",
+    "canonical_name": "AI Automation",
+    "skill_type": "hard",
+    "aliases": [
+      "ai automation"
+    ],
+    "parent_skill_id": "machine-learning-and-ai",
+    "is_category": false
+  },
+  {
+    "skill_id": "spatial-ai",
+    "canonical_name": "Spatial AI",
+    "skill_type": "hard",
+    "aliases": [
+      "spatial ai"
+    ],
+    "parent_skill_id": "machine-learning-and-ai",
+    "is_category": false
+  },
+  {
+    "skill_id": "workflow-orchestration",
+    "canonical_name": "Workflow Orchestration",
+    "skill_type": "hard",
+    "aliases": [
+      "workflow orchestration"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "data-pipelines",
+    "canonical_name": "Data Pipelines",
+    "skill_type": "hard",
+    "aliases": [
+      "data pipeline",
+      "data pipelines"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "fhir",
+    "canonical_name": "FHIR",
+    "skill_type": "hard",
+    "aliases": [
+      "fhir",
+      "fast healthcare interoperability resources"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "hl7",
+    "canonical_name": "HL7",
+    "skill_type": "hard",
+    "aliases": [
+      "hl7"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "hospital-information-system-his",
+    "canonical_name": "Hospital Information System (HIS)",
+    "skill_type": "hard",
+    "aliases": [
+      "hospital information system (his)",
+      "his system",
+      "hospital information system"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "icd-10",
+    "canonical_name": "ICD-10",
+    "skill_type": "hard",
+    "aliases": [
+      "icd-10",
+      "icd 10"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "mastercam",
+    "canonical_name": "Mastercam",
+    "skill_type": "hard",
+    "aliases": [
+      "mastercam"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "camunda-bpm",
+    "canonical_name": "Camunda BPM",
+    "skill_type": "hard",
+    "aliases": [
+      "camunda bpm",
+      "camunda"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "dmn",
+    "canonical_name": "DMN",
+    "skill_type": "hard",
+    "aliases": [
+      "decision model and notation",
+      "dmn"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "ibm-odm",
+    "canonical_name": "IBM ODM",
+    "skill_type": "hard",
+    "aliases": [
+      "ibm odm"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "keycloak",
+    "canonical_name": "Keycloak",
+    "skill_type": "hard",
+    "aliases": [
+      "keycloak"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "rabbitmq",
+    "canonical_name": "RabbitMQ",
+    "skill_type": "hard",
+    "aliases": [
+      "rabbit mq",
+      "rabbitmq"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "rancher",
+    "canonical_name": "Rancher",
+    "skill_type": "hard",
+    "aliases": [
+      "rancher"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "spring-cloud",
+    "canonical_name": "Spring Cloud",
+    "skill_type": "hard",
+    "aliases": [
+      "spring cloud"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "spring-data",
+    "canonical_name": "Spring Data",
+    "skill_type": "hard",
+    "aliases": [
+      "spring data"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "spring-security",
+    "canonical_name": "Spring Security",
+    "skill_type": "hard",
+    "aliases": [
+      "spring security"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "jooq",
+    "canonical_name": "jOOQ",
+    "skill_type": "hard",
+    "aliases": [
+      "jooq"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "jpa",
+    "canonical_name": "JPA",
+    "skill_type": "hard",
+    "aliases": [
+      "java persistence api",
+      "jpa"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "caching",
+    "canonical_name": "Caching",
+    "skill_type": "hard",
+    "aliases": [
+      "caching",
+      "cache management"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "scripting",
+    "canonical_name": "Scripting",
+    "skill_type": "hard",
+    "aliases": [
+      "scripting",
+      "script development"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "code-review",
+    "canonical_name": "Code Review",
+    "skill_type": "hard",
+    "aliases": [
+      "code review",
+      "code reviewing"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "performance-optimization",
+    "canonical_name": "Performance Optimization",
+    "skill_type": "hard",
+    "aliases": [
+      "performance optimisation",
+      "performance optimization"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "plugin-development",
+    "canonical_name": "Plugin Development",
+    "skill_type": "hard",
+    "aliases": [
+      "plugin development"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "responsive-web-design",
+    "canonical_name": "Responsive Web Design",
+    "skill_type": "hard",
+    "aliases": [
+      "responsive web design"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "spring-mvc",
+    "canonical_name": "Spring MVC",
+    "skill_type": "hard",
+    "aliases": [
+      "spring mvc"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "bootstrap",
+    "canonical_name": "Bootstrap",
+    "skill_type": "hard",
+    "aliases": [
+      "bootstrap"
+    ],
+    "parent_skill_id": "frontend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "codeigniter",
+    "canonical_name": "CodeIgniter",
+    "skill_type": "hard",
+    "aliases": [
+      "code igniter",
+      "codeigniter"
+    ],
+    "parent_skill_id": "backend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "tailwind-css",
+    "canonical_name": "Tailwind CSS",
+    "skill_type": "hard",
+    "aliases": [
+      "tailwind css",
+      "tailwindcss"
+    ],
+    "parent_skill_id": "frontend-development",
+    "is_category": false
+  },
+  {
+    "skill_id": "hybrid-cloud",
+    "canonical_name": "Hybrid Cloud",
+    "skill_type": "hard",
+    "aliases": [
+      "hybrid cloud"
+    ],
+    "parent_skill_id": "dien-toan-dam-may",
+    "is_category": false
+  },
+  {
+    "skill_id": "logging",
+    "canonical_name": "Logging",
+    "skill_type": "hard",
+    "aliases": [
+      "log management",
+      "logging"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "capacity-planning",
+    "canonical_name": "Capacity Planning",
+    "skill_type": "hard",
+    "aliases": [
+      "capacity planning"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "artifactory",
+    "canonical_name": "Artifactory",
+    "skill_type": "hard",
+    "aliases": [
+      "artifactory"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "packer",
+    "canonical_name": "Packer",
+    "skill_type": "hard",
+    "aliases": [
+      "hashicorp packer",
+      "packer"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "backstage",
+    "canonical_name": "Backstage",
+    "skill_type": "hard",
+    "aliases": [
+      "backstage"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "grafana",
+    "canonical_name": "Grafana",
+    "skill_type": "hard",
+    "aliases": [
+      "grafana"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "prometheus",
+    "canonical_name": "Prometheus",
+    "skill_type": "hard",
+    "aliases": [
+      "prometheus"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "postfix",
+    "canonical_name": "Postfix",
+    "skill_type": "hard",
+    "aliases": [
+      "postfix"
+    ],
+    "parent_skill_id": "devops-and-ci-cd",
+    "is_category": false
+  },
+  {
+    "skill_id": "sql-injection",
+    "canonical_name": "SQL Injection",
+    "skill_type": "hard",
+    "aliases": [
+      "sql injection"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "api-protection",
+    "canonical_name": "API Protection",
+    "skill_type": "hard",
+    "aliases": [
+      "api protection"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "network-access-control",
+    "canonical_name": "Network Access Control",
+    "skill_type": "hard",
+    "aliases": [
+      "network access control",
+      "nac"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "email-security-gateway",
+    "canonical_name": "Email Security Gateway",
+    "skill_type": "hard",
+    "aliases": [
+      "email security gateway"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "vulnerability-management",
+    "canonical_name": "Vulnerability Management",
+    "skill_type": "hard",
+    "aliases": [
+      "vulnerability management"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "cis-controls",
+    "canonical_name": "CIS Controls",
+    "skill_type": "hard",
+    "aliases": [
+      "cis controls"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "ccna",
+    "canonical_name": "CCNA",
+    "skill_type": "hard",
+    "aliases": [
+      "ccna"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "ccsp",
+    "canonical_name": "CCSP",
+    "skill_type": "hard",
+    "aliases": [
+      "ccsp"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "ceh",
+    "canonical_name": "CEH",
+    "skill_type": "hard",
+    "aliases": [
+      "ceh"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "chfi",
+    "canonical_name": "CHFI",
+    "skill_type": "hard",
+    "aliases": [
+      "chfi"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "ecsa",
+    "canonical_name": "ECSA",
+    "skill_type": "hard",
+    "aliases": [
+      "ecsa"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "cism",
+    "canonical_name": "CISM",
+    "skill_type": "hard",
+    "aliases": [
+      "cism"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "crisc",
+    "canonical_name": "CRISC",
+    "skill_type": "hard",
+    "aliases": [
+      "crisc"
+    ],
+    "parent_skill_id": "an-ninh-mang",
+    "is_category": false
+  },
+  {
+    "skill_id": "affiliate-marketing",
+    "canonical_name": "Affiliate Marketing",
+    "skill_type": "hard",
+    "aliases": [
+      "affiliate marketing"
+    ],
+    "parent_skill_id": "marketing-and-ban-hang",
+    "is_category": false
+  },
+  {
+    "skill_id": "google-trends",
+    "canonical_name": "Google Trends",
+    "skill_type": "hard",
+    "aliases": [
+      "google trends"
+    ],
+    "parent_skill_id": "marketing-and-ban-hang",
+    "is_category": false
+  },
+  {
+    "skill_id": "semrush",
+    "canonical_name": "Semrush",
+    "skill_type": "hard",
+    "aliases": [
+      "semrush"
+    ],
+    "parent_skill_id": "marketing-and-ban-hang",
+    "is_category": false
+  },
+  {
+    "skill_id": "canva",
+    "canonical_name": "Canva",
+    "skill_type": "hard",
+    "aliases": [
+      "canva"
+    ],
+    "parent_skill_id": "thiet-ke-do-hoa",
+    "is_category": false
+  },
+  {
+    "skill_id": "game-economy-design",
+    "canonical_name": "Game Economy Design",
+    "skill_type": "hard",
+    "aliases": [
+      "game economy design"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "player-segmentation",
+    "canonical_name": "Player Segmentation",
+    "skill_type": "hard",
+    "aliases": [
+      "player segmentation"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "probability-modeling",
+    "canonical_name": "Probability Modeling",
+    "skill_type": "hard",
+    "aliases": [
+      "probability modeling",
+      "probability modelling"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "core-banking-platform",
+    "canonical_name": "Core Banking Platform",
+    "skill_type": "hard",
+    "aliases": [
+      "core banking platform"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "card-systems",
+    "canonical_name": "Card Systems",
+    "skill_type": "hard",
+    "aliases": [
+      "card systems",
+      "card system"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "finacle",
+    "canonical_name": "Finacle",
+    "skill_type": "hard",
+    "aliases": [
+      "finacle"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "mambu",
+    "canonical_name": "Mambu",
+    "skill_type": "hard",
+    "aliases": [
+      "mambu"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "t24",
+    "canonical_name": "T24",
+    "skill_type": "hard",
+    "aliases": [
+      "t24",
+      "temenos t24"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "cbap",
+    "canonical_name": "CBAP",
+    "skill_type": "hard",
+    "aliases": [
+      "cbap"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "pmi-acp",
+    "canonical_name": "PMI-ACP",
+    "skill_type": "hard",
+    "aliases": [
+      "pmi acp",
+      "pmi-acp"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "pspo",
+    "canonical_name": "PSPO",
+    "skill_type": "hard",
+    "aliases": [
+      "pspo"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "safe-popm",
+    "canonical_name": "SAFe POPM",
+    "skill_type": "hard",
+    "aliases": [
+      "safe popm"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "creo",
+    "canonical_name": "Creo",
+    "skill_type": "hard",
+    "aliases": [
+      "creo"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "weldments",
+    "canonical_name": "Weldments",
+    "skill_type": "hard",
+    "aliases": [
+      "weldments"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "lean-manufacturing",
+    "canonical_name": "Lean Manufacturing",
+    "skill_type": "hard",
+    "aliases": [
+      "lean manufacturing"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "manufacturing-quality",
+    "canonical_name": "Manufacturing Quality",
+    "skill_type": "hard",
+    "aliases": [
+      "manufacturing quality"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "part-measurement",
+    "canonical_name": "Part Measurement",
+    "skill_type": "hard",
+    "aliases": [
+      "part measurement"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "tool-engineering",
+    "canonical_name": "Tool Engineering",
+    "skill_type": "hard",
+    "aliases": [
+      "tool engineering"
+    ],
+    "parent_skill_id": null,
+    "is_category": false
+  },
+  {
+    "skill_id": "analytical-skills",
+    "canonical_name": "Analytical Skills",
+    "skill_type": "soft",
+    "aliases": [
+      "analytical skills"
+    ],
+    "parent_skill_id": "ky-nang-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "empathy",
+    "canonical_name": "Empathy",
+    "skill_type": "soft",
+    "aliases": [
+      "empathy"
+    ],
+    "parent_skill_id": "ky-nang-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "self-discipline",
+    "canonical_name": "Self-Discipline",
+    "skill_type": "soft",
+    "aliases": [
+      "self discipline",
+      "self-discipline"
+    ],
+    "parent_skill_id": "ky-nang-mem",
+    "is_category": false
+  },
+  {
+    "skill_id": "team-building",
+    "canonical_name": "Team Building",
+    "skill_type": "soft",
+    "aliases": [
+      "team building"
+    ],
+    "parent_skill_id": "ky-nang-mem",
     "is_category": false
   },
   {
@@ -3986,26 +5921,6 @@
     "skill_type": "hard",
     "aliases": [
       "điện toán đám mây"
-    ],
-    "parent_skill_id": "ky-nang-cong-nghe-thong-tin",
-    "is_category": true
-  },
-  {
-    "skill_id": "phat-trien-frontend",
-    "canonical_name": "Phát triển Frontend",
-    "skill_type": "hard",
-    "aliases": [
-      "phát triển frontend"
-    ],
-    "parent_skill_id": "ky-nang-cong-nghe-thong-tin",
-    "is_category": true
-  },
-  {
-    "skill_id": "phat-trien-backend",
-    "canonical_name": "Phát triển Backend",
-    "skill_type": "hard",
-    "aliases": [
-      "phát triển backend"
     ],
     "parent_skill_id": "ky-nang-cong-nghe-thong-tin",
     "is_category": true
