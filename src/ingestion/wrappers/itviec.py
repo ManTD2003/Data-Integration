@@ -100,8 +100,6 @@ class ItviecWrapper:
                         try:
                             self._enrich(rec)
                         except Exception as exc:
-                            # Tin vẫn giữ lại nhưng mất mô tả và thẻ kỹ năng; im lặng
-                            # bỏ qua thì trang đổi cấu trúc cũng không ai biết.
                             print(
                                 f"itviec: không lấy được chi tiết {rec.get('slug')}: "
                                 f"{type(exc).__name__} {exc}",
