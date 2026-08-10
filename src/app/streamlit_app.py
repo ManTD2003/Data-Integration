@@ -49,24 +49,20 @@ def page_search_jobs(con) -> None:
     if skill_id is None:
         return
 
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     with col1:
         expand = st.checkbox("Mở rộng phân cấp (gồm cả kỹ năng con)", value=True)
     with col2:
-        role_families = ["Tất cả"] + queries.list_role_families(con)
-        role_family = st.selectbox("Nhóm nghề", role_families)
-        role_family = None if role_family == "Tất cả" else role_family
-    with col3:
         countries = ["Tất cả"] + queries.list_countries(con)
         country = st.selectbox("Quốc gia", countries)
         country = None if country == "Tất cả" else country
-    with col4:
+    with col3:
         cities = ["Tất cả"] + queries.list_cities(con, country=country)
         city = st.selectbox("Tỉnh/thành phố", cities)
         city = None if city == "Tất cả" else city
 
     jobs = queries.search_jobs(
-        con, skill_id, expand=expand, role_family=role_family, city=city, country=country, limit=50
+        con, skill_id, expand=expand, city=city, country=country, limit=50
     )
     st.write(f"{len(jobs)} tin tuyển dụng")
     for job in jobs:
@@ -130,23 +126,19 @@ def _figure(title: str, chart, rows: list[dict], columns: dict[str, str], note: 
 
 def _dashboard_filters(con) -> dict:
     """Một hàng bộ lọc duy nhất, mọi biểu đồ bên dưới vẽ trên cùng lát cắt đó."""
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     with col1:
         skill_type = st.selectbox("Loại kỹ năng", ["Tất cả", "Kỹ năng cứng", "Kỹ năng mềm"])
         skill_type = {"Kỹ năng cứng": "hard", "Kỹ năng mềm": "soft"}.get(skill_type)
     with col2:
-        role_families = ["Tất cả"] + queries.list_role_families(con)
-        role_family = st.selectbox("Nhóm nghề", role_families, key="dash_role")
-        role_family = None if role_family == "Tất cả" else role_family
-    with col3:
         countries = ["Tất cả"] + queries.list_countries(con)
         country = st.selectbox("Quốc gia", countries, key="dash_country")
         country = None if country == "Tất cả" else country
-    with col4:
+    with col3:
         cities = ["Tất cả"] + queries.list_cities(con, country=country)
         city = st.selectbox("Tỉnh/thành phố", cities, key="dash_city")
         city = None if city == "Tất cả" else city
-    return {"skill_type": skill_type, "role_family": role_family, "country": country, "city": city}
+    return {"skill_type": skill_type, "country": country, "city": city}
 
 
 def _vn_int(value: float) -> str:
@@ -170,18 +162,6 @@ def _tab_overview(con, f: dict, t: dict) -> None:
         {"canonical_name": "Kỹ năng", "category": "Lĩnh vực", "skill_type": "Loại", "n": "Số tin"},
     )
 
-    rows = queries.skill_type_by_role_family(con, city=f["city"], country=f["country"])
-    _figure(
-        "Kỹ năng cứng và kỹ năng mềm theo nhóm nghề",
-        charts.skill_type_grouped_bar(rows, t),
-        rows,
-        {"role_family": "Nhóm nghề", "skill_type": "Loại", "n": "Số tin"},
-        "Một tin đòi cả hai loại được đếm ở cả hai cột, nên tổng hai cột lớn hơn số tin "
-        "của nhóm nghề. Bộ lọc loại kỹ năng không áp vào biểu đồ này vì loại chính là "
-        "chiều đang so sánh.",
-    )
-
-
 def _tab_place(con, f: dict, t: dict) -> None:
     rows = queries.jobs_by_skill_category(con, **f)
     _figure(
@@ -193,9 +173,7 @@ def _tab_place(con, f: dict, t: dict) -> None:
         "tính một lần cho Ngôn ngữ lập trình.",
     )
 
-    rows = queries.skill_by_city(
-        con, skill_type=f["skill_type"], role_family=f["role_family"], country=f["country"] or "Việt Nam"
-    )
+    rows = queries.skill_by_city(con, skill_type=f["skill_type"], country=f["country"] or "Việt Nam")
     _figure(
         "Kỹ năng theo tỉnh/thành phố",
         charts.skill_city_heatmap(rows, t),
@@ -204,17 +182,6 @@ def _tab_place(con, f: dict, t: dict) -> None:
         "Mỗi ô là tỉ lệ tin của chính tỉnh đó có đòi kỹ năng, không phải số tuyệt đối — "
         "để các tỉnh ít tin vẫn so được với TP HCM và Hà Nội.",
     )
-
-    rows = queries.salary_band_by_role_family(con, city=f["city"], country=f["country"])
-    _figure(
-        "Khoảng lương theo nhóm nghề",
-        charts.salary_band_bar(rows, t),
-        rows,
-        {"role_family": "Nhóm nghề", "low": "Sàn (trung vị)", "high": "Trần (trung vị)", "n": "Số tin"},
-        "Chỉ tính tin ghi lương VNĐ theo tháng và có từ 10 tin trở lên. Kho không quy đổi "
-        "tỷ giá nên tin trả lương USD theo năm không nằm trong biểu đồ này.",
-    )
-
 
 def _tab_relations(con, f: dict, t: dict) -> None:
     rows = queries.skill_cooccurrence(con, **f)
@@ -239,9 +206,7 @@ def _tab_sources(con, f: dict, t: dict) -> None:
         "văn bản mô tả nên phải đối sánh từ điển. Biểu đồ này không theo bộ lọc bên trên.",
     )
 
-    rows = queries.jobs_by_month(
-        con, role_family=f["role_family"], city=f["city"], country=f["country"]
-    )
+    rows = queries.jobs_by_month(con, city=f["city"], country=f["country"])
     _figure(
         "Tin đăng theo tháng",
         charts.jobs_by_month_line(rows, t),

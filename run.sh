@@ -111,7 +111,7 @@ Cách dùng: ./run.sh <lệnh>
 
   setup   Tạo .venv (Python 3.12) và cài dependencies
   crawl   Thu thập dữ liệu thô từ vieclam24h, itviec và dataset HuggingFace
-  build   Tích hợp dữ liệu trong data/raw rồi nạp kho DuckDB
+  build   Tích hợp dữ liệu trong data/raw rồi nạp cơ sở dữ liệu DuckDB
   all     crawl + build
   test    Chạy pytest
   eval    In bảng chỉ số đánh giá (thêm --json để lưu kết quả thô)
@@ -119,7 +119,7 @@ Cách dùng: ./run.sh <lệnh>
   api     Chạy FastAPI (http://127.0.0.1:8000, tài liệu ở /docs)
   app     Chạy web app Streamlit (http://localhost:8501)
 
-Kho dữ liệu đã dựng sẵn nên chỉ cần `setup` rồi `app`. Chạy `crawl` khi muốn
+Cơ sở dữ liệu đã dựng sẵn nên chỉ cần `setup` rồi `app`. Chạy `crawl` khi muốn
 lấy dữ liệu mới, sau đó `build` lại.
 EOF
 }

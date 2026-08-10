@@ -1,10 +1,8 @@
-"""Chuẩn hoá các chiều mô tả tin tuyển dụng về một từ vựng chung.
+"""Chuẩn hoá địa điểm, cấp bậc và lương của tin tuyển dụng.
 
-Ba nguồn mô tả cùng một khái niệm theo ba cách không so được với nhau: nhóm nghề của
-data_jobs là chức danh tiếng Anh, của vieclam24h là từ khoá đã dùng khi cào, còn
-itviec không có; địa điểm thì trộn tỉnh thành Việt Nam với bang và quốc gia; cấp bậc
-thì một nguồn ghi mã số, một nguồn ghi số tháng kinh nghiệm. Đưa chúng về từ vựng
-chung ở đây, thay vì để nguyên giá trị nguồn trong kho, mới lọc và tổng hợp được.
+Địa điểm trộn tỉnh thành Việt Nam với bang và quốc gia; cấp bậc có nguồn ghi mã số,
+nguồn khác ghi số tháng kinh nghiệm. Các quy tắc dưới đây đưa những trường đó về
+dạng có thể lọc và tổng hợp chung.
 """
 
 from __future__ import annotations
@@ -12,48 +10,6 @@ from __future__ import annotations
 import re
 
 from src.common.schema import strip_accents
-
-# --- Nhóm nghề ---------------------------------------------------------------
-
-ROLE_FAMILIES: list[tuple[str, tuple[str, ...]]] = [
-    ("Kỹ sư dữ liệu", ("data engineer", "ky su du lieu", "etl developer")),
-    ("Khoa học dữ liệu", ("data scientist", "khoa hoc du lieu", "machine learning", "ai engineer")),
-    ("Phân tích dữ liệu", ("data analyst", "phan tich du lieu", "bi analyst", "business intelligence")),
-    ("Phân tích nghiệp vụ", ("business analyst", "phan tich nghiep vu", "ba ")),
-    ("Kiểm thử", ("tester", "kiem thu", "qa qc", " qa ", "quality assurance", "sdet")),
-    ("DevOps & hạ tầng", ("devops", "sre", "cloud engineer", "system admin", "ha tang", "infrastructure")),
-    ("An ninh mạng", ("security", "an ninh mang", "bao mat")),
-    ("Kỹ sư phần mềm", (
-        "developer", "engineer", "lap trinh", "ky su phan mem", "programmer",
-        "backend", "frontend", "fullstack", "software",
-    )),
-    ("Thiết kế", ("designer", "thiet ke", "ui-ux", "ui/ux", "do hoa")),
-    ("Quản lý dự án", ("project manager", "quan ly du an", "scrum master", "product owner", "product manager")),
-    ("Kế toán", ("ke toan", "accountant", "accounting", "kiem toan")),
-    ("Nhân sự", ("nhan su", "human resource", " hr ", "tuyen dung", "recruiter")),
-    ("Marketing", ("marketing", "seo", "content", "truyen thong")),
-    ("Bán hàng & chăm sóc khách hàng", (
-        "ban hang", "sales", "kinh doanh", "cham soc khach hang", "customer service", "telesale",
-    )),
-    ("Xây dựng", ("xay dung", "cong trinh", "kien truc su", "civil")),
-]
-
-
-def role_family(title: str | None, source_hint: str | None = None) -> str | None:
-    """Suy nhóm nghề từ tiêu đề, lấy giá trị nguồn làm căn cứ dự phòng.
-
-    Ưu tiên tiêu đề vì mọi nguồn đều có, còn `source_hint` (chức danh rút gọn của
-    data_jobs, từ khoá cào của vieclam24h) chỉ có ở hai nguồn và không cùng từ vựng.
-    """
-    for text in (title, source_hint):
-        if not text:
-            continue
-        padded = f" {strip_accents(text)} "
-        for family, keywords in ROLE_FAMILIES:
-            if any(keyword in padded for keyword in keywords):
-                return family
-    return None
-
 
 # --- Địa điểm ----------------------------------------------------------------
 

@@ -136,31 +136,6 @@ def top_skills_bar(rows: list[dict], t: dict) -> alt.Chart:
     return _style((bars + labels).properties(height=alt.Step(24)), t)
 
 
-def skill_type_grouped_bar(rows: list[dict], t: dict) -> alt.Chart:
-    """Cột nhóm chứ không chồng: một tin đòi cả hai loại được đếm ở cả hai cột, chồng
-    lên nhau thì tổng vượt quá số tin của nhóm nghề."""
-    labels = {"hard": "Kỹ năng cứng", "soft": "Kỹ năng mềm"}
-    rows = [dict(r, loai=labels.get(r["skill_type"], r["skill_type"])) for r in rows]
-    domain = [labels["hard"], labels["soft"]]
-    chart = (
-        alt.Chart(alt.Data(values=rows))
-        .mark_bar(size=12, cornerRadiusTopRight=CORNER, cornerRadiusBottomRight=CORNER)
-        .encode(
-            x=alt.X("n:Q", title="Số tin tuyển dụng", axis=alt.Axis(format=",d")),
-            y=alt.Y("role_family:N", sort=_order_by_total(rows, "role_family"), title=None),
-            yOffset=alt.YOffset("loai:N", sort=domain),
-            color=alt.Color("loai:N", scale=_series_scale(domain, t), title=None),
-            tooltip=[
-                alt.Tooltip("role_family:N", title="Nhóm nghề"),
-                alt.Tooltip("loai:N", title="Loại"),
-                alt.Tooltip("n:Q", title="Số tin", format=",d"),
-            ],
-        )
-        .properties(height=alt.Step(32))
-    )
-    return _style(chart, t)
-
-
 def skill_category_bar(rows: list[dict], t: dict) -> alt.Chart:
     base = alt.Chart(alt.Data(values=rows))
     y = alt.Y("category:N", sort="-x", title=None)
@@ -285,33 +260,6 @@ def cooccurrence_heatmap(rows: list[dict], t: dict) -> alt.Chart:
         # Tên kỹ năng tiếng Việt dài, để ngang thì các nhãn trục dưới đè lên nhau.
         label_angle=-40,
     )
-
-
-def salary_band_bar(rows: list[dict], t: dict) -> alt.Chart:
-    """Khoảng lương trung vị: mỗi nhóm nghề một đoạn từ mức sàn tới mức trần."""
-    rows = [
-        dict(r, low_m=r["low"] / 1e6, high_m=r["high"] / 1e6, band=f"{r['low'] / 1e6:g}–{r['high'] / 1e6:g}")
-        for r in rows
-    ]
-    base = alt.Chart(alt.Data(values=rows))
-    y = alt.Y("role_family:N", sort=alt.EncodingSortField("high_m", order="descending"), title=None)
-    band = base.mark_bar(
-        size=10, cornerRadius=CORNER, color=t["series"][0], opacity=0.85
-    ).encode(
-        x=alt.X("low_m:Q", title="Triệu VNĐ / tháng", scale=alt.Scale(zero=True)),
-        x2="high_m:Q",
-        y=y,
-        tooltip=[
-            alt.Tooltip("role_family:N", title="Nhóm nghề"),
-            alt.Tooltip("low_m:Q", title="Sàn (trung vị)", format=".1f"),
-            alt.Tooltip("high_m:Q", title="Trần (trung vị)", format=".1f"),
-            alt.Tooltip("n:Q", title="Số tin có lương", format=",d"),
-        ],
-    )
-    labels = base.mark_text(align="left", dx=8, fontSize=11, color=t["text_secondary"]).encode(
-        x="high_m:Q", y=y, text="band:N"
-    )
-    return _style((band + labels).properties(height=alt.Step(26)), t)
 
 
 def extraction_method_bar(rows: list[dict], t: dict) -> alt.Chart:

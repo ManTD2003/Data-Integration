@@ -1,20 +1,4 @@
-from src.integration.normalize import city_country, months_experience, role_family, salary, seniority
-
-
-def test_role_family_maps_three_sources_to_one_vocabulary():
-    """Chức danh tiếng Anh, từ khoá tiếng Việt và tiêu đề itviec phải ra cùng một nhóm."""
-    assert role_family("Senior Data Engineer", "Data Engineer") == "Kỹ sư dữ liệu"
-    assert role_family("Nhân Viên Lập Trình Cam", "lập trình") == "Kỹ sư phần mềm"
-    assert role_family("Backend Developer (Java)", None) == "Kỹ sư phần mềm"
-
-
-def test_role_family_falls_back_to_source_hint():
-    assert role_family(None, "kế toán") == "Kế toán"
-    assert role_family("", "thiết kế đồ họa") == "Thiết kế"
-
-
-def test_role_family_unknown_title_returns_none():
-    assert role_family("Chuyên Viên Pháp Chế", None) is None
+from src.integration.normalize import city_country, months_experience, salary, seniority
 
 
 def test_city_country_normalises_vietnamese_provinces():

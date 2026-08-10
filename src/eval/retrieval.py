@@ -7,7 +7,7 @@ tổng quát). Kỳ vọng được viết theo ý người dùng, không phải
 về, nên chỉ số đo được là chất lượng xếp hạng thật.
 
 Phần mở rộng phân cấp không dùng nhãn: nó dựng lại tập hậu duệ từ `parent_skill_id`
-bằng Python rồi so với `bridge_skill_closure`, tức hai đường tính độc lập kiểm nhau.
+bằng Python rồi so với `skill_closure`, tức hai đường tính độc lập kiểm nhau.
 """
 
 from __future__ import annotations
@@ -56,7 +56,7 @@ def evaluate_skill_search(con: duckdb.DuckDBPyConnection, queries: list[dict], t
 
 
 def _descendants_from_parents(con: duckdb.DuckDBPyConnection) -> dict[str, set[str]]:
-    rows = con.execute("SELECT skill_id, parent_skill_id FROM dim_skill").fetchall()
+    rows = con.execute("SELECT skill_id, parent_skill_id FROM skills").fetchall()
     children: dict[str, list[str]] = {}
     for skill_id, parent_id in rows:
         if parent_id:

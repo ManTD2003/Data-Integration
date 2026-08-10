@@ -56,7 +56,7 @@ tình trạng này. Chạy tay từng bước:
 # 9. Phân cấp kỹ năng cụ thể -> tổng quát + closure table
 .venv/bin/python -m src.process.build_hierarchy
 
-# 10. Nạp star schema vào DuckDB (dim_job, dim_skill, fact_job_skill...)
+# 10. Nạp các bảng quan hệ vào DuckDB (jobs, skills, job_skills...)
 .venv/bin/python -m src.warehouse.build_warehouse
 ```
 
@@ -66,7 +66,7 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
 `parent_skill_id`), `data/staging/job_skills.jsonl` (cặp job-skill đã trích xuất),
 `data/staging/skill_merge_log.json` (log các cụm biến thể đã gộp),
 `data/staging/skill_closure.jsonl` (bảng closure ancestor/descendant cho phân cấp),
-`data/warehouse.duckdb` (kho dữ liệu star schema).
+`data/warehouse.duckdb` (cơ sở dữ liệu quan hệ).
 
 ## Cấu trúc
 
@@ -85,9 +85,8 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   hai block, blocking mất tác dụng. Đối sánh chạy cả liên nguồn; bản ghi đại diện của
   mỗi nhóm là bản có nhãn kỹ năng sẵn (rồi tới bản nhiều văn bản nhất) để gộp không
   làm mất nhãn của nguồn.
-- `src/integration/normalize.py` — đưa nhóm nghề, địa điểm, cấp bậc và đơn vị lương của
-  ba nguồn về từ vựng chung. Nhóm nghề suy từ tiêu đề (trường duy nhất mọi nguồn đều
-  có) rồi mới tới giá trị nguồn; cấp bậc suy từ từ khoá tiêu đề vì `level_requirement`
+- `src/integration/normalize.py` — chuẩn hoá địa điểm, cấp bậc và đơn vị lương của
+  ba nguồn. Cấp bậc suy từ từ khoá tiêu đề vì `level_requirement`
   của vieclam24h chỉ là mã số không kèm bảng nghĩa; đơn vị lương đọc từ chính chuỗi
   gốc thay vì gán cứng theo nguồn. Địa điểm tách thành tỉnh thành + quốc gia, trong đó
   `city` chỉ nhận tên cấp tỉnh thành: cắt đoạn cuối sau dấu phẩy làm thành phố như
@@ -114,29 +113,30 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
 - `src/process/build_hierarchy.py` — gán `parent_skill_id` theo `CATEGORY_MAP` (phân
   loại lĩnh vực soát tay qua từ điển đã gộp), gom tiếp các lĩnh vực vào `ROOT_MAP` để
   chuỗi cụ thể -> tổng quát có ba mức (Python -> Ngôn ngữ lập trình -> Kỹ năng công
-  nghệ thông tin), rồi dựng `bridge_skill_closure` (`skill_closure.jsonl`) theo kiểu
+  nghệ thông tin), rồi dựng `skill_closure` (`skill_closure.jsonl`) theo kiểu
   bắc cầu: mỗi skill sinh một dòng cho từng tổ tiên, không chỉ cho cha trực tiếp.
   Nút nhóm phải tạo mới được đánh dấu `is_category` và `extract_skills` bỏ qua chúng
   qua `SkillDictionary.for_extraction()`; nếu không, chạy lại bước 7 sau bước 9 sẽ khớp
   thêm chính các nhãn nhóm (đo được: 717 tin vieclam24h) và kết quả pipeline phụ thuộc
   thứ tự chạy. Nút trùng tên với kỹ năng đã có sẵn (Tin học văn phòng, Project
   Management) không bị đánh dấu nên vẫn trích chọn được.
-- `src/warehouse/build_warehouse.py` — nạp star schema vào `data/warehouse.duckdb`:
-  `dim_job/dim_company/dim_location/dim_time/dim_skill/dim_skill_variant/dim_skill_term`
-  + `fact_job_skill` + `bridge_skill_closure`. `check_integrity` chặn việc nạp khi
+- `src/warehouse/build_warehouse.py` — nạp lược đồ quan hệ vào `data/warehouse.duckdb`:
+  `jobs/companies/locations`, dictionary `skills` cùng các bảng dẫn xuất
+  `skill_variants/skill_terms/skill_closure`, và bảng nối `job_skills`.
+  `check_integrity` chặn việc nạp khi
   staging không nhất quán (closure trỏ tới skill_id không tồn tại, phân cấp rỗng, nút
-  nhóm có dòng fact). `dim_skill_variant` là bảng để hiển thị các biến thể đã gộp, còn
-  `dim_skill_term` là bảng đối sánh truy vấn (thêm dạng bỏ dấu và dạng bỏ khoảng
+  nhóm có cặp job-skill). `skill_variants` là bảng để hiển thị các biến thể đã gộp, còn
+  `skill_terms` là bảng đối sánh truy vấn (thêm dạng bỏ dấu và dạng bỏ khoảng
   trắng) — tách hai bảng để trang tra cứu kỹ năng không hiện chuỗi rác. Đơn vị lương
   suy từ chuỗi gốc, giữ nguyên `salary_currency`/`salary_period` thay vì tự quy đổi.
-  Khoá tự nhiên của `dim_location` là địa chỉ thô ghép mã tỉnh: địa chỉ vieclam24h bị
+  Khoá tự nhiên của `locations` là địa chỉ thô ghép mã tỉnh: địa chỉ vieclam24h bị
   cắt ngắn nên hai tin ở hai tỉnh vẫn trùng chuỗi ("Tại công trình dự án"), khoá theo
   mỗi địa chỉ thì chúng gộp làm một dòng và một tin bị gán sai tỉnh.
 
 ## Công cụ tìm kiếm
 
 ```bash
-# API: tìm việc theo kỹ năng (mở rộng phân cấp), tra cứu kỹ năng, thống kê OLAP
+# API: tìm việc theo kỹ năng, tra cứu kỹ năng và thống kê
 .venv/bin/uvicorn src.api.main:app --reload
 
 # Web app (Streamlit) — gọi thẳng lớp truy vấn, không qua HTTP
@@ -149,7 +149,7 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   ("next js" -> NextJS) và xếp theo mức khớp (đúng cả chuỗi > tiền tố > tên ngắn hơn):
   xếp theo alphabet như trước thì "sql" trả về MySQL, NoSQL, PostgreSQL rồi mới tới
   SQL. Ký tự đại diện của LIKE trong truy vấn được escape. `hard_soft_ratio` đếm số
-  tin (như `top_skills`) chứ không đếm dòng fact. `list_cities` nhận thêm quốc gia để
+  tin (như `top_skills`) chứ không đếm số cặp. `list_cities` nhận thêm quốc gia để
   lọc: gộp tỉnh thành Việt Nam với thành phố của gần bốn mươi nước vào một danh sách
   phẳng thì người dùng phải cuộn qua cả trăm mục.
 - `src/api/main.py` — FastAPI: `/skills` (tìm kỹ năng theo tên/biến thể),
@@ -157,7 +157,7 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   `expand=true` mở rộng qua closure table), `/stats/top-skills`,
   `/stats/hard-soft-ratio`, `/filters/countries`, `/filters/cities`.
 - `src/app/streamlit_app.py` — 3 trang: tìm việc theo kỹ năng, tra cứu kỹ năng
-  (canonical, biến thể, cha/con, ví dụ trích chọn), dashboard OLAP. Bộ lọc địa điểm
+  (canonical, biến thể, cha/con, ví dụ trích chọn), và trang thống kê. Bộ lọc địa điểm
   đi hai cấp quốc gia -> tỉnh/thành phố, danh sách tỉnh thành đổi theo quốc gia đã chọn.
 - `src/app/charts.py` — các biểu đồ Altair của dashboard. Nhận list[dict] từ
   `queries.py` và trả `alt.Chart`, không chạm DuckDB nên test được bằng dữ liệu mẫu.
@@ -167,21 +167,20 @@ Kết quả: `data/raw/*.jsonl` (dữ liệu thô mỗi nguồn), `data/staging/
   nền nhất tới bước xa nhất, nên nền tối phải đảo chiều thang chứ không dùng lại thang
   của nền sáng. Mỗi biểu đồ có kèm bảng số liệu để giá trị không bị khoá sau tooltip.
 
-Dashboard có một hàng bộ lọc chung (loại kỹ năng, nhóm nghề, quốc gia, tỉnh/thành phố)
+Dashboard có một hàng bộ lọc chung (loại kỹ năng, quốc gia, tỉnh/thành phố)
 áp cho toàn bộ 4 tab bên dưới:
 
 | Tab | Biểu đồ |
 | --- | --- |
-| Tổng quan | hàng chỉ số; kỹ năng được yêu cầu nhiều nhất; kỹ năng cứng/mềm theo nhóm nghề |
-| Lĩnh vực & địa điểm | nhu cầu theo lĩnh vực kỹ năng; heatmap kỹ năng × tỉnh thành; khoảng lương theo nhóm nghề |
+| Tổng quan | hàng chỉ số; kỹ năng được yêu cầu nhiều nhất |
+| Lĩnh vực & địa điểm | nhu cầu theo lĩnh vực kỹ năng; heatmap kỹ năng × tỉnh thành |
 | Quan hệ kỹ năng | ma trận kỹ năng thường được đòi cùng nhau |
 | Nguồn dữ liệu | cách trích chọn kỹ năng theo nguồn; tin đăng theo tháng |
 
 Vài lựa chọn có chủ ý: heatmap kỹ năng × tỉnh thành hiển thị **tỉ lệ trong nội bộ từng
 tỉnh** chứ không phải số tuyệt đối, vì TP HCM và Hà Nội chiếm hơn hai phần ba số tin và
-sẽ nuốt hết dải màu; ma trận đồng xuất hiện bỏ đường chéo vì cùng lý do; biểu đồ lương
-chỉ vẽ tin ghi VNĐ theo tháng, do kho cố tình không quy đổi tỷ giá nên gộp với USD/năm
-vào cùng một trục là sai. Nền sáng/tối chọn theo `base` trong `.streamlit/config.toml`.
+sẽ nuốt hết dải màu; ma trận đồng xuất hiện bỏ đường chéo vì cùng lý do. Nền sáng/tối
+chọn theo `base` trong `.streamlit/config.toml`.
 
 ## Đánh giá
 
@@ -202,9 +201,9 @@ vào cùng một trục là sai. Nền sáng/tối chọn theo `base` trong `.st
   (35 truy vấn người soạn: viết tắt, thiếu dấu, ký hiệu, tên nhóm tổng quát; kỳ vọng
   viết theo ý người dùng chứ không theo kết quả hệ thống). Phần mở rộng phân cấp không
   cần nhãn: nó dựng lại tập hậu duệ từ `parent_skill_id` bằng Python rồi so với
-  `bridge_skill_closure`, hai đường tính độc lập kiểm nhau.
-- `src/eval/integrity.py` — 19 ràng buộc khoá ngoại và bất biến trên kho đã nạp, gồm cả
-  hai bất biến bắt lỗi thứ tự pipeline: nút nhóm không được có dòng fact, và kỹ năng có
+  `skill_closure`, hai đường tính độc lập kiểm nhau.
+- `src/eval/integrity.py` — 18 ràng buộc tham chiếu và bất biến trên cơ sở dữ liệu đã nạp, gồm cả
+  hai bất biến bắt lỗi thứ tự pipeline: nút nhóm không được có cặp job-skill, và kỹ năng có
   dấu phải tra được bằng chuỗi không dấu.
 
 ### Manual gold cho skill extraction

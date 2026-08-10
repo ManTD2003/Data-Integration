@@ -1,5 +1,6 @@
-"""FastAPI cho công cụ tìm kiếm: tìm việc theo kỹ năng (mở rộng phân cấp), tra cứu
-kỹ năng (provenance), thống kê OLAP. Chạy: `uvicorn src.api.main:app --reload`.
+"""FastAPI cho công cụ tìm kiếm: tìm việc theo kỹ năng, tra cứu kỹ năng và thống kê.
+
+Chạy: `uvicorn src.api.main:app --reload`.
 """
 
 from __future__ import annotations
@@ -37,7 +38,6 @@ def api_search_jobs(
     skill_id: str,
     expand: bool = True,
     skill_type: str | None = None,
-    role_family: str | None = None,
     city: str | None = None,
     country: str | None = None,
     limit: int = 20,
@@ -46,7 +46,7 @@ def api_search_jobs(
     con = queries.get_connection()
     try:
         return queries.search_jobs(
-            con, skill_id, expand=expand, skill_type=skill_type, role_family=role_family,
+            con, skill_id, expand=expand, skill_type=skill_type,
             city=city, country=country, limit=limit, offset=offset,
         )
     finally:
@@ -56,31 +56,21 @@ def api_search_jobs(
 @app.get("/stats/top-skills")
 def api_top_skills(
     skill_type: str | None = None,
-    role_family: str | None = None,
     city: str | None = None,
     limit: int = 20,
 ):
     con = queries.get_connection()
     try:
-        return queries.top_skills(con, skill_type=skill_type, role_family=role_family, city=city, limit=limit)
+        return queries.top_skills(con, skill_type=skill_type, city=city, limit=limit)
     finally:
         con.close()
 
 
 @app.get("/stats/hard-soft-ratio")
-def api_hard_soft_ratio(role_family: str | None = None):
+def api_hard_soft_ratio():
     con = queries.get_connection()
     try:
-        return queries.hard_soft_ratio(con, role_family=role_family)
-    finally:
-        con.close()
-
-
-@app.get("/filters/role-families")
-def api_role_families():
-    con = queries.get_connection()
-    try:
-        return queries.list_role_families(con)
+        return queries.hard_soft_ratio(con)
     finally:
         con.close()
 

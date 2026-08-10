@@ -1,9 +1,11 @@
-"""Nạp star schema vào DuckDB: dim_job/dim_company/dim_location/dim_time/dim_skill/
-dim_skill_variant/dim_skill_term + fact_job_skill + bridge_skill_closure. Khoá chính
-dùng thẳng natural key (`record_id`, `skill_id`) thay vì sinh surrogate int, vì các
-bảng nạp một lần từ file tĩnh, không cần slowly-changing dim.
+"""Nạp dữ liệu tích hợp vào các bảng quan hệ trong DuckDB.
 
-Các chiều nhóm nghề, địa điểm, cấp bậc và lương được đưa về từ vựng chung ở
+Lược đồ gồm jobs/companies/locations, skills/skill_variants/skill_terms,
+job_skills và skill_closure. Ngày đăng là thuộc tính của jobs; cây kỹ năng được
+biểu diễn bằng skills.parent_skill_id, còn skill_closure là quan hệ dẫn xuất để
+truy vấn tổ tiên và hậu duệ.
+
+Địa điểm, cấp bậc và lương được đưa về từ vựng chung ở
 `src.integration.normalize` chứ không giữ nguyên giá trị nguồn; lương thì tách số và
 suy đơn vị nhưng không quy đổi tỷ giá (rủi ro sai số không kiểm chứng được).
 """
@@ -19,6 +21,18 @@ from src.common.paths import STAGING, WAREHOUSE_DB
 from src.common.schema import norm_text, strip_accents
 from src.integration import normalize
 
+LEGACY_TABLES = (
+    "dim_company",
+    "dim_location",
+    "dim_time",
+    "dim_job",
+    "dim_skill",
+    "dim_skill_variant",
+    "dim_skill_term",
+    "fact_job_skill",
+    "bridge_skill_closure",
+)
+
 
 def _load_jsonl(path) -> list[dict]:
     with open(path, encoding="utf-8") as f:
@@ -26,7 +40,7 @@ def _load_jsonl(path) -> list[dict]:
 
 
 def _location_key(rec: dict) -> str | None:
-    """Khoá tự nhiên của dim_location: địa chỉ thô ghép mã tỉnh.
+    """Khoá đối chiếu địa điểm: địa chỉ thô ghép mã tỉnh.
 
     vieclam24h cắt ngắn địa chỉ nên hai tin ở hai tỉnh vẫn có thể trùng chuỗi ("Tại
     công trình dự án"); chỉ khoá theo địa chỉ thì chúng gộp thành một dòng và một
@@ -39,12 +53,7 @@ def _location_key(rec: dict) -> str | None:
     return f"{norm_text(location)}|{province_id if province_id is not None else ''}"
 
 
-def _role_hint(rec: dict) -> str | None:
-    extra = rec.get("extra") or {}
-    return extra.get("job_title_short") or extra.get("query")
-
-
-def build_dim_company(records: list[dict]) -> pd.DataFrame:
+def build_companies(records: list[dict]) -> pd.DataFrame:
     seen: dict[str, dict] = {}
     for rec in records:
         name = rec.get("company")
@@ -61,7 +70,7 @@ def build_dim_company(records: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(seen.values())
 
 
-def build_dim_location(records: list[dict]) -> tuple[pd.DataFrame, dict[str, int]]:
+def build_locations(records: list[dict]) -> tuple[pd.DataFrame, dict[str, int]]:
     seen: dict[str, dict] = {}
     for rec in records:
         key = _location_key(rec)
@@ -85,24 +94,7 @@ def build_dim_location(records: list[dict]) -> tuple[pd.DataFrame, dict[str, int
     return pd.DataFrame(seen.values()), ids
 
 
-def build_dim_time(records: list[dict]) -> pd.DataFrame:
-    seen: dict[str, dict] = {}
-    for rec in records:
-        date_str = rec.get("posted_date")
-        if not date_str or date_str in seen:
-            continue
-        year, month, day = (int(p) for p in date_str.split("-"))
-        seen[date_str] = {
-            "date_id": date_str,
-            "day": day,
-            "month": month,
-            "quarter": (month - 1) // 3 + 1,
-            "year": year,
-        }
-    return pd.DataFrame(seen.values())
-
-
-def build_dim_job(records: list[dict], company_ids: dict[str, int], location_ids: dict[str, int]) -> pd.DataFrame:
+def build_jobs(records: list[dict], company_ids: dict[str, int], location_ids: dict[str, int]) -> pd.DataFrame:
     rows = []
     for rec in records:
         smin, smax, currency, period = normalize.salary(rec.get("salary_raw"), rec["source"])
@@ -111,7 +103,6 @@ def build_dim_job(records: list[dict], company_ids: dict[str, int], location_ids
             {
                 "job_id": f"{rec['source']}:{rec['source_id']}",
                 "title_raw": rec.get("title"),
-                "role_family": normalize.role_family(rec.get("title"), _role_hint(rec)),
                 "company_id": company_ids.get(norm_text(rec.get("company"))),
                 "location_id": location_ids.get(_location_key(rec)),
                 "level_raw": rec.get("level"),
@@ -130,7 +121,7 @@ def build_dim_job(records: list[dict], company_ids: dict[str, int], location_ids
     return pd.DataFrame(rows)
 
 
-def build_dim_skill(skills: list[dict]) -> pd.DataFrame:
+def build_skills(skills: list[dict]) -> pd.DataFrame:
     by_id = {s["skill_id"]: s for s in skills}
     rows = []
     for s in skills:
@@ -148,7 +139,7 @@ def build_dim_skill(skills: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def build_dim_skill_variant(skills: list[dict]) -> pd.DataFrame:
+def build_skill_variants(skills: list[dict]) -> pd.DataFrame:
     rows = []
     variant_id = 1
     for s in skills:
@@ -167,7 +158,7 @@ def build_dim_skill_variant(skills: list[dict]) -> pd.DataFrame:
 def search_terms(skill: dict) -> set[str]:
     """Các dạng viết dùng để đối sánh truy vấn: nguyên bản, bỏ dấu, bỏ luôn khoảng trắng.
 
-    Tách khỏi `dim_skill_variant` vì bảng đó còn dùng để hiển thị cho người dùng xem
+    Tách khỏi `skill_variants` vì bảng đó còn dùng để hiển thị cho người dùng xem
     các biến thể đã gộp; nhét thêm dạng bỏ dấu và dạng dính liền vào đó thì trang tra
     cứu kỹ năng đầy chuỗi rác.
     """
@@ -184,7 +175,7 @@ def search_terms(skill: dict) -> set[str]:
     return terms
 
 
-def build_dim_skill_term(skills: list[dict]) -> pd.DataFrame:
+def build_skill_terms(skills: list[dict]) -> pd.DataFrame:
     rows = [
         {"skill_id": s["skill_id"], "term": term}
         for s in skills
@@ -193,7 +184,7 @@ def build_dim_skill_term(skills: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def build_fact_job_skill(job_skills: list[dict], valid_job_ids: set[str]) -> pd.DataFrame:
+def build_job_skills(job_skills: list[dict], valid_job_ids: set[str]) -> pd.DataFrame:
     rows = [
         {
             "job_id": m["record_id"],
@@ -210,38 +201,38 @@ def build_fact_job_skill(job_skills: list[dict], valid_job_ids: set[str]) -> pd.
     return pd.DataFrame(rows)
 
 
-def build_bridge_closure(closure: list[dict]) -> pd.DataFrame:
+def build_skill_closure(closure: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(closure)
 
 
 def check_integrity(tables: dict[str, pd.DataFrame]) -> None:
     """Chặn việc nạp kho khi staging không nhất quán. Trước đây pipeline chạy lệch
-    thứ tự vẫn nạp trót lọt: closure trỏ tới 17 skill_id không có trong dim_skill và
+    thứ tự vẫn nạp trót lọt: closure trỏ tới skill_id không có trong skills và
     toàn bộ phân cấp rỗng, nhưng không có chỗ nào báo lỗi."""
-    skill_ids = set(tables["dim_skill"]["skill_id"])
-    job_ids = set(tables["dim_job"]["job_id"])
-    closure = tables["bridge_skill_closure"]
-    fact = tables["fact_job_skill"]
+    skill_ids = set(tables["skills"]["skill_id"])
+    job_ids = set(tables["jobs"]["job_id"])
+    closure = tables["skill_closure"]
+    pairs = tables["job_skills"]
 
     problems = []
     for label, missing in (
-        ("fact_job_skill.skill_id", set(fact["skill_id"]) - skill_ids),
-        ("fact_job_skill.job_id", set(fact["job_id"]) - job_ids),
+        ("job_skills.skill_id", set(pairs["skill_id"]) - skill_ids),
+        ("job_skills.job_id", set(pairs["job_id"]) - job_ids),
         (
-            "bridge_skill_closure",
+            "skill_closure",
             (set(closure["ancestor_id"]) | set(closure["descendant_id"])) - skill_ids,
         ),
-        ("dim_skill.parent_skill_id", set(tables["dim_skill"]["parent_skill_id"].dropna()) - skill_ids),
-        ("dim_skill_term.skill_id", set(tables["dim_skill_term"]["skill_id"]) - skill_ids),
+        ("skills.parent_skill_id", set(tables["skills"]["parent_skill_id"].dropna()) - skill_ids),
+        ("skill_terms.skill_id", set(tables["skill_terms"]["skill_id"]) - skill_ids),
     ):
         if missing:
             problems.append(f"{label}: {len(missing)} id lạ, ví dụ {sorted(missing)[:5]}")
 
-    if not tables["dim_skill"]["parent_skill_id"].notna().any():
-        problems.append("dim_skill.parent_skill_id rỗng hoàn toàn — thiếu bước build_hierarchy")
+    if not tables["skills"]["parent_skill_id"].notna().any():
+        problems.append("skills.parent_skill_id rỗng hoàn toàn — thiếu bước build_hierarchy")
 
-    invented = set(tables["dim_skill"].loc[tables["dim_skill"]["is_category"], "skill_id"])
-    leaked = invented & set(fact["skill_id"])
+    invented = set(tables["skills"].loc[tables["skills"]["is_category"], "skill_id"])
+    leaked = invented & set(pairs["skill_id"])
     if leaked:
         problems.append(
             f"nút nhóm bị trích chọn như kỹ năng thường: {sorted(leaked)[:5]} "
@@ -258,30 +249,28 @@ def run() -> str:
     job_skills = _load_jsonl(STAGING / "job_skills.jsonl")
     closure = _load_jsonl(STAGING / "skill_closure.jsonl")
 
-    dim_company = build_dim_company(records)
-    dim_location, location_ids = build_dim_location(records)
-    dim_time = build_dim_time(records)
-    company_ids = dict(zip(dim_company["name_norm"], dim_company["company_id"])) if not dim_company.empty else {}
+    companies = build_companies(records)
+    locations, location_ids = build_locations(records)
+    company_ids = dict(zip(companies["name_norm"], companies["company_id"])) if not companies.empty else {}
 
-    dim_job = build_dim_job(records, company_ids, location_ids)
+    jobs = build_jobs(records, company_ids, location_ids)
     # Cột toàn NULL bị pandas suy thành float rồi DuckDB tạo cột INTEGER, khiến join
     # với skill_id (VARCHAR) báo lỗi kiểu thay vì trả kết quả rỗng.
-    dim_skill = build_dim_skill(skills).astype({"category": "string", "parent_skill_id": "string"})
-    dim_skill_variant = build_dim_skill_variant(skills)
-    dim_skill_term = build_dim_skill_term(skills)
-    fact_job_skill = build_fact_job_skill(job_skills, set(dim_job["job_id"]))
-    bridge_skill_closure = build_bridge_closure(closure)
+    skills_table = build_skills(skills).astype({"category": "string", "parent_skill_id": "string"})
+    skill_variants = build_skill_variants(skills)
+    skill_terms = build_skill_terms(skills)
+    job_skill_pairs = build_job_skills(job_skills, set(jobs["job_id"]))
+    skill_closure = build_skill_closure(closure)
 
     tables = {
-        "dim_company": dim_company,
-        "dim_location": dim_location,
-        "dim_time": dim_time,
-        "dim_job": dim_job,
-        "dim_skill": dim_skill,
-        "dim_skill_variant": dim_skill_variant,
-        "dim_skill_term": dim_skill_term,
-        "fact_job_skill": fact_job_skill,
-        "bridge_skill_closure": bridge_skill_closure,
+        "companies": companies,
+        "locations": locations,
+        "jobs": jobs,
+        "skills": skills_table,
+        "skill_variants": skill_variants,
+        "skill_terms": skill_terms,
+        "job_skills": job_skill_pairs,
+        "skill_closure": skill_closure,
     }
     check_integrity(tables)
 
@@ -293,6 +282,8 @@ def run() -> str:
         raise SystemExit(
             f"Không mở được {WAREHOUSE_DB} để ghi. Hãy tắt API/Streamlit đang chạy rồi thử lại.\n{exc}"
         ) from exc
+    for name in LEGACY_TABLES:
+        con.execute(f"DROP TABLE IF EXISTS {name}")
     for name, df in tables.items():
         con.register("tmp_df", df)
         con.execute(f"CREATE OR REPLACE TABLE {name} AS SELECT * FROM tmp_df")
@@ -301,7 +292,7 @@ def run() -> str:
 
     for name, df in tables.items():
         print(f"{name}: {len(df)} dòng")
-    print(f"Warehouse -> {WAREHOUSE_DB}")
+    print(f"Database -> {WAREHOUSE_DB}")
     return str(WAREHOUSE_DB)
 
 
